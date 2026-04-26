@@ -1,0 +1,37 @@
+/* ╔══════════════════════════════════════════════════════════════╗
+   ║  SPACING.CSS — Sistema de espaciado y radios                 ║
+   ╚══════════════════════════════════════════════════════════════╝ */
+:root {
+  /* Escala 4px */
+  --sp-1:  0.25rem;
+  --sp-2:  0.5rem;
+  --sp-3:  0.75rem;
+  --sp-4:  1rem;
+  --sp-5:  1.25rem;
+  --sp-6:  1.5rem;
+  --sp-7:  1.75rem;
+  --sp-8:  2rem;
+  --sp-10: 2.5rem;
+  --sp-12: 3rem;
+  --sp-16: 4rem;
+  --sp-20: 5rem;
+  --sp-24: 6rem;
+  --sp-32: 8rem;
+
+  /* Radios */
+  --rad-xs:   3px;
+  --rad-sm:   8px;
+  --rad-md:   14px;
+  --rad-lg:   20px;
+  --rad-xl:   30px;
+  --rad-2xl:  44px;
+  --rad-pill: 9999px;
+
+  /* Layout */
+  --nav-h:    74px;
+  --w-xl:     1380px;
+  --w-lg:     1100px;
+  --w-md:     860px;
+  --w-sm:     640px;
+  --w-xs:     440px;
+}

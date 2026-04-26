@@ -1,0 +1,178 @@
+/* ╔══════════════════════════════════════════════════════════════╗
+   ║  EFFECTS.CSS — Sombras, glows, glass, gradientes, radios    ║
+   ╚══════════════════════════════════════════════════════════════╝ */
+:root {
+  /* ═══════════════════════════════════════════════════════════════
+     RADIOS (bordes redondeados) - Necesarios para todos los CSS
+     ═══════════════════════════════════════════════════════════════ */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
+  --radius-3xl: 48px;
+  --radius-pill: 9999px;
+
+  /* ═══════════════════════════════════════════════════════════════
+     TRANSICIONES (easing)
+     ═══════════════════════════════════════════════════════════════ */
+  --ease-linear: linear;
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  
+  /* Aliases para compatibilidad */
+  --transition-default: var(--ease-out);
+  --transition-fast: all 0.15s var(--ease-out);
+  --transition-normal: all 0.3s var(--ease-out);
+  --transition-slow: all 0.5s var(--ease-out);
+
+  /* ═══════════════════════════════════════════════════════════════
+     SOMBRAS
+     ═══════════════════════════════════════════════════════════════ */
+  --sh-xs: 0 1px  6px  rgba(0,0,0,.28);
+  --sh-sm: 0 3px  14px rgba(0,0,0,.38);
+  --sh-md: 0 7px  28px rgba(0,0,0,.50);
+  --sh-lg: 0 14px 44px rgba(0,0,0,.60);
+  --sh-xl: 0 22px 60px rgba(0,0,0,.68);
+  --sh-2xl: 0 32px 80px rgba(0,0,0,.75);
+
+  /* ═══════════════════════════════════════════════════════════════
+     GLOWS (usando variables de colors.css)
+     ═══════════════════════════════════════════════════════════════ */
+  --gw-c:     0 0 16px var(--cyan-md),   0 0 40px var(--cyan-sm);
+  --gw-c-xl:  0 0 32px var(--cyan-lg),   0 0 80px var(--cyan-md);
+  --gw-v:     0 0 16px var(--violet-md), 0 0 40px var(--violet-sm);
+  --gw-v-xl:  0 0 32px var(--violet-lg), 0 0 80px var(--violet-md);
+  --gw-g:     0 0 24px var(--omega-md),  0 0 60px var(--omega-sm);
+  --gw-g-xl:  0 0 48px var(--omega-lg),  0 0 120px var(--omega-md);
+  --gw-t:     0 0 16px var(--teal-md),   0 0 36px var(--teal-sm);
+
+  /* Glows adicionales */
+  --gw-cyan:    var(--gw-c);
+  --gw-violet:  var(--gw-v);
+  --gw-omega:   var(--gw-g);
+  --gw-teal:    var(--gw-t);
+  --gw-cyan-xl: var(--gw-c-xl);
+  --gw-violet-xl: var(--gw-v-xl);
+  --gw-omega-xl: var(--gw-g-xl);
+
+  /* ═══════════════════════════════════════════════════════════════
+     GLASS BLUR LEVELS
+     ═══════════════════════════════════════════════════════════════ */
+  --blur-sm: blur(12px);
+  --blur-md: blur(24px);
+  --blur-lg: blur(40px);
+  --blur-xl: blur(60px);
+
+  /* ═══════════════════════════════════════════════════════════════
+     GRADIENTES REUTILIZABLES
+     ═══════════════════════════════════════════════════════════════ */
+  --grad-cyan-v:  linear-gradient(135deg, var(--cyan),   var(--violet));
+  --grad-omega:   linear-gradient(135deg, var(--omega),  var(--omega-d));
+  --grad-teal-c:  linear-gradient(135deg, var(--teal),   var(--cyan));
+  --grad-v-pink:  linear-gradient(135deg, var(--violet), var(--pink));
+  --grad-dark:    linear-gradient(180deg, var(--bg-1), var(--bg-0));
+  --grad-line-c:  linear-gradient(90deg, transparent, var(--cyan),   transparent);
+  --grad-line-v:  linear-gradient(90deg, transparent, var(--violet), transparent);
+  --grad-line-g:  linear-gradient(90deg, transparent, var(--omega),  transparent);
+  --grad-line-t:  linear-gradient(90deg, transparent, var(--teal),   transparent);
+
+  /* Gradientes adicionales */
+  --grad-card:    linear-gradient(135deg, var(--bg-card), var(--bg-glass));
+  --grad-hero:    radial-gradient(circle at 50% 0%, var(--bg-2), var(--bg-0));
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   GLASS MORPHISM — CLASE BASE
+   ═══════════════════════════════════════════════════════════════════ */
+.glass {
+  background:              var(--bg-card);
+  backdrop-filter:         var(--blur-md);
+  -webkit-backdrop-filter: var(--blur-md);
+  border:     1px solid var(--b-base);
+  box-shadow: var(--sh-md);
+  transition: var(--transition-normal);
+}
+
+.glass:hover {
+  background:  var(--bg-card-h);
+  border-color: var(--b-cyan);
+  box-shadow:  var(--sh-lg), var(--gw-c);
+  transform:   translateY(-3px);
+}
+
+/* Modificadores de color */
+.glass--v:hover { 
+  border-color: var(--b-violet); 
+  box-shadow: var(--sh-lg), var(--gw-v); 
+}
+
+.glass--g:hover { 
+  border-color: var(--b-omega);  
+  box-shadow: var(--sh-lg), var(--gw-g); 
+}
+
+.glass--t:hover { 
+  border-color: var(--b-teal);   
+  box-shadow: var(--sh-lg), var(--gw-t); 
+}
+
+/* Glass sin hover */
+.glass-static {
+  background: var(--bg-glass);
+  backdrop-filter: var(--blur-md);
+  border: 1px solid var(--b-base);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   TEXTOS GRADIENTE
+   ═══════════════════════════════════════════════════════════════════ */
+.grd-c { 
+  background: var(--grad-cyan-v);  
+  -webkit-background-clip: text; 
+  -webkit-text-fill-color: transparent; 
+  background-clip: text; 
+}
+
+.grd-g { 
+  background: var(--grad-omega);   
+  -webkit-background-clip: text; 
+  -webkit-text-fill-color: transparent; 
+  background-clip: text; 
+}
+
+.grd-t { 
+  background: var(--grad-teal-c);  
+  -webkit-background-clip: text; 
+  -webkit-text-fill-color: transparent; 
+  background-clip: text; 
+}
+
+.grd-p { 
+  background: var(--grad-v-pink);  
+  -webkit-background-clip: text; 
+  -webkit-text-fill-color: transparent; 
+  background-clip: text; 
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   UTILIDADES ADICIONALES
+   ═══════════════════════════════════════════════════════════════════ */
+.radius-sm { border-radius: var(--radius-sm); }
+.radius-md { border-radius: var(--radius-md); }
+.radius-lg { border-radius: var(--radius-lg); }
+.radius-xl { border-radius: var(--radius-xl); }
+.radius-pill { border-radius: var(--radius-pill); }
+
+.shadow-sm { box-shadow: var(--sh-sm); }
+.shadow-md { box-shadow: var(--sh-md); }
+.shadow-lg { box-shadow: var(--sh-lg); }
+.shadow-xl { box-shadow: var(--sh-xl); }
+
+.glow-cyan { box-shadow: var(--gw-c); }
+.glow-violet { box-shadow: var(--gw-v); }
+.glow-omega { box-shadow: var(--gw-g); }
+.glow-teal { box-shadow: var(--gw-t); }

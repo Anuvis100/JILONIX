@@ -1,0 +1,71 @@
+/* ╔══════════════════════════════════════════════════════════════╗
+   ║  RESPONSIVE.CSS — Todos los breakpoints centralizados        ║
+   ╚══════════════════════════════════════════════════════════════╝ */
+
+/* ── 1280px ── */
+@media(max-width:1280px){
+  .footer__grid { grid-template-columns:1fr 1fr; }
+  .carousel__track .catcard { flex:0 0 calc(33.333% - .9rem); }
+}
+
+/* ── 1024px ── */
+@media(max-width:1024px){
+  .cart-layout { grid-template-columns:1fr; }
+  .cart-sum    { position:static; }
+  .modal       { max-width:96vw; }
+  .carousel__track .pcard { flex:0 0 calc(50% - .9rem); }
+}
+
+/* ── 900px ── */
+@media(max-width:900px){
+  .navbar { padding-inline:var(--sp-5); }
+  .navbar__menu {
+    position:fixed; top:var(--nav-h); inset-inline:0;
+    flex-direction:column;
+    background:rgba(1,1,13,.98);
+    backdrop-filter:var(--blur-md);
+    -webkit-backdrop-filter:var(--blur-md);
+    padding:var(--sp-5); border-bottom:1px solid var(--b-base);
+    display:none; gap:var(--sp-2); z-index:800;
+  }
+  .navbar__menu.open { display:flex; animation:kFadeDown .3s var(--ease) both; }
+  .navbar__link { padding:var(--sp-4); font-size:var(--fz-md); border-radius:var(--rad-md); }
+  .navbar__burger { display:flex; }
+  .fr  { grid-template-columns:1fr; }
+  .fr3 { grid-template-columns:1fr 1fr; }
+  .payg{ grid-template-columns:repeat(3,1fr); }
+  .footer__grid { grid-template-columns:1fr 1fr; }
+  .g2  { grid-template-columns:1fr; }
+  .modal__specs { grid-template-columns:1fr; }
+}
+
+/* ── 700px ── */
+@media(max-width:700px){
+  .sec { padding-block:var(--sp-12); }
+  .ph  { padding-block:calc(var(--nav-h) + var(--sp-10)) var(--sp-8); }
+  .ph__card { padding:var(--sp-8) var(--sp-5); }
+  .omega-logo { width:220px; height:220px; }
+  .omega-logo__glyph { font-size:var(--fz-5xl); }
+  .hero__title { font-size:var(--fz-4xl); }
+  .fr3 { grid-template-columns:1fr; }
+  .payg{ grid-template-columns:1fr; }
+  .footer__grid { grid-template-columns:1fr; }
+  .footer__bottom { flex-direction:column; text-align:center; }
+  .g3, .g4 { grid-template-columns:1fr 1fr; }
+  .ctr { padding-inline:var(--sp-5); }
+  .cta { padding:var(--sp-8) var(--sp-5); }
+  .carousel__track .pcard,
+  .carousel__track .catcard { flex:0 0 87%; }
+}
+
+/* ── 480px ── */
+@media(max-width:480px){
+  .g3, .g4, .g5 { grid-template-columns:1fr; }
+  .hero__actions { flex-direction:column; align-items:stretch; }
+  .hero__actions .btn { text-align:center; }
+  .omega-logo { width:175px; height:175px; }
+  .omega-logo__glyph { font-size:var(--fz-4xl); }
+  .btn--xl, .btn--2xl { padding:.88rem 1.6rem; font-size:var(--fz-sm); }
+  .modal { border-radius:var(--rad-lg) var(--rad-lg) 0 0; position:fixed; bottom:0; inset-inline:0; max-height:92dvh; }
+  .modal-backdrop { align-items:flex-end; padding:0; }
+}

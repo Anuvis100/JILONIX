@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="JLΩNIX — Política de Privacidad"/>
+  <meta name="theme-color" content="#ffd700"/>
+  <link rel="manifest" href="../manifest.json"/>
+  <title>JLΩNIX | Política de Privacidad</title>
+
+  <link rel="stylesheet" href="../assets/css/tokens/colors.css"/>
+  <link rel="stylesheet" href="../assets/css/tokens/spacing.css"/>
+  <link rel="stylesheet" href="../assets/css/tokens/typography.css"/>
+  <link rel="stylesheet" href="../assets/css/tokens/effects.css"/>
+  <link rel="stylesheet" href="../assets/css/base/reset.css"/>
+  <link rel="stylesheet" href="../assets/css/base/animations.css"/>
+  <link rel="stylesheet" href="../assets/css/layout/grid.css"/>
+  <link rel="stylesheet" href="../assets/css/layout/navbar.css"/>
+  <link rel="stylesheet" href="../assets/css/layout/footer.css"/>
+  <link rel="stylesheet" href="../assets/css/components/buttons.css"/>
+  <link rel="stylesheet" href="../assets/css/components/cards.css"/>
+  <link rel="stylesheet" href="../assets/css/components/badges.css"/>
+  <link rel="stylesheet" href="../assets/css/components/toast.css"/>
+  <link rel="stylesheet" href="../assets/css/components/loader.css"/>
+  <link rel="stylesheet" href="../assets/css/utils/helpers.css"/>
+  <link rel="stylesheet" href="../assets/css/utils/responsive.css"/>
+
+  <style>
+    .legal-body {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: var(--sp-8);
+    }
+    .legal-body h2 {
+      color: var(--omega);
+      margin-top: var(--sp-8);
+      margin-bottom: var(--sp-3);
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: var(--sp-2);
+    }
+    .legal-body p, .legal-body li {
+      color: var(--fg-muted);
+      line-height: 1.8;
+      margin-bottom: var(--sp-3);
+    }
+    .legal-body ul {
+      padding-left: var(--sp-6);
+      margin-bottom: var(--sp-4);
+    }
+    .legal-body ul li { list-style: disc; }
+    .legal-date {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-2);
+      background: rgba(255,215,0,0.08);
+      border: 1px solid rgba(255,215,0,0.2);
+      border-radius: var(--radius-md);
+      padding: var(--sp-2) var(--sp-4);
+      font-size: .85rem;
+      color: var(--omega);
+      margin-bottom: var(--sp-6);
+    }
+  </style>
+</head>
+<body>
+
+<div id="page-loader">
+  <span class="ldr-omega">Ω</span>
+  <div class="ldr-bar"><div class="ldr-bar__fill"></div></div>
+  <span class="ldr-txt">JLΩNIX · Cargando…</span>
+</div>
+
+<canvas id="canvas-bg"></canvas>
+<div id="tc"></div>
+
+<div class="layer">
+
+  <!-- ══ NAVBAR ══ -->
+  <nav class="navbar">
+    <a href="../index.html" class="navbar__brand">
+      <span class="navbar__logo">JL<span class="navbar__logo-omega">Ω</span>NIX</span>
+    </a>
+    <ul class="navbar__menu">
+      <li class="navbar__item"><a href="../index.html"  class="navbar__link"><span class="ni">🏠</span>Inicio</a></li>
+      <li class="navbar__item"><a href="programas.html" class="navbar__link"><span class="ni">💻</span>Programas</a></li>
+      <li class="navbar__item"><a href="catalogos.html" class="navbar__link"><span class="ni">📂</span>Catálogos</a></li>
+      <li class="navbar__item"><a href="tienda.html"    class="navbar__link"><span class="ni">🛒</span>Tienda</a></li>
+      <li class="navbar__item"><a href="gratuitos.html" class="navbar__link"><span class="ni">🎁</span>Gratuitos</a></li>
+      <li class="navbar__item"><a href="nosotros.html"  class="navbar__link"><span class="ni">⬡</span>Nosotros</a></li>
+    </ul>
+    <div class="navbar__right">
+      <a href="carrito.html" class="navbar__cart" aria-label="Carrito">
+        🧺<span class="navbar__cart-count">0</span>
+      </a>
+      <button class="navbar__burger" onclick="toggleMenu()" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ══ HERO ══ -->
+  <section class="page-hero sec ctr">
+    <div class="page-hero__badge a-fade"><span class="bdg bdg--top">🔐 LEGAL</span></div>
+    <h1 class="page-hero__title a-up d2">Política de <span class="grd-c">Privacidad</span></h1>
+    <p class="page-hero__sub a-up d3">Tu privacidad es importante. Aquí explicamos qué datos recopilamos y cómo los usamos.</p>
+  </section>
+
+  <!-- ══ CONTENIDO LEGAL ══ -->
+  <section class="sec">
+    <div class="glass legal-body reveal">
+
+      <div class="legal-date">🗓️ Última actualización: Enero 2026</div>
+
+      <p>La presente Política de Privacidad regula el tratamiento de los datos personales que <strong>José Leandro Yujra Colque</strong>, desarrollador y titular de <strong>JLΩNIX</strong> (en adelante "el Autor"), recopila a través del sitio web y los programas de software de la plataforma JLΩNIX.</p>
+
+      <h2>1. 👤 Responsable del tratamiento</h2>
+      <p><strong>Nombre:</strong> José Leandro Yujra Colque<br/>
+      <strong>Correo:</strong> yujracolquejoseleandro2@gmail.com<br/>
+      <strong>WhatsApp:</strong> +591 74012527<br/>
+      <strong>Ubicación:</strong> La Paz, Bolivia</p>
+
+      <h2>2. 📋 Datos que recopilamos</h2>
+      <p>Al utilizar el sitio web o adquirir una licencia, podemos recopilar:</p>
+      <ul>
+        <li>Nombre completo y empresa (si aplica)</li>
+        <li>Correo electrónico</li>
+        <li>Número de teléfono (opcional)</li>
+        <li>País de residencia</li>
+        <li>ID de dispositivo (para activación de licencia)</li>
+        <li>Datos de navegación (cookies técnicas del sitio)</li>
+      </ul>
+
+      <h2>3. 🎯 Finalidad del uso de datos</h2>
+      <p>Los datos recopilados se utilizan exclusivamente para:</p>
+      <ul>
+        <li>Procesar y activar licencias de software</li>
+        <li>Enviar el software adquirido y actualizaciones</li>
+        <li>Brindar soporte técnico al usuario</li>
+        <li>Comunicar novedades o nuevas versiones del software (solo con consentimiento)</li>
+        <li>Cumplir con obligaciones legales aplicables</li>
+      </ul>
+
+      <h2>4. 🚫 Datos que NO compartimos</h2>
+      <p>JLΩNIX <strong>no vende, alquila ni cede</strong> datos personales a terceros con fines comerciales. Los datos solo pueden ser compartidos con:</p>
+      <ul>
+        <li>Procesadores de pago (para completar transacciones seguras)</li>
+        <li>Autoridades competentes cuando la ley lo exija</li>
+      </ul>
+
+      <h2>5. 💾 Almacenamiento local (cookies y localStorage)</h2>
+      <p>El sitio web de JLΩNIX utiliza <strong>localStorage</strong> del navegador únicamente para guardar el contenido de tu carrito de compras y preferencias de la sesión. Estos datos permanecen en tu dispositivo y no se transmiten a ningún servidor externo.</p>
+
+      <h2>6. 🛡️ Seguridad</h2>
+      <p>Adoptamos medidas técnicas razonables para proteger tus datos contra acceso no autorizado, pérdida o divulgación. Sin embargo, ningún sistema de transmisión de datos en internet puede garantizar seguridad absoluta.</p>
+
+      <h2>7. ✅ Tus derechos</h2>
+      <p>Puedes ejercer los siguientes derechos contactándonos directamente:</p>
+      <ul>
+        <li><strong>Acceso:</strong> conocer qué datos tuyos tenemos</li>
+        <li><strong>Rectificación:</strong> corregir datos inexactos</li>
+        <li><strong>Supresión:</strong> solicitar la eliminación de tus datos</li>
+        <li><strong>Oposición:</strong> oponerte al tratamiento de tus datos</li>
+      </ul>
+
+      <h2>8. 📬 Contacto</h2>
+      <p>Para ejercer tus derechos o resolver cualquier duda sobre esta política, escríbeme a:<br/>
+      📧 <a href="mailto:yujracolquejoseleandro2@gmail.com" style="color:var(--cyan)">yujracolquejoseleandro2@gmail.com</a><br/>
+      💬 <a href="https://wa.me/59174012527" style="color:var(--cyan)" target="_blank">+591 74012527 (WhatsApp)</a></p>
+
+      <h2>9. 🔄 Modificaciones</h2>
+      <p>El Autor se reserva el derecho de modificar esta política en cualquier momento. Los cambios se publicarán en esta misma página con la fecha de actualización correspondiente.</p>
+
+      <div style="margin-top:var(--sp-8);padding-top:var(--sp-6);border-top:1px solid rgba(255,255,255,0.1);display:flex;gap:var(--sp-4);flex-wrap:wrap">
+        <a href="terminos.html"   class="btn btn--out-c btn--sm">📄 Términos de uso</a>
+        <a href="licencias.html" class="btn btn--out-c btn--sm">🔑 Política de licencias</a>
+        <a href="contacto.html"   class="btn btn--omega btn--sm">📬 Contactar al autor</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ══ -->
+  <footer class="footer">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <span class="footer__brand-logo">JL<span class="omega">Ω</span>NIX</span>
+        <p>Software profesional para ingeniería, cálculo y gestión.</p>
+        <div class="footer__social">
+          <a href="https://wa.me/59174012527" class="footer__social-link" target="_blank">💬</a>
+          <a href="https://tiktok.com/@jlonix1" class="footer__social-link" target="_blank">🎵</a>
+          <a href="mailto:yujracolquejoseleandro2@gmail.com" class="footer__social-link">📧</a>
+        </div>
+      </div>
+      <div class="footer__col"><h4>Productos</h4><ul>
+        <li><a href="programas.html">Programas</a></li>
+        <li><a href="tienda.html">Tienda</a></li>
+        <li><a href="gratuitos.html">Gratuitos</a></li>
+        <li><a href="catalogos.html">Catálogos</a></li>
+      </ul></div>
+      <div class="footer__col"><h4>Empresa</h4><ul>
+        <li><a href="nosotros.html">Nosotros</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li><a href="carrito.html">Mi Carrito</a></li>
+      </ul></div>
+      <div class="footer__col"><h4>Legal</h4><ul>
+        <li><a href="privacidad.html">Privacidad</a></li>
+        <li><a href="terminos.html">Términos</a></li>
+        <li><a href="licencias.html">Licencias</a></li>
+      </ul></div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 JL<span style="color:var(--omega)">Ω</span>NIX · José Leandro Yujra Colque.</span>
+      <div class="footer__legal">
+        <a href="privacidad.html">Privacidad</a><a href="terminos.html">Términos</a>
+      </div>
+    </div>
+  </footer>
+
+</div><!-- /layer -->
+
+<script src="../assets/js/core/EventBus.js"></script>
+<script src="../assets/js/modules/UI.js"></script>
+<script src="../assets/js/modules/Cart.js"></script>
+<script src="../assets/js/core/Canvas.js"></script>
+<script src="../assets/js/core/App.js"></script>
+</body>
+</html>

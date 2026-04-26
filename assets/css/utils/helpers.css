@@ -1,0 +1,43 @@
+/* ╔══════════════════════════════════════════════════════════════╗
+   ║  HELPERS.CSS — Utilidades atómicas                           ║
+   ╚══════════════════════════════════════════════════════════════╝ */
+/* Texto */
+.text-c   { text-align:center; }
+.text-r   { text-align:right;  }
+.t-cyan   { color:var(--cyan);   }
+.t-omega  { color:var(--omega);  }
+.t-violet { color:var(--violet-l); }
+.t-teal   { color:var(--teal);   }
+.t-dim    { color:var(--t-40);   }
+.t-muted  { color:var(--t-20);   }
+.fw-7     { font-weight:var(--fw-7); }
+.fw-9     { font-weight:var(--fw-9); }
+.ff-mono  { font-family:var(--ff-mono); }
+.ls-wide  { letter-spacing:3px; }
+
+/* Spacing */
+.mt-4{margin-top:var(--sp-4)} .mt-6{margin-top:var(--sp-6)} .mt-8{margin-top:var(--sp-8)}
+.mb-4{margin-bottom:var(--sp-4)} .mb-6{margin-bottom:var(--sp-6)} .mb-8{margin-bottom:var(--sp-8)}
+
+/* Display */
+.d-none   { display:none !important; }
+.d-block  { display:block; }
+.d-flex   { display:flex; }
+.d-grid   { display:grid; }
+
+/* Misc */
+.no-select{ user-select:none; }
+.pointer  { cursor:pointer; }
+.radius   { border-radius:var(--rad-md); }
+.radius-pill { border-radius:var(--rad-pill); }
+.overflow-hidden { overflow:hidden; }
+.w-full   { width:100%; }
+
+/* Divider */
+.divider {
+  height:1px; background:var(--b-base);
+  margin:var(--sp-6) 0; border:none;
+}
+.divider--omega {
+  background:var(--grad-line-g);
+}

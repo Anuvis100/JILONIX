@@ -1,0 +1,239 @@
+/* ╔══════════════════════════════════════════════════════════════╗
+   ║  COLORS.CSS — Fuente única de verdad para colores            ║
+   ║  Edita aquí → el sitio completo se actualiza.                ║
+   ╚══════════════════════════════════════════════════════════════╝ */
+
+:root {
+  /* ═══════════════════════════════════════════════════════════════
+     MARCA JLΩNIX (Omega Gold)
+     ═══════════════════════════════════════════════════════════════ */
+  --omega:       #ffd700;
+  --omega-l:     #ffe84d;
+  --omega-d:     #cc9f00;
+  --omega-xs:    rgba(255,215,0,.06);
+  --omega-sm:    rgba(255,215,0,.12);
+  --omega-md:    rgba(255,215,0,.25);
+  --omega-lg:    rgba(255,215,0,.50);
+  --omega-xl:    rgba(255,215,0,.70);
+
+  /* ═══════════════════════════════════════════════════════════════
+     FONDOS
+     ═══════════════════════════════════════════════════════════════ */
+  --bg-0:        #01010d;
+  --bg-1:        #03031a;
+  --bg-2:        #060628;
+  --bg-3:        #09093e;
+  --bg-glass:    rgba(6,6,40,.85);
+  --bg-card:     rgba(255,255,255,.025);
+  --bg-card-h:   rgba(255,255,255,.050);
+  --bg-input:    rgba(255,255,255,.04);
+
+  /* ═══════════════════════════════════════════════════════════════
+     PRIMARIO CIAN (interacciones, focus, acentos)
+     ═══════════════════════════════════════════════════════════════ */
+  --cyan:        #00d4ff;
+  --cyan-l:      #33dfff;
+  --cyan-d:      #009dcc;
+  --cyan-xs:     rgba(0,212,255,.04);
+  --cyan-sm:     rgba(0,212,255,.08);
+  --cyan-md:     rgba(0,212,255,.18);
+  --cyan-lg:     rgba(0,212,255,.38);
+  --cyan-xl:     rgba(0,212,255,.60);
+
+  /* ═══════════════════════════════════════════════════════════════
+     SECUNDARIO VIOLETA
+     ═══════════════════════════════════════════════════════════════ */
+  --violet:      #7b00ff;
+  --violet-l:    #a044ff;
+  --violet-d:    #5500cc;
+  --violet-xs:   rgba(123,0,255,.04);
+  --violet-sm:   rgba(123,0,255,.10);
+  --violet-md:   rgba(123,0,255,.20);
+  --violet-lg:   rgba(123,0,255,.40);
+  --violet-xl:   rgba(123,0,255,.60);
+
+  /* ═══════════════════════════════════════════════════════════════
+     ACENTOS DE TARJETA (para variedad visual)
+     ═══════════════════════════════════════════════════════════════ */
+  --teal:        #00e5c0;
+  --teal-xs:     rgba(0,229,192,.04);
+  --teal-sm:     rgba(0,229,192,.10);
+  --teal-md:     rgba(0,229,192,.22);
+  --teal-lg:     rgba(0,229,192,.40);
+  
+  --orange:      #ff7a00;
+  --orange-xs:   rgba(255,122,0,.04);
+  --orange-sm:   rgba(255,122,0,.10);
+  --orange-md:   rgba(255,122,0,.20);
+  
+  --pink:        #ff2d9b;
+  --pink-xs:     rgba(255,45,155,.04);
+  --pink-sm:     rgba(255,45,155,.10);
+  --pink-md:     rgba(255,45,155,.20);
+  
+  --green:       #00e564;
+  --green-xs:    rgba(0,229,100,.04);
+  --green-sm:    rgba(0,229,100,.10);
+  --green-md:    rgba(0,229,100,.20);
+
+  /* ═══════════════════════════════════════════════════════════════
+     ESTADOS (alertas, notificaciones)
+     ═══════════════════════════════════════════════════════════════ */
+  --ok:          #00e5a0;
+  --ok-bg:       rgba(0,229,160,.12);
+  --warn:        #ff9500;
+  --warn-bg:     rgba(255,149,0,.12);
+  --err:         #ff3060;
+  --err-bg:      rgba(255,48,96,.12);
+  --info:        #00b4d8;
+  --info-bg:     rgba(0,180,216,.12);
+
+  /* ═══════════════════════════════════════════════════════════════
+     TEXTO (opacidades sobre base #eef0ff)
+     ═══════════════════════════════════════════════════════════════ */
+  --t-100:       #eef0ff;        /* texto principal */
+  --t-90:        rgba(238,240,255,.90);
+  --t-80:        rgba(238,240,255,.80);
+  --t-70:        rgba(238,240,255,.70);
+  --t-60:        rgba(238,240,255,.60);  /* texto secundario */
+  --t-50:        rgba(238,240,255,.50);
+  --t-40:        rgba(238,240,255,.40);  /* texto terciario / placeholders */
+  --t-30:        rgba(238,240,255,.30);
+  --t-20:        rgba(238,240,255,.20);  /* texto muy tenue */
+  --t-10:        rgba(238,240,255,.10);
+  --t-5:         rgba(238,240,255,.05);
+
+  /* ═══════════════════════════════════════════════════════════════
+     BORDES GLASS (para cards, modales, inputs)
+     ═══════════════════════════════════════════════════════════════ */
+  --b-base:      rgba(255,255,255,.07);   /* borde estándar */
+  --b-cyan:      rgba(0,212,255,.18);
+  --b-violet:    rgba(123,0,255,.18);
+  --b-omega:     rgba(255,215,0,.22);
+  --b-teal:      rgba(0,229,192,.18);
+  --b-light:     rgba(255,255,255,.12);   /* borde más claro */
+  --b-dark:      rgba(255,255,255,.03);   /* borde más oscuro */
+
+  /* ═══════════════════════════════════════════════════════════════
+     SHADOWS / GLOWS (efectos de luz)
+     ═══════════════════════════════════════════════════════════════ */
+  --shadow-sm:   0 4px 12px rgba(0,0,0,.3);
+  --shadow-md:   0 8px 24px rgba(0,0,0,.4);
+  --shadow-lg:   0 20px 48px rgba(0,0,0,.45);
+  --shadow-xl:   0 24px 56px rgba(0,0,0,.5);
+  --shadow-2xl:  0 32px 72px rgba(0,0,0,.6);
+  
+  --glow-omega:     0 0 20px rgba(255,215,0,.4);
+  --glow-omega-lg:  0 0 40px rgba(255,215,0,.6);
+  --glow-cyan:      0 0 20px rgba(0,212,255,.3);
+  --glow-teal:      0 0 16px rgba(0,229,192,.3);
+  --glow-violet:    0 0 20px rgba(123,0,255,.3);
+  --glow-pink:      0 0 20px rgba(255,45,155,.3);
+  --glow-orange:    0 0 20px rgba(255,122,0,.3);
+
+  /* ═══════════════════════════════════════════════════════════════
+     ALIAS / SINÓNIMOS (para compatibilidad con nombres comunes)
+     ═══════════════════════════════════════════════════════════════ */
+  --fg:           var(--t-100);           /* foreground principal */
+  --fg-muted:     var(--t-60);            /* texto secundario */
+  --fg-muted-light: var(--t-40);          /* texto terciario */
+  --fg-dim:       var(--t-20);            /* texto muy tenue */
+  
+  --border-glass: var(--b-base);          /* borde estándar glass */
+  --border:       var(--b-base);          /* alias corto */
+  
+  --bg-surface:   var(--bg-glass);        /* superficie glass */
+  --bg-overlay:   rgba(0,0,0,.6);         /* fondo overlay para modales */
+  
+  /* ═══════════════════════════════════════════════════════════════
+     GRADIENTES (predefinidos)
+     ═══════════════════════════════════════════════════════════════ */
+  --grad-omega:   linear-gradient(135deg, var(--omega), var(--omega-d));
+  --grad-cyan:    linear-gradient(135deg, var(--cyan), var(--cyan-d));
+  --grad-violet:  linear-gradient(135deg, var(--violet), var(--violet-d));
+  --grad-teal:    linear-gradient(135deg, var(--teal), #00a889);
+  --grad-pink:    linear-gradient(135deg, var(--pink), #cc0066);
+  --grad-orange:  linear-gradient(135deg, var(--orange), #cc5500);
+  --grad-glass:   linear-gradient(135deg, rgba(255,255,255,.05), rgba(255,255,255,.01));
+  --grad-dark:    linear-gradient(135deg, #0a0a1a, #05050f);
+  
+  /* ═══════════════════════════════════════════════════════════════
+     ANIMACIONES Y TRANSICIONES
+     ═══════════════════════════════════════════════════════════════ */
+  --ease-out:     cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out:  cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-bounce:  cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  
+  --transition-fast:    all 0.15s ease;
+  --transition-base:    all 0.25s ease;
+  --transition-slow:    all 0.4s ease;
+  
+  /* ═══════════════════════════════════════════════════════════════
+     BLUR Y BACKDROP (para efectos glassmorphism)
+     ═══════════════════════════════════════════════════════════════ */
+  --blur-sm:      blur(4px);
+  --blur-md:      blur(8px);
+  --blur-lg:      blur(12px);
+  --blur-xl:      blur(20px);
+  --blur-2xl:     blur(32px);
+  
+  /* ═══════════════════════════════════════════════════════════════
+     RADIOS (esquinas redondeadas)
+     ═══════════════════════════════════════════════════════════════ */
+  --radius-none:  0;
+  --radius-sm:    6px;
+  --radius-md:    10px;
+  --radius-lg:    14px;
+  --radius-xl:    20px;
+  --radius-2xl:   28px;
+  --radius-3xl:   36px;
+  --radius-full:  9999px;
+  
+  /* ═══════════════════════════════════════════════════════════════
+     Z-INDEX (capas)
+     ═══════════════════════════════════════════════════════════════ */
+  --z-negative:   -1;
+  --z-elevate:    1;
+  --z-dropdown:   100;
+  --z-sticky:     200;
+  --z-header:     300;
+  --z-modal:      400;
+  --z-popover:    500;
+  --z-toast:      600;
+  --z-tooltip:    700;
+  --z-overlay:    800;
+  --z-max:        9999;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SOPORTE PARA MODO OSCURO/CLARO (si se necesita en el futuro)
+   ═══════════════════════════════════════════════════════════════ */
+@media (prefers-color-scheme: light) {
+  :root {
+    /* Variables para modo claro (opcional) */
+    --t-100: #1a1a2e;
+    --t-60: rgba(26,26,46,.6);
+    --bg-glass: rgba(245,245,255,.85);
+    --b-base: rgba(0,0,0,.08);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CLASES UTILITARIAS DE COLOR (para uso rápido)
+   ═══════════════════════════════════════════════════════════════ */
+.bg-omega { background: var(--omega); }
+.bg-cyan { background: var(--cyan); }
+.bg-violet { background: var(--violet); }
+.bg-teal { background: var(--teal); }
+.bg-glass { background: var(--bg-glass); backdrop-filter: var(--blur-md); }
+
+.text-omega { color: var(--omega); }
+.text-cyan { color: var(--cyan); }
+.text-violet { color: var(--violet); }
+.text-teal { color: var(--teal); }
+.text-white { color: var(--t-100); }
+.text-muted { color: var(--t-60); }
+
+.border-omega { border-color: var(--b-omega); }
+.border-cyan { border-color: var(--b-cyan); }
+.border-glass { border-color: var(--b-base); }

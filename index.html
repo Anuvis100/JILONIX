@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="JLΩNIX — Software profesional de ingeniería, cálculo y gestión"/>
+  <meta name="theme-color" content="#ffd700"/>
+  <link rel="manifest" href="manifest.json"/>
+  <title>JLΩNIX | Inicio</title>
+
+  <link rel="stylesheet" href="assets/css/tokens/colors.css"/>
+  <link rel="stylesheet" href="assets/css/tokens/spacing.css"/>
+  <link rel="stylesheet" href="assets/css/tokens/typography.css"/>
+  <link rel="stylesheet" href="assets/css/tokens/effects.css"/>
+  <link rel="stylesheet" href="assets/css/base/reset.css"/>
+  <link rel="stylesheet" href="assets/css/base/animations.css"/>
+  <link rel="stylesheet" href="assets/css/layout/grid.css"/>
+  <link rel="stylesheet" href="assets/css/layout/navbar.css"/>
+  <link rel="stylesheet" href="assets/css/layout/footer.css"/>
+  <link rel="stylesheet" href="assets/css/components/buttons.css"/>
+  <link rel="stylesheet" href="assets/css/components/cards.css"/>
+  <link rel="stylesheet" href="assets/css/components/badges.css"/>
+  <link rel="stylesheet" href="assets/css/components/modal.css"/>
+  <link rel="stylesheet" href="assets/css/components/toast.css"/>
+  <link rel="stylesheet" href="assets/css/components/loader.css"/>
+  <link rel="stylesheet" href="assets/css/pages/home.css"/>
+  <link rel="stylesheet" href="assets/css/utils/helpers.css"/>
+  <link rel="stylesheet" href="assets/css/utils/responsive.css"/>
+
+  <style>
+  /* ========== MODAL DE DETALLES ========== */
+  .modal-detail {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.92); backdrop-filter: blur(14px);
+    z-index: 10001; display: flex; align-items: center; justify-content: center;
+    visibility: hidden; opacity: 0; transition: visibility 0.3s, opacity 0.3s;
+  }
+  .modal-detail.active { visibility: visible; opacity: 1; }
+  .modal-detail__content {
+    background: linear-gradient(135deg, rgba(15,15,25,0.98), rgba(10,10,20,0.98));
+    border: 1px solid rgba(255,215,0,0.3); border-radius: 28px;
+    max-width: 560px; width: 92%; max-height: 88vh; overflow-y: auto;
+    animation: mdSlideIn 0.35s cubic-bezier(0.2,0.9,0.4,1.1);
+  }
+  @keyframes mdSlideIn {
+    from { transform: translateY(28px) scale(0.96); opacity: 0; }
+    to   { transform: translateY(0) scale(1); opacity: 1; }
+  }
+  .modal-detail__header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 1.5rem; border-bottom: 1px solid rgba(255,215,0,0.18);
+    background: rgba(0,0,0,0.3); border-radius: 28px 28px 0 0;
+    position: sticky; top: 0; z-index: 2;
+  }
+  .modal-detail__header h3 { color:#ffd700; font-size:1.1rem; margin:0; display:flex; align-items:center; gap:8px; }
+  .modal-detail__close {
+    background: rgba(255,255,255,0.08); border: none; color:#fff;
+    font-size:1.2rem; cursor:pointer; width:34px; height:34px;
+    border-radius:50%; display:flex; align-items:center; justify-content:center; transition:all 0.2s;
+  }
+  .modal-detail__close:hover { background:rgba(239,68,68,0.3); color:#ef4444; }
+  .modal-detail__body { padding: 1.4rem; }
+  .modal-detail__media {
+    width:100%; aspect-ratio:16/9; border-radius:16px; overflow:hidden;
+    background:#0a0a12; margin-bottom:1rem;
+  }
+  .modal-detail__media img { width:100%; height:100%; object-fit:cover; display:block; }
+  .modal-detail__price {
+    font-size:1.5rem; font-weight:800; color:#ffd700; margin-bottom:0.8rem; text-align:center;
+  }
+  .modal-detail__price small { font-size:0.75rem; font-weight:400; color:#aaa; margin-left:6px; }
+  .modal-detail__section { margin-top:1rem; }
+  .modal-detail__section h4 { color:#ffd700; font-size:0.82rem; margin-bottom:0.6rem; font-weight:700; letter-spacing:.5px; }
+  .modal-detail__features { background:rgba(255,255,255,0.04); border-radius:16px; padding:1rem; }
+  .modal-detail__features ul { list-style:none; padding:0; margin:0; }
+  .modal-detail__features li {
+    padding:7px 0; border-bottom:1px solid rgba(255,255,255,0.05);
+    display:flex; align-items:center; gap:10px; font-size:0.83rem; color:#ccc;
+  }
+  .modal-detail__features li:last-child { border-bottom:none; }
+  .modal-detail__features li::before { content:"⚡"; color:#ffd700; flex-shrink:0; }
+  .modal-detail__reqs {
+    display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-top:0.8rem;
+  }
+  .modal-req-item {
+    background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.07);
+    border-radius:10px; padding:8px 10px; font-size:0.78rem; color:#bbb;
+  }
+  .modal-req-item strong { display:block; color:#ffd700; font-size:0.7rem; margin-bottom:2px; }
+  .modal-detail__footer { display:flex; gap:10px; margin-top:1.2rem; }
+  .modal-detail__footer .btn { flex:1; justify-content:center; }
+  .modal-detail__meta {
+    text-align:center; margin-top:0.8rem; font-size:0.7rem; color:#aaa;
+  }
+  .modal-detail__meta span { color:#ffd700; }
+
+  /* ========== CARRUSEL UNIFICADO 3D SPOTLIGHT ========== */
+  .stage-section { position:relative; padding-block:5rem; overflow:hidden; }
+  .stage-head { text-align:center; margin-bottom:2.5rem; }
+  .stage-wrap {
+    position:relative; perspective:1400px; perspective-origin:50% 40%;
+    height:440px; display:flex; align-items:center; justify-content:center;
+  }
+  .stage-card {
+    position:absolute; width:300px; border-radius:22px; overflow:hidden;
+    cursor:pointer; border:1px solid rgba(255,255,255,.08);
+    background:rgba(8,8,18,.88); backdrop-filter:blur(16px);
+    transition: transform .55s cubic-bezier(.4,0,.2,1), opacity .55s, box-shadow .55s;
+  }
+  .stage-card[data-pos="0"] {
+    transform:translateX(0) translateZ(80px) rotateY(0deg) scale(1);
+    opacity:1; box-shadow:0 30px 80px rgba(0,0,0,.6), 0 0 60px rgba(255,215,0,.12); z-index:10;
+  }
+  .stage-card[data-pos="-1"] { transform:translateX(-310px) translateZ(-40px) rotateY(22deg) scale(.84); opacity:.7; z-index:5; }
+  .stage-card[data-pos="1"]  { transform:translateX(310px) translateZ(-40px) rotateY(-22deg) scale(.84); opacity:.7; z-index:5; }
+  .stage-card[data-pos="-2"],
+  .stage-card[data-pos="2"]  { transform:translateX(0) translateZ(-200px) scale(.6); opacity:.25; z-index:1; }
+  .stage-card__media { width:100%; aspect-ratio:16/9; overflow:hidden; position:relative; background:#0a0a12; }
+  .stage-card__media img {
+    width:100%; height:100%; object-fit:cover; display:block;
+    transition:transform .4s ease;
+  }
+  .stage-card[data-pos="0"] .stage-card__media img { transform:scale(1.02); }
+  .stage-card__media-fallback {
+    width:100%; height:100%; display:flex; align-items:center; justify-content:center;
+    font-size:4rem; background:linear-gradient(135deg,#1a1a2a,#0f0f1a);
+  }
+  .stage-card__badge {
+    position:absolute; top:10px; left:10px; font-size:.65rem; font-weight:800;
+    padding:4px 10px; border-radius:20px; letter-spacing:.04em;
+  }
+  .stage-card__badge--gold   { background:linear-gradient(135deg,#ffd700,#ffb300); color:#000; }
+  .stage-card__badge--violet { background:linear-gradient(135deg,#a855f7,#7c3aed); color:#fff; }
+  .stage-card__badge--cyan   { background:linear-gradient(135deg,#00d4ff,#0088cc); color:#000; }
+  .stage-card__body { padding:.9rem 1.1rem 1.1rem; }
+  .stage-card__chips { display:flex; gap:5px; margin-bottom:.5rem; flex-wrap:wrap; }
+  .stage-chip {
+    font-size:.62rem; font-weight:700; padding:2px 8px; border-radius:20px;
+    background:rgba(255,215,0,.1); border:1px solid rgba(255,215,0,.25); color:#ffd700;
+    text-transform:uppercase; letter-spacing:.5px;
+  }
+  /* FREE badge in carousel */
+  .stage-chip--free { background:rgba(0,229,192,.12); border-color:rgba(0,229,192,.3); color:#00e5c0; }
+  .stage-card__title { font-size:.9rem; font-weight:700; margin-bottom:.3rem; color:#fff; line-height:1.3; }
+  .stage-card__price { font-size:1.2rem; font-weight:800; color:#ffd700; }
+  .stage-card__price--free { color:#00e5c0; }
+  .stage-card__usd { font-size:.72rem; color:#aaa; margin-top:1px; }
+  .stage-card__actions { display:flex; gap:6px; margin-top:.7rem; }
+  .stage-card:not([data-pos="0"]) .stage-card__actions { display:none; }
+
+  .btn--details {
+    background: linear-gradient(135deg,#00d4ff,#0088aa);
+    border:none; padding:8px 18px; border-radius:40px;
+    font-weight:700; font-size:.78rem; color:#000; cursor:pointer;
+    transition:all .2s; display:inline-flex; align-items:center; gap:5px;
+  }
+  .btn--details:hover { transform:scale(1.05); box-shadow:0 6px 14px rgba(0,212,255,.4); }
+
+  .stage-controls { display:flex; align-items:center; justify-content:center; gap:1.4rem; margin-top:2rem; }
+  .stage-btn {
+    width:44px; height:44px; border-radius:50%; border:1px solid rgba(255,255,255,.15);
+    background:rgba(255,255,255,.05); color:#fff; font-size:1.3rem; cursor:pointer; transition:all .2s;
+  }
+  .stage-btn:hover { background:rgba(255,215,0,.12); border-color:rgba(255,215,0,.4); transform:scale(1.1); }
+  .stage-dots { display:flex; gap:7px; }
+  .stage-dot {
+    width:7px; height:7px; border-radius:50%; background:rgba(255,255,255,.2);
+    cursor:pointer; border:none; transition:all .3s;
+  }
+  .stage-dot.active { background:#ffd700; transform:scale(1.3); width:22px; border-radius:4px; }
+  .stage-progress { width:100%; max-width:360px; margin:1.5rem auto 0; height:2px; background:rgba(255,255,255,.06); border-radius:2px; overflow:hidden; }
+  .stage-progress__bar { height:100%; background:linear-gradient(90deg,#ffd700,#00d4ff); width:0%; transition:width .1s linear; }
+  .stage-active-label { text-align:center; margin-top:.8rem; min-height:2.5rem; }
+  .stage-active-label__name { font-weight:700; font-size:1rem; color:#fff; }
+  .stage-active-label__cat  { font-size:.75rem; color:#aaa; margin-top:2px; }
+
+  @media(max-width:700px){
+    .stage-wrap { height:360px; }
+    .stage-card { width:240px; }
+    .stage-card[data-pos="-1"]{ transform:translateX(-230px) translateZ(-40px) scale(.8); }
+    .stage-card[data-pos="1"] { transform:translateX(230px) translateZ(-40px) scale(.8); }
+  }
+  </style>
+</head>
+<body>
+
+<div id="page-loader">
+  <span class="ldr-omega">Ω</span>
+  <div class="ldr-bar"><div class="ldr-bar__fill"></div></div>
+  <span class="ldr-txt">JLΩNIX · Cargando…</span>
+</div>
+
+<canvas id="canvas-bg"></canvas>
+<div id="tc"></div>
+
+<div class="layer">
+
+  <!-- ══ NAVBAR ══ -->
+  <nav class="navbar">
+    <a href="index.html" class="navbar__brand">
+      <span class="navbar__logo">JL<span class="navbar__logo-omega">Ω</span>NIX</span>
+    </a>
+    <ul class="navbar__menu">
+      <li class="navbar__item"><a href="index.html" class="navbar__link navbar__link--active"><span class="ni">🏠</span>Inicio</a></li>
+      <li class="navbar__item"><a href="pages/programas.html" class="navbar__link"><span class="ni">💻</span>Programas</a></li>
+      <li class="navbar__item"><a href="pages/catalogos.html" class="navbar__link"><span class="ni">📂</span>Catálogos</a></li>
+      <li class="navbar__item"><a href="pages/tienda.html" class="navbar__link"><span class="ni">🛒</span>Tienda</a></li>
+      <li class="navbar__item"><a href="pages/gratuitos.html" class="navbar__link"><span class="ni">🎁</span>Gratuitos</a></li>
+      <li class="navbar__item"><a href="pages/nosotros.html" class="navbar__link"><span class="ni">⬡</span>Nosotros</a></li>
+    </ul>
+    <div class="navbar__right">
+      <a href="pages/carrito.html" class="navbar__cart" aria-label="Carrito de compras">
+        🧺<span class="navbar__cart-count">0</span>
+      </a>
+      <button class="navbar__burger" onclick="toggleMenu()" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ══ HERO ══ -->
+  <section class="hero">
+    <div class="hero__version a-fade">✦ SOFTWARE PROFESIONAL · V4.0 · 2026</div>
+    <div class="omega-logo a-scale d2">
+      <div class="omega-logo__ring"></div><div class="omega-logo__ring"></div>
+      <div class="omega-logo__ring"></div><div class="omega-logo__ping"></div>
+      <div class="omega-logo__ping"></div>
+      <span class="omega-logo__glyph">Ω</span>
+    </div>
+    <h1 class="hero__title a-up d3">JL<span class="hero__title-omega">Ω</span>NIX</h1>
+    <p class="hero__sub a-up d4">Software de ingeniería, cálculo y gestión para profesionales exigentes</p>
+    <div class="hero__actions a-up d5">
+      <a href="pages/tienda.html" class="btn btn--omega btn--2xl">🛒 Ver Tienda</a>
+      <a href="pages/programas.html" class="btn btn--out-c btn--2xl">💻 Explorar</a>
+      <a href="pages/gratuitos.html" class="btn btn--out-v btn--2xl">🎁 Gratis</a>
+    </div>
+    <div class="hero__scroll">
+      <span>SCROLL</span>
+      <div class="hero__scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ══ STATS ══ -->
+  <div class="stats ctr-lg sec" style="padding-block:var(--sp-6)">
+    <div class="glass scard reveal">
+      <span class="scard__num" data-counter data-val="50" data-suffix="+">0+</span>
+      <span class="scard__lbl">Programas</span>
+    </div>
+    <div class="glass scard reveal d1">
+      <span class="scard__num" data-counter data-val="5000" data-suffix="+">0+</span>
+      <span class="scard__lbl">Usuarios</span>
+    </div>
+    <div class="glass scard reveal d2">
+      <span class="scard__num" data-counter data-val="99.9" data-suffix="%">0%</span>
+      <span class="scard__lbl">Uptime</span>
+    </div>
+    <div class="glass scard reveal d3">
+      <span class="scard__num" style="color:var(--omega);text-shadow:var(--gw-g)">24/7</span>
+      <span class="scard__lbl">Soporte</span>
+    </div>
+  </div>
+
+  <!-- ══ FEATURES ══ -->
+  <section class="sec ctr">
+    <h2 class="sec-title reveal">¿Qué ofrece <span class="grd-g">JL<span style="color:var(--omega)">Ω</span>NIX</span>?</h2>
+    <p class="sec-sub reveal d1">Software especializado para cada área de ingeniería y gestión.</p>
+    <div class="g4">
+      <div class="glass fcard reveal d1"><span class="fcard__ico">💻</span><h3>Programas</h3>
+        <p>Catálogo completo con demo en video, fichas técnicas y comparativas de versiones.</p>
+        <a href="pages/programas.html" class="fcard__link">Explorar</a></div>
+      <div class="glass glass--v fcard reveal d2"><span class="fcard__ico">📄</span><h3>Catálogos PDF</h3>
+        <p>Manuales, guías de instalación y fichas técnicas descargables al instante.</p>
+        <a href="pages/catalogos.html" class="fcard__link">Ver catálogos</a></div>
+      <div class="glass glass--g fcard reveal d3"><span class="fcard__ico">🛒</span><h3>Tienda Pro</h3>
+        <p>Licencias permanentes con soporte técnico y activación por ID de dispositivo.</p>
+        <a href="pages/tienda.html" class="fcard__link">Comprar</a></div>
+      <div class="glass glass--t fcard reveal d4"><span class="fcard__ico">🎁</span><h3>Gratuitos</h3>
+        <p>Software sin costo para estudiantes y profesionales. Descarga directa y rápida.</p>
+        <a href="pages/gratuitos.html" class="fcard__link">Descargar</a></div>
+    </div>
+  </section>
+
+  <!-- ══ CARRUSEL 3D — PROGRAMAS DE PAGO ══ -->
+  <section class="stage-section sec ctr" id="section-paid">
+    <div class="stage-head reveal">
+      <span class="bdg bdg--top" style="display:inline-flex;margin-bottom:.8rem">✦ PROGRAMAS DESTACADOS (PAGO)</span>
+      <h2>Explora el <span class="grd-c">Catálogo Pro</span></h2>
+      <p id="paid-subtitle">Cargando programas de pago…</p>
+    </div>
+    <div class="stage-wrap" id="paid-wrap">
+      <div class="stage-floor"></div>
+      <div class="stage-spotlight" id="paid-spotlight"></div>
+    </div>
+    <div class="stage-active-label">
+      <div class="stage-active-label__name" id="paid-label-name"></div>
+      <div class="stage-active-label__cat"  id="paid-label-cat"></div>
+    </div>
+    <div class="stage-controls">
+      <button class="stage-btn" id="paid-prev" aria-label="Anterior">‹</button>
+      <div class="stage-dots" id="paid-dots"></div>
+      <button class="stage-btn" id="paid-next" aria-label="Siguiente">›</button>
+    </div>
+    <div class="stage-progress"><div class="stage-progress__bar" id="paid-pbar"></div></div>
+  </section>
+
+  <!-- ══ CARRUSEL 3D — PROGRAMAS GRATUITOS (MISMO ESTILO) ══ -->
+  <section class="stage-section sec ctr" id="section-free" style="padding-top:0">
+    <div class="stage-head reveal">
+      <span class="bdg" style="display:inline-flex;margin-bottom:.8rem;background:#00e5c0;color:#000;">🎁 SIN COSTO</span>
+      <h2>Programas <span style="color:#00e5c0">Gratuitos</span></h2>
+      <p id="free-subtitle">Cargando programas gratuitos…</p>
+    </div>
+    <div class="stage-wrap" id="free-wrap">
+      <div class="stage-floor"></div>
+    </div>
+    <div class="stage-active-label">
+      <div class="stage-active-label__name" id="free-label-name"></div>
+      <div class="stage-active-label__cat"  id="free-label-cat"></div>
+    </div>
+    <div class="stage-controls">
+      <button class="stage-btn" id="free-prev" aria-label="Anterior">‹</button>
+      <div class="stage-dots" id="free-dots"></div>
+      <button class="stage-btn" id="free-next" aria-label="Siguiente">›</button>
+    </div>
+    <div class="stage-progress"><div class="stage-progress__bar" id="free-pbar"></div></div>
+  </section>
+
+  <!-- ══ CTA FINAL ══ -->
+  <section class="sec ctr-sm">
+    <div class="glass glass--g cta reveal">
+      <span class="bdg bdg--g mb-6" style="display:inline-flex">⬡ JLΩNIX · 2026</span>
+      <h2>¿Listo para el <span class="grd-g">siguiente nivel</span>?</h2>
+      <p>Más de 5,000 profesionales ya confían en JLΩNIX. Empieza sin compromisos.</p>
+      <div class="fx-c gap-4 fx-wrap">
+        <a href="pages/tienda.html" class="btn btn--omega btn--xl">🛒 Ver precios</a>
+        <a href="pages/gratuitos.html" class="btn btn--out-c btn--xl">🎁 Probar gratis</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ══ -->
+  <footer class="footer">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <span class="footer__brand-logo">JL<span class="omega">Ω</span>NIX</span>
+        <p>Software profesional para ingeniería, cálculo y gestión.</p>
+        <div class="footer__social">
+          <a href="https://wa.me/59174012527" class="footer__social-link" target="_blank">💬</a>
+          <a href="https://tiktok.com/@jlonix1" class="footer__social-link" target="_blank">🎵</a>
+          <a href="mailto:yujracolquejoseleandro2@gmail.com" class="footer__social-link">📧</a>
+        </div>
+      </div>
+      <div class="footer__col"><h4>Productos</h4><ul>
+        <li><a href="pages/programas.html">Programas</a></li>
+        <li><a href="pages/tienda.html">Tienda</a></li>
+        <li><a href="pages/gratuitos.html">Gratuitos</a></li>
+        <li><a href="pages/catalogos.html">Catálogos</a></li>
+      </ul></div>
+      <div class="footer__col"><h4>Empresa</h4><ul>
+        <li><a href="pages/nosotros.html">Nosotros</a></li>
+        <li><a href="pages/contacto.html">Contacto</a></li>
+        <li><a href="pages/carrito.html">Mi Carrito</a></li>
+      </ul></div>
+      <div class="footer__col"><h4>Legal</h4><ul>
+        <li><a href="pages/privacidad.html">Privacidad</a></li>
+        <li><a href="pages/terminos.html">Términos</a></li>
+        <li><a href="pages/licencias.html">Licencias</a></li>
+      </ul></div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 JL<span style="color:#ffd700">Ω</span>NIX. Todos los derechos reservados.</span>
+      <div class="footer__legal">
+        <a href="pages/privacidad.html">Privacidad</a>
+        <a href="pages/terminos.html">Términos</a>
+      </div>
+    </div>
+  </footer>
+
+</div><!-- /layer -->
+
+<!-- ══ MODAL DE DETALLES ══ -->
+<div id="detailModal" class="modal-detail">
+  <div class="modal-detail__content">
+    <div class="modal-detail__header">
+      <h3><span id="modal-icon">📦</span> <span id="modal-title">Detalles del programa</span></h3>
+      <button class="modal-detail__close" onclick="closeDetailModal()">✕</button>
+    </div>
+    <div class="modal-detail__body">
+      <div class="modal-detail__media" id="modal-media"></div>
+      <div class="modal-detail__price"    id="modal-price"></div>
+
+      <!-- Características -->
+      <div class="modal-detail__section">
+        <div class="modal-detail__features" id="modal-features"></div>
+      </div>
+
+      <!-- Requisitos del sistema -->
+      <div class="modal-detail__section" id="modal-reqs-section" style="display:none">
+        <h4 style="color:#ffd700;font-size:.82rem;margin-bottom:.5rem;">💻 Requisitos del sistema</h4>
+        <div class="modal-detail__reqs" id="modal-reqs"></div>
+      </div>
+
+      <!-- Pie del modal: solo cerrar -->
+      <div class="modal-detail__footer">
+        <button class="btn btn--out-c" onclick="closeDetailModal()" style="flex:1;justify-content:center">✕ Cerrar</button>
+      </div>
+
+      <div class="modal-detail__meta">
+        <div id="modal-version"></div>
+        <div id="modal-creator" style="color:#ffd700;margin-top:4px"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="assets/js/core/EventBus.js"></script>
+<script src="assets/js/modules/UI.js"></script>
+<script src="assets/js/modules/Cart.js"></script>
+<script src="assets/js/modules/Modal.js"></script>
+<script src="assets/js/core/Canvas.js"></script>
+<script src="assets/js/data-programas.js"></script>
+<script src="assets/js/core/App.js"></script>
+
+<script>
+'use strict';
+
+window.toggleMenu = function() {
+  document.querySelector('.navbar__menu')?.classList.toggle('open');
+  document.querySelector('.navbar__burger')?.classList.toggle('open');
+};
+
+/* ══════════════════════════════════════
+   MODAL DE DETALLES — solo botón Cerrar
+══════════════════════════════════════ */
+let currentModalProgram = null;
+
+function openDetailModal(program) {
+  currentModalProgram = program;
+  const modal          = document.getElementById('detailModal');
+  const modalIcon      = document.getElementById('modal-icon');
+  const modalTitle     = document.getElementById('modal-title');
+  const modalMedia     = document.getElementById('modal-media');
+  const modalPrice     = document.getElementById('modal-price');
+  const modalFeatures  = document.getElementById('modal-features');
+  const modalVersion   = document.getElementById('modal-version');
+  const modalCreator   = document.getElementById('modal-creator');
+  const modalReqsSec   = document.getElementById('modal-reqs-section');
+  const modalReqs      = document.getElementById('modal-reqs');
+
+  modalIcon.textContent  = program.ico || '📦';
+  modalTitle.textContent = program.nombre;
+
+  /* — Imagen — */
+  if (program.imagen) {
+    modalMedia.innerHTML = `<img src="${program.imagen}" alt="${program.nombre}"
+      onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<div style=\\'height:100%;display:flex;align-items:center;justify-content:center;font-size:4rem;\\'>${program.ico}</div>')" />`;
+  } else {
+    modalMedia.innerHTML = `<div style="height:100%;display:flex;align-items:center;justify-content:center;font-size:4rem;">${program.ico}</div>`;
+  }
+
+  /* — Precio — */
+  if (program.type === 'paid') {
+    modalPrice.innerHTML = `Bs ${program.precioBs.toLocaleString('es-BO')} <small>≈ $${program.precioUSD} USD</small>`;
+    modalPrice.style.color = '#ffd700';
+  } else {
+    modalPrice.innerHTML = `<span style="color:#00e5c0">GRATUITO</span> <small style="color:#aaa">· Sin costo</small>`;
+  }
+
+  /* — Características — */
+  const features = program.features || [];
+  if (features.length > 0) {
+    modalFeatures.innerHTML = `
+      <h4>⚡ Características del programa</h4>
+      <ul>${features.map(f => `<li>${f}</li>`).join('')}</ul>`;
+  } else {
+    modalFeatures.innerHTML = `<p style="color:#aaa;text-align:center;padding:.5rem">Sin características adicionales.</p>`;
+  }
+
+  /* — Requisitos — */
+  const req = program.requirements || {};
+  if (req.os || req.ram || req.storage) {
+    modalReqsSec.style.display = '';
+    modalReqs.innerHTML = [
+      req.os        ? `<div class="modal-req-item"><strong>Sistema</strong>${req.os}</div>` : '',
+      req.ram       ? `<div class="modal-req-item"><strong>RAM</strong>${req.ram}</div>` : '',
+      req.storage   ? `<div class="modal-req-item"><strong>Almacenamiento</strong>${req.storage}</div>` : '',
+      req.processor ? `<div class="modal-req-item"><strong>Procesador</strong>${req.processor}</div>` : ''
+    ].filter(Boolean).join('');
+  } else {
+    modalReqsSec.style.display = 'none';
+  }
+
+  /* — Meta — */
+  modalVersion.textContent = `Versión: ${program.version || '1.0'}`;
+  modalCreator.textContent  = '👨‍💻 Creado por: José Leandro Yujra Colque (JLΩNIX)';
+
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDetailModal() {
+  document.getElementById('detailModal').classList.remove('active');
+  document.body.style.overflow = '';
+  currentModalProgram = null;
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDetailModal(); });
+
+/* ══════════════════════════════════════
+   FÁBRICA DE CARRUSEL 3D GENÉRICA
+   Sirve tanto para paid como free
+══════════════════════════════════════ */
+function buildCarousel(programs, ids) {
+  const { wrapId, dotsId, pbarId, prevId, nextId, labelNameId, labelCatId, subtitleId } = ids;
+
+  const wrap    = document.getElementById(wrapId);
+  const dotsEl  = document.getElementById(dotsId);
+  const pbar    = document.getElementById(pbarId);
+  const lblName = document.getElementById(labelNameId);
+  const lblCat  = document.getElementById(labelCatId);
+  const subEl   = document.getElementById(subtitleId);
+
+  if (!wrap) return;
+  if (!programs.length) {
+    if (subEl) subEl.textContent = '⚠️ No hay programas disponibles.';
+    return;
+  }
+
+  if (subEl) subEl.textContent = `${programs.length} programa${programs.length !== 1 ? 's' : ''}`;
+
+  const total = programs.length;
+
+  /* Construir tarjeta */
+  function buildCard(p, idx) {
+    const isFree = p.type === 'free';
+    const badge  = p.badge
+      ? `<span class="stage-card__badge stage-card__badge--${p.badgeType}">${p.badge}</span>` : '';
+    const freeBadge = isFree
+      ? `<span class="stage-card__badge" style="background:linear-gradient(135deg,#00e5c0,#00a896);color:#000">GRATIS</span>` : '';
+
+    /* Imagen con fallback (NO video en el carrusel del index para rendimiento) */
+    const mediaInner = p.imagen
+      ? `<img src="${p.imagen}" alt="${p.nombre}"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+         <div class="stage-card__media-fallback" style="display:none">${p.ico}</div>`
+      : `<div class="stage-card__media-fallback">${p.ico}</div>`;
+
+    const priceHtml = isFree
+      ? `<div class="stage-card__price stage-card__price--free">GRATIS</div>`
+      : `<div class="stage-card__price">Bs ${p.precioBs.toLocaleString('es-BO')}</div>
+         <div class="stage-card__usd">≈ $${p.precioUSD} USD</div>`;
+
+    const chipType = isFree ? 'stage-chip stage-chip--free' : 'stage-chip';
+
+    const card = document.createElement('div');
+    card.className  = 'stage-card';
+    card.dataset.idx = idx;
+    card.innerHTML = `
+      <div class="stage-card__media">
+        ${mediaInner}
+        ${isFree ? freeBadge : badge}
+      </div>
+      <div class="stage-card__body">
+        <div class="stage-card__chips">
+          <span class="${chipType}">${isFree ? 'GRATIS' : p.categoria.toUpperCase()}</span>
+          <span class="stage-chip">${p.version}</span>
+        </div>
+        <h3 class="stage-card__title">${p.nombre}</h3>
+        ${priceHtml}
+        <div class="stage-card__actions">
+          <button class="btn--details"
+            onclick="event.stopPropagation(); openDetailModal(${JSON.stringify(p).replace(/"/g, '&quot;')})">
+            🔍 Ver Detalles
+          </button>
+        </div>
+      </div>`;
+
+    card.addEventListener('click', () => {
+      const pos = parseInt(card.dataset.pos || '0');
+      if (pos !== 0) goTo((current + pos + total) % total);
+    });
+    return card;
+  }
+
+  const cards = [];
+  programs.forEach((p, i) => {
+    const c = buildCard(p, i);
+    wrap.appendChild(c);
+    cards.push(c);
+  });
+
+  /* Dots */
+  function buildDots() {
+    dotsEl.innerHTML = '';
+    programs.forEach((_, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'stage-dot' + (i === 0 ? ' active' : '');
+      btn.addEventListener('click', () => goTo(i));
+      dotsEl.appendChild(btn);
+    });
+  }
+
+  let current  = 0;
+  let progress = 0;
+  const INTERVAL = 4500;
+  const TICK     = 60;
+  let paused     = false;
+
+  function setPositions() {
+    cards.forEach((card, i) => {
+      let pos = i - current;
+      if (pos > Math.floor(total / 2)) pos -= total;
+      if (pos < -Math.floor(total / 2)) pos += total;
+      card.dataset.pos = pos;
+    });
+    dotsEl.querySelectorAll('.stage-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+    const p = programs[current];
+    if (lblName) lblName.textContent = p.nombre;
+    if (lblCat)  lblCat.textContent  = (p.categoria.charAt(0).toUpperCase() + p.categoria.slice(1)) + ' · ' + p.version;
+  }
+
+  function goTo(idx) {
+    current  = ((idx % total) + total) % total;
+    progress = 0;
+    setPositions();
+  }
+
+  buildDots();
+  setPositions();
+
+  setInterval(() => {
+    if (paused) return;
+    progress += (TICK / INTERVAL) * 100;
+    if (pbar) pbar.style.width = Math.min(progress, 100) + '%';
+    if (progress >= 100) { progress = 0; goTo(current + 1); }
+  }, TICK);
+
+  wrap.addEventListener('mouseenter', () => { paused = true; });
+  wrap.addEventListener('mouseleave', () => { paused = false; });
+
+  document.getElementById(prevId)?.addEventListener('click', () => goTo(current - 1));
+  document.getElementById(nextId)?.addEventListener('click', () => goTo(current + 1));
+}
+
+/* ══ INICIALIZACIÓN ══ */
+document.addEventListener('DOMContentLoaded', () => {
+  if (typeof JLONIX_ITEMS === 'undefined' || !JLONIX_ITEMS.length) {
+    document.getElementById('paid-subtitle').textContent = '⚠️ Verifica data-programas.js';
+    return;
+  }
+
+  const paidPrograms = JLONIX_ITEMS.filter(i => i.type === 'paid');
+  const freePrograms = JLONIX_ITEMS.filter(i => i.type === 'free');
+
+  /* Carrusel PAGO */
+  buildCarousel(paidPrograms, {
+    wrapId: 'paid-wrap', dotsId: 'paid-dots', pbarId: 'paid-pbar',
+    prevId: 'paid-prev', nextId: 'paid-next',
+    labelNameId: 'paid-label-name', labelCatId: 'paid-label-cat',
+    subtitleId: 'paid-subtitle'
+  });
+
+  /* Carrusel GRATUITO — mismo estilo 3D */
+  buildCarousel(freePrograms, {
+    wrapId: 'free-wrap', dotsId: 'free-dots', pbarId: 'free-pbar',
+    prevId: 'free-prev', nextId: 'free-next',
+    labelNameId: 'free-label-name', labelCatId: 'free-label-cat',
+    subtitleId: 'free-subtitle'
+  });
+
+  /* Teclado global */
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeDetailModal();
+  });
+
+  if (typeof JLONIX !== 'undefined' && JLONIX.updateCartCounter) {
+    JLONIX.updateCartCounter();
+  }
+});
+</script>
+</body>
+</html>

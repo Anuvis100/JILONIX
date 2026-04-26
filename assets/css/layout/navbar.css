@@ -1,0 +1,327 @@
+/* ╔══════════════════════════════════════════════════════════════╗
+   ║  NAVBAR.CSS - VERSIÓN CORREGIDA                              ║
+   ║  Funciona en PC y Celular con menú desplegable              ║
+   ╚══════════════════════════════════════════════════════════════╝ */
+
+/* ── Variables específicas del navbar ── */
+:root {
+  --nav-h: 70px;
+  --t2: all 0.2s ease;
+  --t3: all 0.3s ease;
+}
+
+/* ========== ESTILOS BASE (PC y MÓVIL) ========== */
+/* ========== NAVBAR SIN RECTÁNGULO NEGRO ========== */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  
+  /* FONDO TRANSPARENTE - SIN RECTÁNGULO NEGRO */
+  background: transparent;
+  backdrop-filter: none;
+  border-bottom: none;
+  
+  transition: all 0.3s ease;
+}
+
+/* Efecto al hacer scroll (opcional: solo aparece cuando bajas) */
+.navbar.scrolled {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+/* ── Brand / Logo ── */
+.navbar__brand {
+  display: flex; 
+  align-items: center; 
+  gap: var(--sp-2);
+  flex-shrink: 0; 
+  text-decoration: none; 
+  cursor: pointer;
+}
+
+.navbar__logo {
+  font-size: 1.5rem; 
+  font-weight: 800;
+  letter-spacing: 3px; 
+  background: linear-gradient(135deg, #fff, #ffd700);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  line-height: 1;
+}
+
+.navbar__logo-omega {
+  color: #ffd700;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+  display: inline-block;
+  animation: kGlowG 3s ease-in-out infinite;
+}
+
+/* ========== MENÚ PRINCIPAL (PC: horizontal visible) ========== */
+.navbar__menu {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.navbar__item {
+  position: relative;
+}
+
+.navbar__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 40px;
+  border: 1px solid transparent;
+  transition: var(--t2);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.navbar__link .ni {
+  font-size: 0.9rem;
+}
+
+.navbar__link:hover {
+  color: #00d4ff;
+  background: rgba(0, 212, 255, 0.1);
+  border-color: rgba(0, 212, 255, 0.3);
+}
+
+.navbar__link--active {
+  color: #00d4ff;
+  background: rgba(0, 212, 255, 0.15);
+  border-color: rgba(0, 212, 255, 0.4);
+}
+
+/* ── Indicador de página activa ── */
+.navbar__link--active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 20%;
+  right: 20%;
+  height: 2px;
+  background: linear-gradient(90deg, #00d4ff, #ffd700);
+  border-radius: 2px;
+}
+
+/* ========== BOTÓN HAMBURGUESA (oculto en PC) ========== */
+.navbar__burger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 8px;
+  background: none;
+  border: none;
+  z-index: 1001;
+}
+
+.navbar__burger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: #00d4ff;
+  border-radius: 4px;
+  transition: var(--t2);
+}
+
+/* Animación del botón hamburguesa cuando está abierto */
+.navbar__burger.open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.navbar__burger.open span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.navbar__burger.open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ========== CARRITO ========== */
+.navbar__right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.navbar__cart {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: var(--t2);
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.navbar__cart:hover {
+  color: #ffd700;
+  background: rgba(255, 215, 0, 0.15);
+  border-color: rgba(255, 215, 0, 0.5);
+  transform: scale(1.05);
+}
+
+.navbar__cart-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  background: linear-gradient(135deg, #ff4a4a, #ff6b6b);
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 8px rgba(255, 74, 74, 0.5);
+}
+
+/* ============================================================
+   RESPONSIVE PARA TABLETS Y CELULARES
+   ============================================================ */
+
+/* Tablets (pantallas de hasta 900px) */
+@media (max-width: 900px) {
+  .navbar {
+    padding: 0 var(--sp-4);
+  }
+
+  /* Ocultar menú horizontal, mostrar hamburguesa */
+  .navbar__menu {
+    position: fixed;
+    top: var(--nav-h);
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(20px);
+    padding: 20px;
+    gap: 12px;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+    z-index: 999;
+    max-height: calc(100vh - var(--nav-h));
+    overflow-y: auto;
+  }
+
+  /* Menú desplegado */
+  .navbar__menu.active {
+    transform: translateX(0);
+  }
+
+  /* Mostrar botón hamburguesa */
+  .navbar__burger {
+    display: flex;
+  }
+
+  /* Enlaces del menú móvil */
+  .navbar__link {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 20px;
+    font-size: 1rem;
+  }
+
+  .navbar__link .ni {
+    font-size: 1.1rem;
+  }
+
+  /* Indicador activo en móvil */
+  .navbar__link--active::after {
+    bottom: 4px;
+  }
+}
+
+/* Celulares pequeños (pantallas de hasta 480px) */
+@media (max-width: 480px) {
+  :root {
+    --nav-h: 60px;
+  }
+
+  .navbar {
+    padding: 0 var(--sp-3);
+  }
+
+  .navbar__logo {
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+  }
+
+  .navbar__cart {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+  }
+
+  .navbar__cart-count {
+    min-width: 16px;
+    height: 16px;
+    font-size: 0.55rem;
+    top: -4px;
+    right: -4px;
+  }
+
+  .navbar__burger span {
+    width: 20px;
+    height: 2px;
+  }
+
+  .navbar__menu {
+    padding: 16px;
+    gap: 8px;
+  }
+
+  .navbar__link {
+    padding: 10px 16px;
+    font-size: 0.85rem;
+  }
+}
+
+/* ========== ANIMACIONES ========== */
+@keyframes kGlowG {
+  0%, 100% {
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+  }
+  50% {
+    text-shadow: 0 0 25px rgba(255, 215, 0, 0.7);
+  }
+}
+
+/* ========== UTILIDADES ========== */
+/* Evitar scroll cuando el menú móvil está abierto */
+body.menu-open {
+  overflow: hidden;
+}

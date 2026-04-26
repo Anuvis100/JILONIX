@@ -1,0 +1,18 @@
+/* ╔══════════════════════════════════════════════════════════════╗
+   ║  BADGES.CSS                                                  ║
+   ╚══════════════════════════════════════════════════════════════╝ */
+.bdg {
+  display:inline-flex; align-items:center; gap:var(--sp-2);
+  padding:.26rem .82rem; border-radius:var(--rad-pill);
+  font-size:var(--fz-xs); font-weight:var(--fw-6);
+  letter-spacing:.4px; white-space:nowrap;
+}
+.bdg--c  { background:var(--cyan-xs);   border:1px solid var(--cyan-sm);   color:var(--cyan-l);   }
+.bdg--v  { background:var(--violet-xs); border:1px solid var(--violet-sm); color:var(--violet-l); }
+.bdg--g  { background:var(--omega-xs);  border:1px solid var(--omega-sm);  color:var(--omega);    }
+.bdg--t  { background:var(--teal-sm);   border:1px solid var(--teal-md);   color:var(--teal);     }
+.bdg--fr { background:var(--teal-sm);   border:1px solid var(--teal-md);   color:var(--teal);     font-weight:var(--fw-7); }
+.bdg--h  { background:var(--orange-sm); border:1px solid rgba(255,122,0,.25); color:var(--orange); }
+.bdg--n  { background:var(--green-sm);  border:1px solid rgba(0,229,100,.22); color:var(--green);  }
+.bdg--ok { background:var(--ok-bg);     border:1px solid rgba(0,229,160,.3);  color:var(--ok);     }
+.bdg--err{ background:var(--err-bg);    border:1px solid rgba(255,48,96,.3);  color:var(--err);    }

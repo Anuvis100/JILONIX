@@ -1,0 +1,31 @@
+/* ╔══════════════════════════════════════════════════════════════╗
+   ║  LOADER.CSS — Pantalla de carga inicial                      ║
+   ╚══════════════════════════════════════════════════════════════╝ */
+#page-loader {
+  position:fixed; inset:0; z-index:9999;
+  background:var(--bg-0);
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:var(--sp-6);
+  transition:opacity .5s var(--ease), visibility .5s;
+}
+#page-loader.done { opacity:0; visibility:hidden; pointer-events:none; }
+.ldr-omega {
+  font-size:var(--fz-5xl); font-weight:var(--fw-9);
+  color:var(--omega); text-shadow:var(--gw-g-xl);
+  animation:kGlowG 1.8s ease-in-out infinite, kFloat 3s ease-in-out infinite;
+}
+.ldr-bar {
+  width:180px; height:2px; background:rgba(255,255,255,.08);
+  border-radius:var(--rad-pill); overflow:hidden;
+}
+.ldr-bar__fill {
+  height:100%; width:0%;
+  background:var(--grad-cyan-v);
+  border-radius:var(--rad-pill);
+  animation:kProgress 1.8s var(--ease) forwards;
+  --w:100%;
+}
+.ldr-txt {
+  font-size:var(--fz-xs); color:var(--t-40);
+  letter-spacing:3px; text-transform:uppercase;
+}

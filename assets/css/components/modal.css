@@ -1,0 +1,60 @@
+/* ╔══════════════════════════════════════════════════════════════╗
+   ║  MODAL.CSS — Lightbox / modal de detalle de producto         ║
+   ╚══════════════════════════════════════════════════════════════╝ */
+.modal-backdrop {
+  position:fixed; inset:0; z-index:1000;
+  background:rgba(1,1,13,.88);
+  backdrop-filter:var(--blur-lg); -webkit-backdrop-filter:var(--blur-lg);
+  display:flex; align-items:center; justify-content:center; padding:var(--sp-5);
+  opacity:0; pointer-events:none;
+  transition:opacity var(--t3);
+}
+.modal-backdrop.open { opacity:1; pointer-events:all; }
+
+.modal {
+  width:100%; max-width:760px; max-height:90dvh;
+  background:var(--bg-2);
+  border:1px solid var(--b-base); border-radius:var(--rad-xl);
+  box-shadow:var(--sh-2xl), var(--gw-c);
+  overflow-y:auto; overflow-x:hidden;
+  scale:.88; transition:scale var(--t3);
+}
+.modal-backdrop.open .modal { scale:1; }
+
+.modal__header {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:var(--sp-6) var(--sp-8);
+  border-bottom:1px solid var(--b-base);
+  position:sticky; top:0;
+  background:var(--bg-2); z-index:1;
+}
+.modal__title  { font-size:var(--fz-xl); font-weight:var(--fw-7); }
+.modal__close  {
+  width:36px; height:36px; border-radius:50%;
+  background:var(--bg-card); border:1px solid var(--b-base);
+  color:var(--t-60); font-size:1.2rem; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  transition:var(--t2);
+}
+.modal__close:hover { background:var(--err-bg); border-color:var(--err); color:var(--err); }
+.modal__body  { padding:var(--sp-8); }
+.modal__video {
+  width:100%; padding-top:56.25%; position:relative;
+  border-radius:var(--rad-md); overflow:hidden; margin-bottom:var(--sp-6);
+}
+.modal__video video,
+.modal__video iframe {
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; border:none;
+}
+.modal__desc { font-size:var(--fz-sm); color:var(--t-60); line-height:var(--lh-lg); margin-bottom:var(--sp-5); }
+.modal__specs { display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-3); margin-bottom:var(--sp-6); }
+.modal__spec {
+  padding:var(--sp-3) var(--sp-4);
+  background:var(--bg-card); border:1px solid var(--b-base);
+  border-radius:var(--rad-sm);
+}
+.modal__spec-key { font-size:var(--fz-xs); color:var(--t-40); margin-bottom:var(--sp-1); text-transform:uppercase; letter-spacing:.5px; }
+.modal__spec-val { font-size:var(--fz-sm); font-weight:var(--fw-6); }
+.modal__actions  { display:flex; gap:var(--sp-4); flex-wrap:wrap; }
+.modal__actions .btn { flex:1; }

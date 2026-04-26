@@ -1,0 +1,401 @@
+/* ╔══════════════════════════════════════════════════════════════════════════╗
+   ║                              FORMS.CSS                                   ║
+   ║                    Estilos globales para formularios                     ║
+   ║                        Versión 2.0 · JLΩNIX                              ║
+   ╚══════════════════════════════════════════════════════════════════════════╝ */
+
+/* ──────────────────────────────────────────────────────────────────────────
+   BASES Y CONTENEDORES
+   ────────────────────────────────────────────────────────────────────────── */
+.fsec {
+  margin-bottom: var(--sp-8);
+  padding-bottom: var(--sp-8);
+  border-bottom: 1px solid var(--b-base);
+}
+.fsec:last-of-type {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+.fsec__ttl {
+  font-size: var(--fz-xs);
+  font-weight: var(--fw-7);
+  color: var(--cyan);
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  margin-bottom: var(--sp-5);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+.fg {
+  margin-bottom: var(--sp-5);
+}
+.fr {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-5);
+}
+.fr3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: var(--sp-4);
+}
+
+/* Etiquetas */
+.fg label {
+  display: block;
+  font-size: var(--fz-xs);
+  font-weight: var(--fw-7);
+  color: var(--cyan);
+  margin-bottom: var(--sp-2);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+.fg label .opt {
+  color: var(--t-20);
+  text-transform: none;
+  font-weight: var(--fw-4);
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   ESTILOS BASE PARA INPUTS, SELECT Y TEXTAREA
+   (unificados con la clase .f-input y sus variantes)
+   ────────────────────────────────────────────────────────────────────────── */
+.fi,
+.fs,
+.fta,
+.f-input {
+  width: 100%;
+  padding: 0.88rem 1.1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--b-base);
+  border-radius: var(--rad-sm);
+  color: var(--t-100);
+  font-size: var(--fz-base);
+  font-family: var(--ff-sans);
+  transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Placeholder */
+.fi::placeholder,
+.fta::placeholder,
+.f-input::placeholder {
+  color: var(--t-20);
+}
+
+/* Focus unificado */
+.fi:focus,
+.fs:focus,
+.fta:focus,
+.f-input:focus {
+  border-color: var(--cyan-sm);
+  background: var(--cyan-xs);
+  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.08);
+  outline: none;
+}
+
+/* Estado de error */
+.fi.err,
+.fs.err,
+.fta.err,
+.f-input.err {
+  border-color: rgba(239, 68, 68, 0.7);
+  background: rgba(239, 68, 68, 0.05);
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.1);
+}
+
+/* Estado correcto (ok) */
+.fi.ok,
+.fs.ok,
+.fta.ok,
+.f-input.ok {
+  border-color: rgba(0, 229, 192, 0.6);
+  background: rgba(0, 229, 192, 0.05);
+  box-shadow: 0 0 0 2px rgba(0, 229, 192, 0.08);
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   SELECT (desplegable) - ESTILOS AVANZADOS
+   ────────────────────────────────────────────────────────────────────────── */
+.fs,
+select.f-input {
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2300d4ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 14px;
+  padding-right: 2.5rem;
+}
+/* Opciones internas */
+.fs option,
+select.f-input option {
+  background: #0a0a1a;   /* Fondo oscuro consistente */
+  color: var(--t-100);
+  padding: 0.5rem;
+}
+/* Hover sobre option (funciona en Firefox) */
+.fs option:hover,
+select.f-input option:hover {
+  background: var(--cyan-xs);
+  color: var(--cyan);
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   TEXTAREA
+   ────────────────────────────────────────────────────────────────────────── */
+.fta {
+  resize: vertical;
+  min-height: 90px;
+}
+
+/* Input monoespaciado (para IDs, códigos) */
+.fi-mono,
+.f-input-mono {
+  font-family: var(--ff-mono);
+  letter-spacing: 1px;
+}
+
+/* Input con icono a la izquierda */
+.fw {
+  position: relative;
+}
+.fw .fi,
+.fw .f-input {
+  padding-left: 2.9rem;
+}
+.fw__ico {
+  position: absolute;
+  left: 0.95rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  color: var(--t-20);
+  pointer-events: none;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   SUBIDA DE ARCHIVOS (UPLOAD)
+   ────────────────────────────────────────────────────────────────────────── */
+.fup {
+  border: 2px dashed var(--cyan-sm);
+  border-radius: var(--rad-md);
+  padding: var(--sp-8);
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.fup:hover,
+.fup.drag {
+  border-color: var(--cyan-md);
+  background: var(--cyan-xs);
+}
+.fup input[type="file"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+.fup__ico {
+  font-size: 2.2rem;
+  display: block;
+  margin-bottom: var(--sp-3);
+}
+.fup__lbl {
+  font-size: var(--fz-sm);
+  color: var(--t-40);
+}
+.fup__lbl span {
+  color: var(--cyan);
+  font-weight: var(--fw-6);
+}
+.fup__hint {
+  font-size: var(--fz-xs);
+  color: var(--t-20);
+  margin-top: var(--sp-2);
+}
+.fup__prev {
+  display: none;
+  margin-top: var(--sp-3);
+  padding: 0.6rem 1rem;
+  background: var(--teal-sm);
+  border: 1px solid var(--teal-md);
+  border-radius: var(--rad-sm);
+  font-size: var(--fz-xs);
+  color: var(--teal);
+  align-items: center;
+  gap: var(--sp-3);
+}
+.fup__prev.show {
+  display: flex;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   MÉTODOS DE PAGO (radioboxes con estilo)
+   ────────────────────────────────────────────────────────────────────────── */
+.payg {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-4);
+  margin-bottom: var(--sp-5);
+}
+.payo {
+  position: relative;
+}
+.payo input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+}
+.payo label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-5) var(--sp-4);
+  border: 1px solid var(--b-base);
+  border-radius: var(--rad-md);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.01);
+  color: var(--t-40);
+  font-size: var(--fz-sm);
+  font-weight: var(--fw-5);
+  text-transform: none;
+  letter-spacing: 0;
+}
+.payo__ico {
+  font-size: 2rem;
+}
+.payo input:checked + label {
+  border-color: var(--cyan-sm);
+  background: var(--cyan-xs);
+  color: var(--cyan);
+  box-shadow: 0 0 18px var(--cyan-xs);
+}
+.payd {
+  display: none;
+}
+.payd.on {
+  display: block;
+}
+
+/* QR y datos bancarios */
+.qr-box {
+  text-align: center;
+  padding: var(--sp-6);
+  background: var(--cyan-xs);
+  border: 1px solid var(--cyan-xs);
+  border-radius: var(--rad-md);
+}
+.qr-box__img {
+  width: 160px;
+  height: 160px;
+  background: #fff;
+  margin: 0 auto var(--sp-4);
+  border-radius: var(--rad-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fz-xs);
+  color: #333;
+  padding: var(--sp-4);
+  text-align: center;
+}
+.bank-box {
+  padding: var(--sp-5) var(--sp-6);
+  background: var(--violet-xs);
+  border: 1px solid var(--violet-sm);
+  border-radius: var(--rad-md);
+}
+.bank-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.45rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: var(--fz-sm);
+}
+.bank-row:last-child {
+  border-bottom: none;
+}
+.bank-row__k {
+  color: var(--t-40);
+}
+.bank-row__v {
+  color: var(--t-100);
+  font-weight: var(--fw-6);
+  font-family: var(--ff-mono);
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   MENSAJES DE ERROR / ÉXITO
+   ────────────────────────────────────────────────────────────────────────── */
+.ferr {
+  color: #ef4444;
+  font-size: var(--fz-xs);
+  margin-top: var(--sp-2);
+  display: none;
+}
+.ferr.show {
+  display: block;
+}
+.fok {
+  display: none;
+  text-align: center;
+  padding: var(--sp-10);
+}
+.fok.show {
+  display: block;
+}
+.fok__ico {
+  font-size: 5rem;
+  display: block;
+  margin-bottom: var(--sp-5);
+}
+.fok__code {
+  display: inline-block;
+  padding: 0.55rem 1.5rem;
+  background: var(--teal-sm);
+  border: 1px solid var(--teal-md);
+  border-radius: var(--rad-pill);
+  font-family: var(--ff-mono);
+  font-size: var(--fz-xl);
+  color: var(--teal);
+  margin: var(--sp-4) 0 var(--sp-6);
+  letter-spacing: 3px;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   RESPONSIVE: Ajustes para móviles
+   ────────────────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .fr,
+  .fr3 {
+    grid-template-columns: 1fr;
+    gap: var(--sp-4);
+  }
+  .payg {
+    grid-template-columns: 1fr;
+    gap: var(--sp-3);
+  }
+  .fi,
+  .fs,
+  .fta,
+  .f-input {
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+  .bank-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}

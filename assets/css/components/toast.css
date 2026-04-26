@@ -1,0 +1,24 @@
+/* ╔══════════════════════════════════════════════════════════════╗
+   ║  TOAST.CSS                                                   ║
+   ╚══════════════════════════════════════════════════════════════╝ */
+#tc {
+  position:fixed; bottom:var(--sp-6); left:50%; translate:-50% 0;
+  z-index:9999; display:flex; flex-direction:column-reverse;
+  align-items:center; gap:var(--sp-2);
+  pointer-events:none; width:max-content; max-width:92vw;
+}
+.toast {
+  display:flex; align-items:center; gap:var(--sp-3);
+  padding:.72rem 1.6rem; border-radius:var(--rad-pill);
+  background:rgba(1,1,13,.96);
+  backdrop-filter:var(--blur-md); -webkit-backdrop-filter:var(--blur-md);
+  font-size:var(--fz-sm); font-family:var(--ff-sans);
+  box-shadow:var(--sh-lg); pointer-events:auto;
+  opacity:0; translate:0 14px;
+  transition:opacity var(--t2), translate var(--t2);
+}
+.toast.in { opacity:1; translate:0 0; }
+.toast--ok  { border:1px solid rgba(0,229,160,.3); color:var(--ok); }
+.toast--err { border:1px solid rgba(255,48,96,.3);  color:var(--err); }
+.toast--info{ border:1px solid var(--cyan-sm);      color:var(--cyan-l); }
+.toast--warn{ border:1px solid rgba(255,149,0,.3);  color:var(--warn); }

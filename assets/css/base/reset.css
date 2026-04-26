@@ -1,0 +1,298 @@
+/* ╔══════════════════════════════════════════════════════════════╗
+   ║  RESET.CSS — Reset moderno + estilos base                   ║
+   ║  Versión mejorada con soporte completo                      ║
+   ╚══════════════════════════════════════════════════════════════╝ */
+
+/* ========== RESET COMPLETO ========== */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ========== HTML ========== */
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  hanging-punctuation: first last;
+  height: 100%;
+}
+
+/* ========== BODY ========== */
+body {
+  /* Tipografía */
+  font-family: 'Segoe UI', system-ui, -apple-system, 'Inter', 'Poppins', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  
+  /* Colores */
+  color: #eef0ff;
+  background: #01010d;
+  
+  /* Fondo con gradientes radiales */
+  background-image:
+    radial-gradient(ellipse 75% 50% at 12% 0%, rgba(123, 0, 255, 0.09) 0%, transparent 55%),
+    radial-gradient(ellipse 55% 40% at 88% 100%, rgba(0, 212, 255, 0.07) 0%, transparent 55%),
+    radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.03) 0%, transparent 70%);
+  
+  min-height: 100dvh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-synthesis: none;
+}
+
+/* ========== ENLACES ========== */
+a {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+a:active {
+  opacity: 0.7;
+}
+
+/* ========== MULTIMEDIA ========== */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+svg {
+  fill: currentColor;
+}
+
+/* ========== LISTAS ========== */
+ul, ol {
+  list-style: none;
+}
+
+/* ========== FORMULARIOS ========== */
+button, input, select, textarea {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+button {
+  cursor: pointer;
+  background: none;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+  transition: background-color 600000s 0s, color 600000s 0s;
+}
+
+/* ========== TIPOGRAFÍA ========== */
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.25;
+  font-weight: 700;
+  color: #eef0ff;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: 800;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+h5 {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+h6 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+p {
+  text-wrap: pretty;
+  line-height: 1.6;
+}
+
+/* ========== SELECTION ========== */
+::selection {
+  background: rgba(0, 212, 255, 0.2);
+  color: #33dfff;
+}
+
+::-moz-selection {
+  background: rgba(0, 212, 255, 0.2);
+  color: #33dfff;
+}
+
+/* ========== FOCUS VISIBLE (accesibilidad) ========== */
+:focus-visible {
+  outline: 2px solid #00d4ff;
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* ========== SCROLLBAR PERSONALIZADA ========== */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #01010d;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #00d4ff, #0088aa);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #33dfff, #00aacc);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #00d4ff #01010d;
+}
+
+/* ========== CANVAS DE FONDO ========== */
+#canvas-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  will-change: transform;
+  opacity: 0.6;
+}
+
+/* ========== CAPAS DE CONTENIDO (sobre canvas) ========== */
+.layer {
+  position: relative;
+  z-index: 1;
+}
+
+/* ========== UTILIDADES ADICIONALES ========== */
+/* Contenedor de contenido */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Ocultar elementos visualmente pero mantener para lectores de pantalla */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Ocultar scrollbar pero mantener funcionalidad */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Deshabilitar selección de texto */
+.no-select {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* ========== ANIMACIONES DE ENTRADA POR DEFECTO ========== */
+.fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  h3 {
+    font-size: 1.25rem;
+  }
+  
+  .container {
+    padding: 0 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 13px;
+  }
+  
+  h1 {
+    font-size: 1.75rem;
+  }
+  
+  h2 {
+    font-size: 1.35rem;
+  }
+}
+
+/* ========== IMPRESIÓN ========== */
+@media print {
+  #canvas-bg,
+  .no-print {
+    display: none;
+  }
+  
+  body {
+    background: white;
+    color: black;
+  }
+  
+  a {
+    text-decoration: underline;
+  }
+}

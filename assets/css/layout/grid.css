@@ -1,0 +1,260 @@
+/* ╔══════════════════════════════════════════════════════════════╗
+   ║  GRID.CSS — Sistema de layout y contenedores                 ║
+   ╚══════════════════════════════════════════════════════════════╝ */
+
+/* ========== IMPORTAR VARIABLES GLOBALES ========== */
+/* Asegúrate que estos archivos existan o copia las variables de abajo */
+@import url('tokens/colors.css');
+@import url('tokens/spacing.css');
+@import url('tokens/typography.css');
+
+/* ========== RESPONSIVE: Contenedores fluidos ========== */
+.ctr {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+.ctr-lg {
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+.ctr-md {
+  max-width: 1024px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.ctr-sm {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/* ========== SECCIONES ========== */
+.sec {
+  padding-top: 64px;
+  padding-bottom: 64px;
+}
+
+.sec-title {
+  font-size: 2rem;
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 12px;
+  background: linear-gradient(135deg, #ffffff, #ffd700);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.sec-sub {
+  text-align: center;
+  color: #888;
+  font-size: 1rem;
+  margin-bottom: 40px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ========== GRID SYSTEM (responsive automático) ========== */
+
+/* 2 columnas - para productos grandes */
+.g2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(460px, 1fr));
+  gap: 24px;
+}
+
+/* 3 columnas - para productos estándar (MÁS USADO) */
+.g3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 20px;
+}
+
+/* 4 columnas - para catálogos o iconos */
+.g4 {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+/* 5 columnas - para logos o badges */
+.g5 {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+/* ========== PAGE HEADER (encabezado de página) ========== */
+.ph {
+  padding-top: calc(80px + 48px);
+  padding-bottom: 40px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.ph__card {
+  max-width: 800px;
+  width: 100%;
+  padding: 40px 48px;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  border-radius: 32px;
+  border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.ph__card h1 {
+  font-size: 3rem;
+  font-weight: 900;
+  margin-bottom: 12px;
+  background: linear-gradient(135deg, #fff, #ffd700);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.ph__card p {
+  color: #aaa;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* ========== FLEX UTILITIES (clases rápidas) ========== */
+.fx {
+  display: flex;
+}
+
+.fx-c {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fx-b {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.fx-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.fx-wrap {
+  flex-wrap: wrap;
+}
+
+/* Gap utilities */
+.gap-1 { gap: 4px; }
+.gap-2 { gap: 8px; }
+.gap-3 { gap: 12px; }
+.gap-4 { gap: 16px; }
+.gap-5 { gap: 20px; }
+.gap-6 { gap: 24px; }
+.gap-8 { gap: 32px; }
+.gap-10 { gap: 40px; }
+
+/* ========== RESPONSIVE (celular y tablet) ========== */
+@media (max-width: 1024px) {
+  .ctr, .ctr-lg, .ctr-md {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+  
+  .g2 {
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 20px;
+  }
+  
+  .g3 {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+  }
+  
+  .ph__card {
+    padding: 30px 32px;
+    margin: 0 16px;
+  }
+  
+  .ph__card h1 {
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .sec {
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+  
+  .sec-title {
+    font-size: 1.6rem;
+  }
+  
+  .sec-sub {
+    font-size: 0.9rem;
+    padding: 0 16px;
+  }
+  
+  .ctr, .ctr-lg, .ctr-md, .ctr-sm {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  
+  .g2, .g3, .g4, .g5 {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .ph {
+    padding-top: calc(70px + 32px);
+    padding-bottom: 32px;
+  }
+  
+  .ph__card {
+    padding: 24px 20px;
+  }
+  
+  .ph__card h1 {
+    font-size: 1.8rem;
+  }
+  
+  .ph__card p {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .sec {
+    padding-top: 32px;
+    padding-bottom: 32px;
+  }
+  
+  .sec-title {
+    font-size: 1.3rem;
+  }
+  
+  .ph__card h1 {
+    font-size: 1.5rem;
+  }
+  
+  .fx-b {
+    flex-direction: column;
+    gap: 16px;
+  }
+}

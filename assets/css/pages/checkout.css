@@ -1,0 +1,730 @@
+/* ╔══════════════════════════════════════════════════════════════╗
+   ║  CHECKOUT.CSS — Checkout · Carrito · Nosotros                ║
+   ║  Versión profesional con todas las variables corregidas     ║
+   ╚══════════════════════════════════════════════════════════════╝ */
+
+/* ========== IMPORTAR VARIABLES GLOBALES ========== */
+@import url('tokens/colors.css');
+@import url('tokens/spacing.css');
+@import url('tokens/typography.css');
+
+/* ========== CHECKOUT STEPS (indicador de pasos) ========== */
+.checkout-steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+}
+
+.checkout-step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+  color: rgba(238, 240, 255, 0.6);
+  font-weight: 500;
+  padding: 8px 16px;
+  cursor: default;
+  transition: color 0.3s ease;
+}
+
+.checkout-step--active {
+  color: #00d4ff;
+  font-weight: 600;
+}
+
+.checkout-step--done {
+  color: #00e5c0;
+}
+
+.checkout-step__num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.07);
+  font-size: 0.75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  transition: border-color 0.3s ease, background 0.3s ease, color 0.3s ease;
+}
+
+.checkout-step--active .checkout-step__num {
+  border-color: #00d4ff;
+  background: rgba(0, 212, 255, 0.08);
+  color: #00d4ff;
+}
+
+.checkout-step--done .checkout-step__num {
+  border-color: #00e5c0;
+  background: #00e5c0;
+  color: #000;
+}
+
+.checkout-step--done .checkout-step__num::before {
+  content: '✓';
+}
+
+.checkout-step--done > span:last-child {
+  display: none;
+}
+
+.checkout-step__line {
+  flex: 1;
+  min-width: 48px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.07);
+  flex-shrink: 0;
+}
+
+/* ========== CHECKOUT LAYOUT ========== */
+.checkout-layout {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 32px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .checkout-layout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+/* ========== CHECKOUT FORM AREA ========== */
+.checkout-form-area {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.checkout-step-panel {
+  padding: 32px;
+  border-radius: 24px;
+  background: rgba(6, 6, 40, 0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.checkout-step-panel:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.checkout-panel__title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  color: #eef0ff;
+}
+
+/* ========== FORMULARIOS ========== */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 580px) {
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.form-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(238, 240, 255, 0.6);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.form-label--required::after {
+  content: '*';
+  color: #ff3060;
+  margin-left: 4px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+  color: #eef0ff;
+  font-size: 0.875rem;
+  outline: none;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  font-family: inherit;
+}
+
+.form-input::placeholder {
+  color: rgba(238, 240, 255, 0.4);
+}
+
+.form-input:focus {
+  border-color: #00d4ff;
+  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.08);
+}
+
+.form-input:focus-visible {
+  outline: none;
+}
+
+textarea.form-input {
+  resize: vertical;
+  min-height: 100px;
+}
+
+select.form-input {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+}
+
+/* ========== MÉTODOS DE PAGO ========== */
+.payment-methods {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.payment-method {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.payment-method input[type="radio"] {
+  display: none;
+}
+
+.payment-method__label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 16px 20px;
+  background: rgba(6, 6, 40, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 16px;
+  font-size: 0.875rem;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+.payment-method__icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.payment-method__info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.payment-method__title {
+  font-weight: 600;
+  color: #eef0ff;
+}
+
+.payment-method__desc {
+  font-size: 0.7rem;
+  color: rgba(238, 240, 255, 0.4);
+}
+
+.payment-method input:checked + .payment-method__label {
+  border-color: #00d4ff;
+  background: rgba(0, 212, 255, 0.08);
+  box-shadow: 0 0 0 1px #00d4ff, 0 0 16px rgba(0, 212, 255, 0.1);
+}
+
+/* ========== RESUMEN DEL PEDIDO (sidebar) ========== */
+.order-summary {
+  position: sticky;
+  top: 100px;
+  padding: 24px;
+  border-radius: 20px;
+  background: rgba(6, 6, 40, 0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.order-summary__title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  color: #eef0ff;
+}
+
+.order-summary__items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.order-summary__item {
+  display: flex;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.order-summary__item-icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.order-summary__item-info {
+  flex: 1;
+}
+
+.order-summary__item-name {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #eef0ff;
+}
+
+.order-summary__item-qty {
+  font-size: 0.7rem;
+  color: rgba(238, 240, 255, 0.4);
+}
+
+.order-summary__item-price {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #ffd700;
+  flex-shrink: 0;
+}
+
+.order-summary__row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  font-size: 0.85rem;
+  color: rgba(238, 240, 255, 0.6);
+}
+
+.order-summary__row--total {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ffd700;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  margin-top: 8px;
+  padding-top: 12px;
+}
+
+.order-summary__row--discount {
+  color: #00e5c0;
+}
+
+/* ========== TIMELINE (nosotros.html) ========== */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-radius: 24px;
+  position: relative;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, rgba(0, 212, 255, 0.3), transparent);
+}
+
+.timeline-item {
+  display: flex;
+  gap: 24px;
+  padding: 24px 0;
+  align-items: flex-start;
+  position: relative;
+}
+
+.timeline-item:last-child {
+  padding-bottom: 0;
+}
+
+.timeline-item:first-child {
+  padding-top: 0;
+}
+
+.timeline-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: #00d4ff;
+  margin-top: 4px;
+  box-shadow: 0 0 12px rgba(0, 212, 255, 0.3);
+  position: relative;
+  z-index: 1;
+}
+
+.timeline-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.timeline-content h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0;
+  color: #eef0ff;
+}
+
+.timeline-content p {
+  font-size: 0.875rem;
+  color: rgba(238, 240, 255, 0.6);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.timeline-content .date {
+  font-size: 0.7rem;
+  color: rgba(238, 240, 255, 0.4);
+  letter-spacing: 0.5px;
+}
+
+/* ========== FEATURE CARD ========== */
+.fcard {
+  padding: 32px 24px;
+  border-radius: 24px;
+  background: rgba(6, 6, 40, 0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.3s ease;
+  height: 100%;
+}
+
+.fcard:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.4);
+  border-color: rgba(0, 212, 255, 0.2);
+}
+
+.fcard__ico {
+  font-size: 2.5rem;
+  margin-bottom: 8px;
+}
+
+.fcard h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #eef0ff;
+  margin: 0;
+}
+
+.fcard p {
+  font-size: 0.875rem;
+  color: rgba(238, 240, 255, 0.6);
+  line-height: 1.6;
+  flex: 1;
+  margin: 0;
+}
+
+.fcard__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #00d4ff;
+  margin-top: 8px;
+  text-decoration: none;
+  transition: gap 0.2s ease;
+}
+
+.fcard__link:hover {
+  gap: 12px;
+  color: #33dfff;
+}
+
+/* ========== CTA SECTION ========== */
+.cta {
+  padding: 64px 48px;
+  text-align: center;
+  border-radius: 28px;
+  background: rgba(6, 6, 40, 0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.cta h2 {
+  font-size: 2.25rem;
+  margin-bottom: 12px;
+  color: #eef0ff;
+}
+
+.cta p {
+  color: rgba(238, 240, 255, 0.6);
+  margin-bottom: 32px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ========== TEAM CARD ========== */
+.team-card {
+  padding: 28px;
+  border-radius: 24px;
+  background: rgba(6, 6, 40, 0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.3s ease;
+  text-align: center;
+}
+
+.team-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 56px rgba(0, 0, 0, 0.45);
+  border-color: rgba(255, 215, 0, 0.2);
+}
+
+.team-card__avatar {
+  font-size: 4rem;
+  margin-bottom: 16px;
+  line-height: 1;
+}
+
+.team-card h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #eef0ff;
+  margin-bottom: 4px;
+}
+
+.team-card .role {
+  font-size: 0.75rem;
+  color: #00d4ff;
+  margin-bottom: 12px;
+  letter-spacing: 0.5px;
+}
+
+.team-card p {
+  font-size: 0.8rem;
+  color: rgba(238, 240, 255, 0.6);
+  line-height: 1.5;
+}
+
+/* ========== STATS CARD ========== */
+.scard {
+  padding: 28px;
+  border-radius: 24px;
+  background: rgba(6, 6, 40, 0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  min-width: 140px;
+  flex: 1;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.3s ease;
+}
+
+.scard:hover {
+  transform: translateY(-6px);
+  border-color: rgba(0, 212, 255, 0.2);
+}
+
+.scard__num {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #00d4ff;
+  text-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+  line-height: 1;
+}
+
+.scard__lbl {
+  font-size: 0.75rem;
+  color: rgba(238, 240, 255, 0.6);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* ========== BOTONES ========== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 40px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  border: none;
+}
+
+.btn--omega {
+  background: linear-gradient(135deg, #ffd700, #cc9f00);
+  color: #000;
+}
+
+.btn--omega:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.3);
+}
+
+.btn--cyan {
+  background: linear-gradient(135deg, #00d4ff, #009dcc);
+  color: #000;
+}
+
+.btn--cyan:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 212, 255, 0.3);
+}
+
+.btn--outline {
+  background: transparent;
+  border: 1px solid rgba(255, 215, 0, 0.4);
+  color: #ffd700;
+}
+
+.btn--outline:hover {
+  background: rgba(255, 215, 0, 0.1);
+  transform: scale(1.05);
+}
+
+.btn--full {
+  width: 100%;
+}
+
+.btn--large {
+  padding: 14px 32px;
+  font-size: 1rem;
+}
+
+.btn--small {
+  padding: 6px 14px;
+  font-size: 0.75rem;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .checkout-steps {
+    margin-bottom: 32px;
+  }
+
+  .checkout-step {
+    padding: 4px 8px;
+    font-size: 0.75rem;
+  }
+
+  .checkout-step__line {
+    min-width: 30px;
+  }
+
+  .checkout-step-panel {
+    padding: 20px;
+  }
+
+  .checkout-panel__title {
+    font-size: 1.1rem;
+    margin-bottom: 16px;
+  }
+
+  .order-summary {
+    position: static;
+    margin-top: 24px;
+  }
+
+  .cta {
+    padding: 40px 24px;
+  }
+
+  .cta h2 {
+    font-size: 1.6rem;
+  }
+
+  .fcard, .team-card, .scard {
+    padding: 20px;
+  }
+
+  .timeline-item {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .checkout-step {
+    font-size: 0.7rem;
+  }
+
+  .checkout-step__num {
+    width: 24px;
+    height: 24px;
+    font-size: 0.65rem;
+  }
+
+  .checkout-step-panel {
+    padding: 16px;
+  }
+
+  .form-input {
+    padding: 10px 12px;
+  }
+
+  .payment-method__label {
+    padding: 12px 16px;
+  }
+
+  .fcard__ico {
+    font-size: 2rem;
+  }
+
+  .fcard h3 {
+    font-size: 1.1rem;
+  }
+
+  .team-card__avatar {
+    font-size: 3rem;
+  }
+
+  .scard__num {
+    font-size: 2rem;
+  }
+}

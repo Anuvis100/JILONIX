@@ -1,0 +1,71 @@
+/* ╔══════════════════════════════════════════════════════════════╗
+   ║  CAROUSEL.CSS                                                ║
+   ╚══════════════════════════════════════════════════════════════╝ */
+.carousel {
+  position:relative; overflow:hidden; padding-bottom:var(--sp-8);
+  contain:layout paint;
+}
+/* Fade lateral */
+.carousel::before,
+.carousel::after {
+  content:''; position:absolute; top:0;
+  width:52px; height:calc(100% - var(--sp-12));
+  pointer-events:none; z-index:3;
+}
+.carousel::before { left:0;  background:linear-gradient(to right,var(--bg-0),transparent); }
+.carousel::after  { right:0; background:linear-gradient(to left, var(--bg-0),transparent); }
+
+.carousel__head {
+  display:flex; align-items:flex-end;
+  justify-content:space-between; margin-bottom:var(--sp-6); gap:var(--sp-4);
+}
+.carousel__hd h2 { font-size:var(--fz-2xl); font-weight:var(--fw-9); }
+.carousel__hd p  { color:var(--t-40); font-size:var(--fz-sm); margin-top:var(--sp-1); }
+.carousel__arr   { display:flex; gap:var(--sp-3); flex-shrink:0; }
+
+.c-arr {
+  width:40px; height:40px; border-radius:50%;
+  background:var(--bg-card); border:1px solid var(--b-base);
+  color:var(--t-60); font-size:var(--fz-lg);
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition:var(--t2);
+}
+.c-arr:hover { background:var(--cyan-xs); border-color:var(--b-cyan); color:var(--cyan); box-shadow:var(--gw-c); }
+.c-arr:disabled { opacity:.22; cursor:not-allowed; }
+
+.carousel__vp {
+  overflow:hidden; cursor:grab; user-select:none; touch-action:pan-y;
+}
+.carousel__vp:active { cursor:grabbing; }
+.carousel__track {
+  display:flex; gap:var(--sp-5);
+  transition:translate .45s var(--ease);
+  will-change:translate;
+}
+
+/* Tamaños de slides */
+.carousel__track .pcard  { flex:0 0 calc(33.333% - 1rem); }
+.carousel__track .catcard{ flex:0 0 calc(25% - .9rem); }
+
+/* Dots */
+.carousel__dots {
+  display:flex; justify-content:center;
+  gap:var(--sp-2); margin-top:var(--sp-5);
+}
+.cdot {
+  width:7px; height:7px; border-radius:var(--rad-pill);
+  background:rgba(255,255,255,.12); cursor:pointer;
+  transition:var(--t2); border:none;
+}
+.cdot.on { width:22px; background:var(--cyan); box-shadow:0 0 8px var(--cyan-md); }
+
+/* Barra de progreso autoplay */
+.carousel__prog {
+  height:2px; background:rgba(255,255,255,.07);
+  border-radius:var(--rad-pill); overflow:hidden; margin-top:var(--sp-3);
+}
+.carousel__prog-bar {
+  height:100%; width:0%;
+  background:var(--grad-cyan-v);
+  border-radius:var(--rad-pill); transition:width .1s linear;
+}

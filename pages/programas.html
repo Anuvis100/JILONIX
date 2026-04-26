@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="JLΩNIX — Programas de ingeniería y gestión"/>
+  <meta name="theme-color" content="#ffd700"/>
+  <title>JLΩNIX | Programas Profesionales</title>
+
+  <link rel="stylesheet" href="../assets/css/tokens/colors.css"/>
+  <link rel="stylesheet" href="../assets/css/tokens/spacing.css"/>
+  <link rel="stylesheet" href="../assets/css/tokens/typography.css"/>
+  <link rel="stylesheet" href="../assets/css/tokens/effects.css"/>
+  <link rel="stylesheet" href="../assets/css/base/reset.css"/>
+  <link rel="stylesheet" href="../assets/css/base/animations.css"/>
+  <link rel="stylesheet" href="../assets/css/layout/grid.css"/>
+  <link rel="stylesheet" href="../assets/css/layout/navbar.css"/>
+  <link rel="stylesheet" href="../assets/css/layout/footer.css"/>
+  <link rel="stylesheet" href="../assets/css/components/buttons.css"/>
+  <link rel="stylesheet" href="../assets/css/components/cards.css"/>
+  <link rel="stylesheet" href="../assets/css/components/badges.css"/>
+  <link rel="stylesheet" href="../assets/css/components/toast.css"/>
+  <link rel="stylesheet" href="../assets/css/components/loader.css"/>
+  <link rel="stylesheet" href="../assets/css/pages/store.css"/>
+  <link rel="stylesheet" href="../assets/css/utils/helpers.css"/>
+  <link rel="stylesheet" href="../assets/css/utils/responsive.css"/>
+
+  <style>
+    body { background: radial-gradient(circle at 10% 20%, rgba(0,0,0,0.9), #0a0a0a); }
+
+    /* ══ HERO ══ */
+    .page-hero {
+      text-align: center;
+      padding: var(--sp-8) var(--sp-4) var(--sp-6);
+      background: linear-gradient(135deg, rgba(255,215,0,0.08), rgba(0,212,255,0.02));
+      border-radius: 0 0 40px 40px;
+      margin-bottom: var(--sp-6);
+      border-bottom: 1px solid rgba(255,215,0,0.2);
+    }
+    .page-hero h1 {
+      font-size: 3.5rem; font-weight: 800;
+      background: linear-gradient(135deg, #fff, var(--omega));
+      -webkit-background-clip: text; background-clip: text;
+      color: transparent; text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+    .grd-c {
+      background: linear-gradient(135deg, var(--omega), #ffaa00);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .page-hero p { font-size: 1.2rem; max-width: 700px; margin: var(--sp-3) auto 0; color: var(--fg-muted); }
+
+    /* ══ FILTROS ══ */
+    .filter-bar {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin: var(--sp-6) 0;
+    }
+    .filter-btn {
+      background: rgba(20,20,30,0.7); backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,215,0,0.2); padding: 10px 20px;
+      border-radius: 60px; font-weight: 600; transition: all 0.2s ease; color: #ddd; cursor: pointer;
+    }
+    .filter-btn:hover {
+      border-color: var(--omega); color: var(--omega);
+      transform: translateY(-2px); background: rgba(255,215,0,0.1);
+    }
+    .filter-btn--active {
+      background: linear-gradient(135deg, var(--omega), #ffb300);
+      color: #000; border-color: transparent;
+      box-shadow: 0 6px 14px rgba(255,215,0,0.3);
+    }
+
+    /* ══ GRID ══ */
+    .g3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    /* ══ TARJETAS ══ */
+    .pcard-full {
+      background: rgba(10,10,20,0.6); backdrop-filter: blur(12px);
+      border-radius: 28px; border: 1px solid rgba(255,255,255,0.08);
+      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      display: flex; flex-direction: column;
+    }
+    .pcard-full:hover {
+      transform: translateY(-8px) scale(1.02);
+      border-color: rgba(255,215,0,0.4);
+      box-shadow: 0 20px 35px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,215,0,0.2);
+    }
+    .pcard-full__media {
+      position: relative; min-height: 200px; background: #0a0a12;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; border-bottom: 2px solid rgba(255,215,0,0.15);
+    }
+    .program-video, .program-img {
+      width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease;
+    }
+    .pcard-full:hover .program-video,
+    .pcard-full:hover .program-img { transform: scale(1.05); }
+    .img-fallback {
+      width: 100%; min-height: 200px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 5rem; background: linear-gradient(135deg, #1a1a2a, #0f0f1a);
+    }
+    .free-badge {
+      position: absolute; top: 14px; right: 14px;
+      background: linear-gradient(135deg, var(--teal), #00b894);
+      color: #000; font-weight: 800; padding: 5px 12px;
+      border-radius: 40px; font-size: 0.68rem; letter-spacing: 1px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3); z-index: 2;
+    }
+    .pcard-full__body {
+      padding: 1.4rem 1.5rem 1.5rem; display: flex; flex-direction: column; gap: 0.75rem; flex: 1;
+    }
+    .pcard-full__chips { display: flex; gap: 6px; flex-wrap: wrap; }
+    .chip {
+      font-size: .68rem; font-weight: 700; padding: 3px 10px; border-radius: 20px;
+      background: rgba(255,215,0,.1); border: 1px solid rgba(255,215,0,.25);
+      color: var(--omega); text-transform: uppercase; letter-spacing: .5px;
+    }
+    .chip--teal {
+      background: rgba(0,229,192,.1); border-color: rgba(0,229,192,.25); color: var(--teal);
+    }
+    .pcard-full__title { font-size: 1.25rem; font-weight: 700; margin: 0; line-height: 1.3; color: #fff; }
+    .pcard-full__desc { font-size: 0.84rem; color: #bbb; line-height: 1.5; }
+
+    /* ── Rating ── */
+    .pcard-full__rating { font-size: .8rem; color: #ffb300; }
+
+    /* ── Features ── */
+    .pcard-full__features { display: flex; flex-direction: column; gap: 4px; }
+    .pcard-full__features strong { font-size: .76rem; color: var(--fg-muted); margin-bottom: 2px; display: block; }
+    .feature-badge {
+      font-size: .75rem; color: #ccc;
+      background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07);
+      border-radius: 8px; padding: 4px 10px;
+    }
+
+    /* ── Pie de tarjeta ── */
+    .pcard-full__footer {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: auto; padding-top: .75rem;
+      border-top: 1px solid rgba(255,255,255,.07);
+      flex-wrap: wrap; gap: 10px;
+    }
+    .pcard-full__price { font-size: 1.4rem; font-weight: 800; color: var(--omega); }
+    .pcard-full__price small { font-size: 0.7rem; font-weight: normal; color: #aaa; display: block; }
+    .pcard-full__actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    /* ── Botón Ver Video (unificado) ── */
+    .btn--video {
+      background: linear-gradient(135deg, #a855f7, #7c3aed);
+      border: none; padding: 9px 18px; border-radius: 40px;
+      font-weight: 700; font-size: 0.8rem; color: #fff;
+      cursor: pointer; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 6px;
+      transition: 0.2s;
+    }
+    .btn--video:hover { transform: scale(1.05); box-shadow: 0 6px 16px rgba(168,85,247,0.45); }
+
+    /* ── Separador ── */
+    .separator-gratis {
+      grid-column: 1/-1; display: flex; justify-content: center; margin: 2rem 0 1rem;
+    }
+    .separator-gratis span {
+      background: rgba(0,229,192,0.15); backdrop-filter: blur(8px);
+      padding: 0.6rem 2rem; border-radius: 60px; font-weight: 700;
+      color: var(--teal); border: 1px solid rgba(0,229,192,0.3); font-size: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .page-hero h1 { font-size: 2.2rem; }
+      .filter-btn { padding: 6px 14px; font-size: 0.8rem; }
+      .pcard-full__title { font-size: 1.1rem; }
+      .pcard-full__price { font-size: 1.2rem; }
+      .g3 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="page-loader">
+  <span class="ldr-omega">Ω</span>
+  <div class="ldr-bar"><div class="ldr-bar__fill"></div></div>
+  <span class="ldr-txt">JLΩNIX · Cargando programas…</span>
+</div>
+
+<canvas id="canvas-bg"></canvas>
+<div id="tc"></div>
+
+<div class="layer">
+
+  <!-- ══ NAVBAR ══ -->
+  <nav class="navbar">
+    <a href="../index.html" class="navbar__brand">
+      <span class="navbar__logo">JL<span class="navbar__logo-omega">Ω</span>NIX</span>
+    </a>
+    <ul class="navbar__menu">
+      <li class="navbar__item"><a href="../index.html"   class="navbar__link"><span class="ni">🏠</span>Inicio</a></li>
+      <li class="navbar__item"><a href="programas.html"  class="navbar__link navbar__link--active"><span class="ni">💻</span>Programas</a></li>
+      <li class="navbar__item"><a href="catalogos.html"  class="navbar__link"><span class="ni">📂</span>Catálogos</a></li>
+      <li class="navbar__item"><a href="tienda.html"     class="navbar__link"><span class="ni">🛒</span>Tienda</a></li>
+      <li class="navbar__item"><a href="gratuitos.html"  class="navbar__link"><span class="ni">🎁</span>Gratuitos</a></li>
+      <li class="navbar__item"><a href="nosotros.html"   class="navbar__link"><span class="ni">⬡</span>Nosotros</a></li>
+    </ul>
+    <div class="navbar__right">
+      <a href="carrito.html" class="navbar__cart" aria-label="Carrito de compras">
+        🧺<span class="navbar__cart-count">0</span>
+      </a>
+      <button class="navbar__burger" onclick="toggleMenu()" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ══ HERO ══ -->
+  <section class="page-hero sec ctr">
+    <div class="page-hero__badge a-fade"><span class="bdg bdg--top">💻 CATÁLOGO PROFESIONAL</span></div>
+    <h1 class="page-hero__title a-up d2">Nuestros <span class="grd-c">Programas</span></h1>
+    <p class="page-hero__sub a-up d3">Software especializado para ingeniería estructural, hidráulica, topografía, finanzas y gestión.</p>
+    <p class="a-up d4" style="margin-top:var(--sp-3);font-size:.85rem;color:var(--fg-muted)">
+      💻 <strong id="count-paid" style="color:var(--omega)">—</strong> de pago &nbsp;·&nbsp;
+      🎁 <strong id="count-free" style="color:var(--teal)">—</strong> gratuitos
+    </p>
+  </section>
+
+  <!-- ══ FILTROS ══ -->
+  <div class="sec ctr-lg">
+    <div class="filter-bar" id="filter-bar">
+      <button class="filter-btn filter-btn--active" data-filter="all">🔎 Todos</button>
+      <button class="filter-btn" data-filter="pago">💳 De pago</button>
+      <button class="filter-btn" data-filter="gratis">🎁 Gratuitos</button>
+      <button class="filter-btn" data-filter="estructural">📐 Estructural</button>
+      <button class="filter-btn" data-filter="hidraulica">💧 Hidráulica</button>
+      <button class="filter-btn" data-filter="topografia">🗺️ Topografía</button>
+      <button class="filter-btn" data-filter="finanzas">📈 Finanzas</button>
+      <button class="filter-btn" data-filter="gestion">🗂️ Gestión</button>
+      <button class="filter-btn" data-filter="electrico">⚡ Eléctrico</button>
+    </div>
+  </div>
+
+  <!-- ══ GRID ══ -->
+  <section class="sec ctr-lg">
+    <div class="g3" id="programs-grid"></div>
+  </section>
+
+  <!-- ══ FOOTER ══ -->
+  <footer class="footer">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <span class="footer__brand-logo">JL<span class="omega">Ω</span>NIX</span>
+        <p>Software profesional para ingeniería, cálculo y gestión.</p>
+        <div class="footer__social">
+          <a href="https://wa.me/59174012527" class="footer__social-link" target="_blank">💬</a>
+          <a href="https://tiktok.com/@jlonix1" class="footer__social-link" target="_blank">🎵</a>
+          <a href="mailto:yujracolquejoseleandro2@gmail.com" class="footer__social-link">📧</a>
+        </div>
+      </div>
+      <div class="footer__col"><h4>Productos</h4><ul>
+        <li><a href="programas.html">Programas</a></li>
+        <li><a href="tienda.html">Tienda</a></li>
+        <li><a href="gratuitos.html">Gratuitos</a></li>
+        <li><a href="catalogos.html">Catálogos</a></li>
+      </ul></div>
+      <div class="footer__col"><h4>Empresa</h4><ul>
+        <li><a href="nosotros.html">Nosotros</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li><a href="carrito.html">Mi Carrito</a></li>
+      </ul></div>
+      <div class="footer__col"><h4>Legal</h4><ul>
+        <li><a href="privacidad.html">Privacidad</a></li>
+        <li><a href="terminos.html">Términos</a></li>
+        <li><a href="licencias.html">Licencias</a></li>
+      </ul></div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 JL<span style="color:var(--omega)">Ω</span>NIX. Todos los derechos reservados.</span>
+      <div class="footer__legal">
+        <a href="privacidad.html">Privacidad</a><a href="terminos.html">Términos</a>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<!--
+  ══════════════════════════════════════════════════════
+  data-programas.js PRIMERO (contiene JLONIX_ITEMS)
+  ══════════════════════════════════════════════════════
+-->
+<script src="../assets/js/data-programas.js"></script>
+<script src="../assets/js/core/EventBus.js"></script>
+<script src="../assets/js/modules/UI.js"></script>
+<script src="../assets/js/core/Canvas.js"></script>
+<script src="../assets/js/core/App.js"></script>
+
+<script>
+'use strict';
+
+/* ── Menú hamburguesa ── */
+window.toggleMenu = function() {
+  document.querySelector('.navbar__menu')?.classList.toggle('open');
+  document.querySelector('.navbar__burger')?.classList.toggle('open');
+};
+
+/* ============================================================
+   Función unificada para obtener el video URL (del archivo data)
+   ============================================================ */
+function getVideoUrl(item) {
+  // Prioridad: videoUrl (si existe), luego video (ruta local)
+  if (item.videoUrl && item.videoUrl.trim() !== '') return item.videoUrl;
+  if (item.video && item.video.trim() !== '') return item.video;
+  return null;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TARJETA DE PROGRAMA DE PAGO
+   — Con botón "▶ Ver Video" (abre el video en nueva pestaña)
+   ═══════════════════════════════════════════════════════════ */
+function buildPaidCard(p, idx) {
+  const delay = ['', ' d1', ' d2'][idx % 3];
+  const badgeHtml = p.badge
+    ? `<span class="bdg bdg--${p.badgeType || 'gold'} pcard-full__badge">${p.badge}</span>`
+    : '';
+
+  let mediaHtml = '';
+  if (p.imagen) {
+    mediaHtml = `
+      <img src="${p.imagen}" alt="${p.nombre}" class="program-img" loading="lazy"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="img-fallback" style="display:none"><span>${p.ico}</span></div>`;
+  } else {
+    mediaHtml = `<div class="img-fallback"><span>${p.ico}</span></div>`;
+  }
+
+  const rat   = p.rating || 0;
+  const stars = '★'.repeat(Math.floor(rat)) + '☆'.repeat(5 - Math.floor(rat));
+  const feats = (p.features || []).slice(0, 3)
+    .map(f => `<span class="feature-badge">⚡ ${f}</span>`).join('');
+
+  const videoUrl = getVideoUrl(p);
+  const videoBtnHtml = videoUrl
+    ? `<a class="btn btn--video" href="${videoUrl}" target="_blank" rel="noopener noreferrer">▶ Ver Video</a>`
+    : '';
+
+  const el = document.createElement('div');
+  el.className = `glass pcard-full reveal${delay}`;
+  el.dataset.cat  = p.categoria;
+  el.dataset.tipo = 'pago';
+  el.innerHTML = `
+    <div class="pcard-full__media">
+      ${mediaHtml}
+      ${badgeHtml}
+    </div>
+    <div class="pcard-full__body">
+      <div class="pcard-full__chips">
+        <span class="chip">${(p.categoria || '').toUpperCase()}</span>
+        <span class="chip">${p.version || ''}</span>
+      </div>
+      <h3 class="pcard-full__title">${escapeHtml(p.nombre)}</h3>
+      <p class="pcard-full__desc">${escapeHtml(p.desc)}</p>
+      <div class="pcard-full__rating">
+        <span>${stars}</span> ${rat} <span style="color:var(--fg-muted)">(${p.reviews || 0} reseñas)</span>
+      </div>
+      ${feats ? `<div class="pcard-full__features">
+        <strong>⚡ Características:</strong>${feats}
+      </div>` : ''}
+      <div class="pcard-full__footer">
+        <div>
+          <span class="pcard-full__price">Bs ${(p.precioBs || 0).toLocaleString('es-BO')}</span>
+          <small>≈ $${p.precioUSD || 0} USD</small>
+        </div>
+        <div class="pcard-full__actions">
+          ${videoBtnHtml}
+        </div>
+      </div>
+    </div>`;
+  return el;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TARJETA DE PROGRAMA GRATUITO
+   — MISMA ESTRUCTURA: SOLO botón "▶ Ver Video"
+   — NO hay botón de descarga
+   ═══════════════════════════════════════════════════════════ */
+function buildFreeCard(p, idx) {
+  const delay = ['', ' d1', ' d2'][idx % 3];
+
+  let mediaHtml = '';
+  if (p.imagen) {
+    mediaHtml = `
+      <img src="${p.imagen}" alt="${p.nombre}" class="program-img" loading="lazy"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="img-fallback" style="display:none"><span>${p.ico}</span></div>`;
+  } else {
+    mediaHtml = `<div class="img-fallback"><span>${p.ico}</span></div>`;
+  }
+
+  const feats = (p.features || []).slice(0, 2)
+    .map(f => `<span class="feature-badge">✅ ${f}</span>`).join('');
+
+  const videoUrl = getVideoUrl(p);
+  const videoBtnHtml = videoUrl
+    ? `<a class="btn btn--video" href="${videoUrl}" target="_blank" rel="noopener noreferrer">▶ Ver Video</a>`
+    : '<span style="font-size:0.7rem;color:#666">🎬 Video no disponible</span>';
+
+  const el = document.createElement('div');
+  el.className = `glass pcard-full reveal${delay}`;
+  el.dataset.cat  = p.categoria;
+  el.dataset.tipo = 'gratis';
+  el.innerHTML = `
+    <div class="pcard-full__media" style="background:${p.icoColor || 'rgba(0,229,192,.06)'}">
+      ${mediaHtml}
+      <span class="free-badge">GRATIS</span>
+    </div>
+    <div class="pcard-full__body">
+      <div class="pcard-full__chips">
+        <span class="chip chip--teal">Gratuito</span>
+        <span class="chip">${p.version || ''}</span>
+      </div>
+      <h3 class="pcard-full__title">${escapeHtml(p.nombre)}</h3>
+      <p class="pcard-full__desc">${escapeHtml(p.desc)}</p>
+      ${feats ? `<div class="pcard-full__features">
+        <strong>✨ Incluye:</strong>${feats}
+      </div>` : ''}
+      <div class="pcard-full__footer">
+        <div>
+          <span class="pcard-full__price" style="color:var(--teal)">$0.00</span>
+          <small>${p.plataforma || ''}</small>
+        </div>
+        <div class="pcard-full__actions">
+          ${videoBtnHtml}
+        </div>
+      </div>
+    </div>`;
+  return el;
+}
+
+/* Función auxiliar para escapar HTML (seguridad) */
+function escapeHtml(str) {
+  if (!str) return '';
+  return str.replace(/[&<>]/g, function(m) {
+    if (m === '&') return '&amp;';
+    if (m === '<') return '&lt;';
+    if (m === '>') return '&gt;';
+    return m;
+  }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
+    return c;
+  });
+}
+
+/* ══ INICIALIZACIÓN ══ */
+document.addEventListener('DOMContentLoaded', () => {
+  const grid = document.getElementById('programs-grid');
+  if (!grid) return;
+
+  /* Verificar que data-programas.js se cargó correctamente */
+  if (typeof JLONIX_ITEMS === 'undefined') {
+    console.error('❌ JLONIX_ITEMS no definido — verifica data-programas.js');
+    grid.innerHTML = '<p style="color:#f66;text-align:center;padding:2rem">❌ Error al cargar los datos.</p>';
+    return;
+  }
+
+  const paidItems = JLONIX_ITEMS.filter(i => i.type === 'paid');
+  const freeItems = JLONIX_ITEMS.filter(i => i.type === 'free');
+  console.log(`💳 Pago: ${paidItems.length} | 🎁 Gratis: ${freeItems.length}`);
+
+  /* Contadores del hero */
+  const elPaid = document.getElementById('count-paid');
+  const elFree = document.getElementById('count-free');
+  if (elPaid) elPaid.textContent = paidItems.length;
+  if (elFree) elFree.textContent = freeItems.length;
+
+  /* Renderizar grid completo: primero los de pago, luego separador, luego gratuitos */
+  grid.innerHTML = '';
+  paidItems.forEach((p, i) => grid.appendChild(buildPaidCard(p, i)));
+
+  if (freeItems.length > 0) {
+    const sep = document.createElement('div');
+    sep.className = 'separator-gratis';
+    sep.innerHTML = '<span>🎁 PROGRAMAS GRATUITOS</span>';
+    grid.appendChild(sep);
+    freeItems.forEach((p, i) => grid.appendChild(buildFreeCard(p, i)));
+  }
+
+  /* Actualizar contador del carrito (si existe función global) */
+  if (typeof JLONIX !== 'undefined' && JLONIX.updateCartCounter) {
+    JLONIX.updateCartCounter();
+  } else {
+    /* Fallback: intentar actualizar desde localStorage */
+    try {
+      const cart = JSON.parse(localStorage.getItem('jlonix_cart') || '[]');
+      const total = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+      const counterSpan = document.querySelector('.navbar__cart-count');
+      if (counterSpan) counterSpan.textContent = total;
+    } catch(e) { /* silencio */ }
+  }
+
+  /* ══ SISTEMA DE FILTROS ══ */
+  const btns = document.querySelectorAll('.filter-btn');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btns.forEach(b => b.classList.remove('filter-btn--active'));
+      btn.classList.add('filter-btn--active');
+      const filterValue = btn.dataset.filter;
+
+      const allCards = document.querySelectorAll('#programs-grid .pcard-full');
+      const separator = document.querySelector('.separator-gratis');
+
+      allCards.forEach(card => {
+        const cat  = card.dataset.cat;
+        const tipo = card.dataset.tipo;
+        let show = false;
+
+        switch (filterValue) {
+          case 'all':
+            show = true;
+            break;
+          case 'pago':
+            show = (tipo === 'pago');
+            break;
+          case 'gratis':
+            show = (tipo === 'gratis');
+            break;
+          default:
+            /* filtrar por categoría (estructural, hidraulica, etc.) */
+            show = (cat === filterValue);
+            break;
+        }
+        card.style.display = show ? '' : 'none';
+      });
+
+      /* Ocultar/mostrar separador según filtro */
+      if (separator) {
+        if (filterValue === 'pago') {
+          separator.style.display = 'none';
+        } else if (filterValue === 'gratis') {
+          separator.style.display = '';
+          /* Si solo mostramos gratis, asegurar que el separador sea visible */
+          separator.style.display = 'flex';
+        } else {
+          separator.style.display = '';
+        }
+      }
+    });
+  });
+});
+</script>
+</body>
+</html>
