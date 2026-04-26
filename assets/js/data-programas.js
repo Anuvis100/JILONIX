@@ -70,7 +70,7 @@ const JLONIX_ITEMS = [
       precioUSD: 8,
       imagen: "assets/img/GEO_02/GEO_02.png",
       // 🔥 VIDEO CORREGIDO (modo embed)
-      video: "https://drive.google.com/file/d/1x4BtldVvPC8cNs0SQFFfQoP4uGU9v0Gc/preview",
+      video: 'https://drive.google.com/file/d/1YuT2k6UzOMF5ZV9xmgytQMkpc1itTLa2/view?usp=sharing',
       poster: "assets/img/GEO_02/GEO_02_1.png",
       badge: "📐 INGENIERÍA VIAL",
       badgeType: "blue",
