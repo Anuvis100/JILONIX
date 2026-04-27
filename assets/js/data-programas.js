@@ -22,9 +22,15 @@ const JLONIX_ITEMS = [
       precioBs: 60,
       precioUSD: 8,
       imagen: "assets/img/GEO_01/GEO_01.png",
+
       // 🔥 CAMBIO AQUÍ
+
       video: 'https://drive.google.com/file/d/1x4BtldVvPC8cNs0SQFFfQoP4uGU9v0Gc/preview',
-      poster: 'assets/img/GEO_01/GEO_01_1.png',
+
+      poster: "../assets/img/GEO_01/GEO_01_1.png",
+
+
+
       badge: '⭐ TOP VENTAS',
       badgeType: 'gold',
       features: [
@@ -51,12 +57,12 @@ const JLONIX_ITEMS = [
       hasCatalog: true,
       catalogTitle: 'GEO_01 - Catálogo de Funcionamiento',
       catalogDesc: 'Catálogo detallado del programa de Diseño Geométrico de Carreteras - Alineamiento Horizontal. Incluye descripción de 5 módulos de cálculo, fórmulas completas (poligonal, espirales, tangentes, progresivas, replanteo por deflexiones), verificación numérica manual, tablas de resultados y espacios para verificación académica con capturas. Referencia: Cárdenas Grisales - Diseño Geométrico de Vías.',
-      catalogImage: 'assets/img/programas/GEO_01_CATALOGO.png',
+      catalogImage: "../assets/img/GEO_01/GEO_01_CATALOGO.png",
       catalogUrl: 'https://drive.google.com/file/d/1G_KY-ZaCyTF1xvkYoZOEFAqTh-l39mQJ/preview', // Reemplazar con ID real
       catalogSize: '18 MB',
       catalogPages: 25,
       catalogDate: 'Febrero 2026'
-     },
+    },
 
     {
       type: "paid",
@@ -70,7 +76,9 @@ const JLONIX_ITEMS = [
       precioBs: 60,
       precioUSD: 8,
       imagen: "assets/img/GEO_02/GEO_02.png",
+
       // 🔥 VIDEO CORREGIDO (modo embed)
+
       video: "https://drive.google.com/file/d/1YuT2k6UzOMF5ZV9xmgytQMkpc1itTLa2/preview",
       poster: "assets/img/GEO_02/GEO_02_1.png",
       badge: "📐 INGENIERÍA VIAL",
@@ -94,7 +102,7 @@ const JLONIX_ITEMS = [
       hasCatalog: true,
       catalogTitle: "GEO_02 – Catálogo de Funcionamiento Detallado",
       catalogDesc: "Alineamiento Vertical – v3.0. 18 páginas con descripción de módulos, fórmulas fundamentales, ejercicio completo resuelto con datos reales GEO-02, resumen de fórmulas y verificación académica.",
-      catalogImage: "assets/img/GEO_02/GEO_02_CATALOGO.png",
+      catalogImage: "../assets/img/GEO_02/GEO_02_CATALOGO.png",
       catalogUrl: "https://drive.google.com/file/d/1PAHZSVbvD7N93cjj3nnYjA9XsLV4erYK/preview", // Reemplazar con ID real
       catalogSize: "N/A",
       catalogPages: 18,
