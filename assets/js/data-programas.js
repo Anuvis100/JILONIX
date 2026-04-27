@@ -21,6 +21,7 @@ const JLONIX_ITEMS = [
       desc: 'Programa para calculadora TI-Nspire CX que automatiza el cálculo completo del alineamiento horizontal de carreteras, siguiendo la metodología de Cárdenas Grisales (Diseño Geométrico de Vías). Abarca desde coordenadas de PI hasta generación de cartera de replanteo por deflexiones.',
       precioBs: 60,
       precioUSD: 8,
+      imagen: "assets/img/GEO_01/GEO_01.png",
       // 🔥 CAMBIO AQUÍ
       video: 'https://drive.google.com/file/d/1x4BtldVvPC8cNs0SQFFfQoP4uGU9v0Gc/preview',
       poster: 'assets/img/GEO_01/GEO_01_1.png',
