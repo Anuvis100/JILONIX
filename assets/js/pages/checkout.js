@@ -592,34 +592,104 @@
         
         const btnWapp = document.getElementById('btn-wapp-final');
         if (btnWapp) {
-            const telefono = document.getElementById('telefono')?.value || '59174012527';
-            const mensaje = `Hola, mi pedido es ${order.pedidoId} y ya realicé el pago. Adjunto comprobante.`;
+            const telefono = '59174012527';
+            const mensaje = `Estimado equipo de JLΩNIX,
+
+        Adjunto comprobante de pago correspondiente al pedido N° ${order.pedidoId}.
+
+        Cliente: ${order.nombre}
+        Método de pago: ${order.metodo}
+        Monto total: Bs ${order.total.toFixed(2)}
+
+        Quedo atento a la activación de mi licencia.
+
+        Saludos cordiales.`;
             const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
             btnWapp.onclick = () => window.open(url, '_blank');
         }
     }
 
-    // --- RELOJ EN TIEMPO REAL ---
-    function updateRegisterClock() {
-        const clockSpan = document.getElementById('fecha-registro');
-        if (!clockSpan) return;
-        const update = () => {
-            const now = new Date();
-            const formatted = now.toLocaleString('es-BO', { timeZone: 'America/La_Paz', dateStyle: 'full', timeStyle: 'short' });
-            clockSpan.innerHTML = `📅 ${formatted}`;
-        };
-        update();
-        setInterval(update, 60000);
+// ─────────────────────────────────────────────────────────────
+// RELOJ EN TIEMPO REAL (formato profesional)
+// ─────────────────────────────────────────────────────────────
+function updateRegisterClock() {
+    const clockSpan = document.getElementById('fecha-registro');
+    if (!clockSpan) {
+        console.warn('[Clock] Elemento #fecha-registro no encontrado');
+        return;
     }
 
-    // --- ESCAPA HTML ---
+    // Usamos Intl.DateTimeFormat para mejor control y rendimiento
+    const formatter = new Intl.DateTimeFormat('es-BO', {
+        timeZone: 'America/La_Paz',
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+    });
+
+    const updateClock = () => {
+        try {
+            const now = new Date();
+            const formattedDate = formatter.format(now);
+            // Capitalizar primera letra del día y mes (opcional)
+            const capitalized = formattedDate.replace(/^\w/, (c) => c.toUpperCase());
+            clockSpan.textContent = `📅 ${capitalized}`;
+        } catch (error) {
+            console.error('[Clock] Error al formatear fecha:', error);
+            clockSpan.textContent = '📅 Fecha no disponible';
+        }
+    };
+
+    // Actualización inmediata
+    updateClock();
+    // Sincronizar cada minuto (evita sobrecarga)
+    const intervalId = setInterval(updateClock, 60000);
+    
+    // Limpieza opcional si el componente se destruye (se puede extender)
+    // Para una app SPA se podría guardar el ID y limpiar en un evento de descarga
+    window.addEventListener('beforeunload', () => clearInterval(intervalId));
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // ESCAPADO DE HTML (versión robusta y segura)
+    // ─────────────────────────────────────────────────────────────
+    function escapeHtml(str) {
+        if (typeof str !== 'string') {
+            // Si no es string, lo convertimos a string vacío o representación segura
+            str = String(str ?? '');
+        }
+        if (str === '') return '';
+
+        // Mapeo de caracteres peligrosos (más completo que solo & < >)
+        const escapeMap = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;',
+            '/': '&#x2F;',
+            '`': '&#x60;',
+            '=': '&#x3D;'
+        };
+        
+        // Expresión regular que captura todos los caracteres del mapa
+        const regex = /[&<>"'/`=]/g;
+        
+        return str.replace(regex, (match) => escapeMap[match]);
+    }
+
+    // Alternativa aún más segura (usando DOM) - descomentar si se prefiere
+    /*
     function escapeHtml(str) {
         if (!str) return '';
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
-        });
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
     }
+    */
 })();
