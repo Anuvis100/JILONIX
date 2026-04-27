@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="JLΩNIX — Software gratuito para ingeniería"/>
+  <meta name="theme-color" content="#ffd700"/>
+  <link rel="manifest" href="../manifest.json"/>
+  <title>JLΩNIX | Gratuitos</title>
+
+  <link rel="stylesheet" href="../assets/css/tokens/colors.css"/>
+  <link rel="stylesheet" href="../assets/css/tokens/spacing.css"/>
+  <link rel="stylesheet" href="../assets/css/tokens/typography.css"/>
+  <link rel="stylesheet" href="../assets/css/tokens/effects.css"/>
+  <link rel="stylesheet" href="../assets/css/base/reset.css"/>
+  <link rel="stylesheet" href="../assets/css/base/animations.css"/>
+  <link rel="stylesheet" href="../assets/css/layout/grid.css"/>
+  <link rel="stylesheet" href="../assets/css/layout/navbar.css"/>
+  <link rel="stylesheet" href="../assets/css/layout/footer.css"/>
+  <link rel="stylesheet" href="../assets/css/components/buttons.css"/>
+  <link rel="stylesheet" href="../assets/css/components/cards.css"/>
+  <link rel="stylesheet" href="../assets/css/components/badges.css"/>
+  <link rel="stylesheet" href="../assets/css/components/toast.css"/>
+  <link rel="stylesheet" href="../assets/css/components/loader.css"/>
+  <link rel="stylesheet" href="../assets/css/pages/store.css"/>
+  <link rel="stylesheet" href="../assets/css/utils/helpers.css"/>
+  <link rel="stylesheet" href="../assets/css/utils/responsive.css"/>
+
+  <style>
+    .free-card {
+      border-radius:20px; overflow:hidden; position:relative;
+      transition:transform .3s cubic-bezier(.4,0,.2,1), box-shadow .3s;
+      border:1px solid rgba(255,255,255,.07); display:flex; flex-direction:column;
+    }
+    .free-card::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:3px;
+      background:linear-gradient(90deg,var(--omega),var(--cyan),var(--teal));
+      opacity:0; transition:opacity .3s; z-index:1;
+    }
+    .free-card:hover { transform:translateY(-6px); box-shadow:0 20px 60px rgba(0,0,0,.4),0 0 0 1px rgba(255,215,0,.08); }
+    .free-card:hover::before { opacity:1; }
+
+    .free-card__media {
+      position:relative; width:100%; height:200px;
+      background:#0a0a12; overflow:hidden;
+    }
+    .free-card__media img {
+      width:100%; height:100%; object-fit:cover; display:block;
+      transition:transform .5s ease;
+    }
+    .free-card:hover .free-card__media img { transform:scale(1.05); }
+    .free-card__media-fallback {
+      width:100%; height:100%; display:flex; align-items:center;
+      justify-content:center; font-size:4rem;
+    }
+    .free-badge-abs {
+      position:absolute; top:12px; right:12px; font-size:.65rem; font-weight:800;
+      letter-spacing:.06em; color:#000;
+      background:linear-gradient(135deg,var(--omega),#ffb300);
+      padding:4px 10px; border-radius:20px; box-shadow:0 2px 12px rgba(255,215,0,.35);
+    }
+
+    .free-card__body { padding:var(--sp-5); display:flex; flex-direction:column; gap:var(--sp-4); flex:1; }
+    .free-card__header { display:flex; align-items:center; gap:var(--sp-3); }
+    .free-card__ico-wrap {
+      width:52px; height:52px; border-radius:14px; display:flex; align-items:center;
+      justify-content:center; font-size:1.7rem; flex-shrink:0;
+      border:1px solid rgba(255,255,255,.1); transition:transform .3s;
+    }
+    .free-card:hover .free-card__ico-wrap { transform:scale(1.08) rotate(-3deg); }
+    .free-card__info h3 { font-size:1rem; font-weight:700; margin-bottom:3px; }
+    .free-card__chip { font-size:.72rem; color:var(--fg-muted); }
+    .free-card__desc { font-size:.86rem; color:var(--fg-muted); line-height:1.65; border-left:2px solid rgba(255,215,0,.2); padding-left:var(--sp-3); }
+    .free-card__features { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+    .free-card__features span { font-size:.77rem; padding:5px 10px; border-radius:8px; background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.06); display:flex; align-items:center; gap:5px; }
+    .free-card__meta { font-size:.74rem; color:var(--fg-muted); display:flex; flex-wrap:wrap; gap:6px; }
+    .free-card__meta span { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.07); border-radius:8px; padding:3px 9px; display:inline-flex; align-items:center; gap:4px; }
+    .free-card__footer { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; padding-top:var(--sp-4); border-top:1px solid rgba(255,255,255,.07); }
+    .free-card__version { font-size:.75rem; color:var(--fg-muted); background:rgba(255,255,255,.04); padding:4px 10px; border-radius:6px; border:1px solid rgba(255,255,255,.08); }
+
+    .btn--cyan {
+      background:linear-gradient(135deg,var(--cyan),#0088aa); border:none;
+      padding:9px 18px; border-radius:40px; font-weight:700; font-size:.8rem;
+      color:#000; cursor:pointer; transition:all .2s;
+      display:inline-flex; align-items:center; gap:5px; text-decoration:none;
+    }
+    .btn--cyan:hover { transform:scale(1.05); box-shadow:0 6px 14px rgba(0,212,255,.4); }
+    .btn--details {
+      background:linear-gradient(135deg,#a855f7,#7c3aed); border:none;
+      padding:9px 18px; border-radius:40px; font-weight:700; font-size:.8rem;
+      color:#fff; cursor:pointer; transition:all .2s;
+      display:inline-flex; align-items:center; gap:5px;
+    }
+    .btn--details:hover { transform:scale(1.05); box-shadow:0 6px 14px rgba(168,85,247,0.4); }
+
+    .free-panel { display:flex; justify-content:center; gap:2rem; flex-wrap:wrap; margin-bottom:var(--sp-6); }
+    .free-panel__stat { background:rgba(0,229,192,0.07); border:1px solid rgba(0,229,192,0.2); border-radius:18px; padding:1rem 2rem; text-align:center; backdrop-filter:blur(8px); }
+    .free-panel__stat .stat-num   { font-size:2.4rem; font-weight:900; color:var(--teal); display:block; line-height:1; }
+    .free-panel__stat .stat-label { font-size:.75rem; color:var(--fg-muted); margin-top:4px; text-transform:uppercase; letter-spacing:1px; }
+
+    .grd-g { background:linear-gradient(135deg,var(--teal),#00e5ff); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    .grd-c { background:linear-gradient(135deg,var(--omega),#ffaa00); -webkit-background-clip:text; background-clip:text; color:transparent; }
+
+    .modal-detail {
+      position:fixed; top:0; left:0; width:100%; height:100%;
+      background:rgba(0,0,0,0.92); backdrop-filter:blur(14px);
+      z-index:10001; display:flex; align-items:center; justify-content:center;
+      visibility:hidden; opacity:0; transition:visibility .3s,opacity .3s;
+    }
+    .modal-detail.active { visibility:visible; opacity:1; }
+    .modal-detail__content {
+      background:linear-gradient(135deg,rgba(15,15,25,.98),rgba(10,10,20,.98));
+      border:1px solid rgba(0,229,192,.3); border-radius:28px;
+      max-width:560px; width:92%; max-height:88vh; overflow-y:auto;
+      animation:mdSlide .35s cubic-bezier(.2,.9,.4,1.1);
+    }
+    @keyframes mdSlide { from{transform:translateY(28px) scale(.96);opacity:0} to{transform:translateY(0) scale(1);opacity:1} }
+    .modal-detail__header {
+      display:flex; justify-content:space-between; align-items:center;
+      padding:1.2rem 1.5rem; border-bottom:1px solid rgba(0,229,192,.18);
+      background:rgba(0,0,0,.3); border-radius:28px 28px 0 0;
+      position:sticky; top:0; z-index:2;
+    }
+    .modal-detail__header h3 { color:#00e5c0; font-size:1.1rem; margin:0; display:flex; align-items:center; gap:8px; }
+    .modal-detail__close { background:rgba(255,255,255,.08); border:none; color:#fff; font-size:1.2rem; cursor:pointer; width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; transition:all .2s; }
+    .modal-detail__close:hover { background:rgba(239,68,68,.3); color:#ef4444; }
+    .modal-detail__body { padding:1.4rem; }
+    .modal-detail__media { width:100%; aspect-ratio:16/9; border-radius:16px; overflow:hidden; background:#0a0a12; margin-bottom:1rem; }
+    .modal-detail__media img { width:100%; height:100%; object-fit:cover; display:block; }
+    .modal-detail__price { font-size:1.5rem; font-weight:800; color:#00e5c0; margin-bottom:.8rem; text-align:center; }
+    .modal-detail__features { background:rgba(255,255,255,.04); border-radius:16px; padding:1rem; }
+    .modal-detail__features h4 { color:#00e5c0; font-size:.82rem; margin-bottom:.6rem; font-weight:700; }
+    .modal-detail__features ul { list-style:none; padding:0; margin:0; }
+    .modal-detail__features li { padding:7px 0; border-bottom:1px solid rgba(255,255,255,.05); display:flex; align-items:center; gap:10px; font-size:.83rem; color:#ccc; }
+    .modal-detail__features li:last-child { border-bottom:none; }
+    .modal-detail__features li::before { content:"✅"; flex-shrink:0; }
+    .modal-detail__reqs { display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-top:.8rem; }
+    .modal-req-item { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.07); border-radius:10px; padding:8px 10px; font-size:.78rem; color:#bbb; }
+    .modal-req-item strong { display:block; color:#00e5c0; font-size:.7rem; margin-bottom:2px; }
+    .modal-detail__footer { display:flex; gap:10px; margin-top:1.2rem; }
+    .btn--out-teal { background:transparent; border:2px solid #00e5c0; color:#00e5c0; padding:10px 24px; border-radius:40px; font-weight:700; cursor:pointer; transition:all .2s; flex:1; text-align:center; }
+    .btn--out-teal:hover { background:#00e5c0; color:#000; }
+
+    @media(max-width:768px){
+      .free-card__features { grid-template-columns:1fr; }
+      .modal-detail__reqs  { grid-template-columns:1fr; }
+    }
+  </style>
+
+  <script src="../assets/js/data-programas.js"></script>
+</head>
+<body>
+
+<div id="page-loader">
+  <span class="ldr-omega">Ω</span>
+  <div class="ldr-bar"><div class="ldr-bar__fill"></div></div>
+  <span class="ldr-txt">JLΩNIX · Cargando…</span>
+</div>
+
+<canvas id="canvas-bg"></canvas>
+<div id="tc"></div>
+
+<div class="layer">
+
+  <nav class="navbar">
+    <a href="../index.html" class="navbar__brand">
+      <span class="navbar__logo">JL<span class="navbar__logo-omega">Ω</span>NIX</span>
+    </a>
+    <ul class="navbar__menu">
+      <li class="navbar__item"><a href="../index.html"  class="navbar__link"><span class="ni">🏠</span>Inicio</a></li>
+      <li class="navbar__item"><a href="programas.html" class="navbar__link"><span class="ni">💻</span>Programas</a></li>
+      <li class="navbar__item"><a href="catalogos.html" class="navbar__link"><span class="ni">📂</span>Catálogos</a></li>
+      <li class="navbar__item"><a href="tienda.html"    class="navbar__link"><span class="ni">🛒</span>Tienda</a></li>
+      <li class="navbar__item"><a href="gratuitos.html" class="navbar__link navbar__link--active"><span class="ni">🎁</span>Gratuitos</a></li>
+      <li class="navbar__item"><a href="nosotros.html"  class="navbar__link"><span class="ni">⬡</span>Nosotros</a></li>
+    </ul>
+    <div class="navbar__right">
+      <a href="carrito.html" class="navbar__cart" aria-label="Carrito">
+        🧺<span class="navbar__cart-count">0</span>
+      </a>
+      <button class="navbar__burger" onclick="toggleMenu()" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <section class="page-hero sec ctr">
+    <div class="page-hero__badge a-fade"><span class="bdg bdg--g">🎁 100% GRATUITO</span></div>
+    <h1 class="page-hero__title a-up d2">Software <span class="grd-g">Sin Costo</span></h1>
+    <p class="page-hero__sub a-up d3">Herramientas de ingeniería gratuitas para estudiantes y profesionales. Descarga directa, sin registro.</p>
+  </section>
+
+  <section class="sec ctr">
+    <div class="free-panel" id="free-panel"></div>
+  </section>
+
+  <section class="sec ctr-lg">
+    <h2 class="sec-title reveal">Todas las <span class="grd-c">herramientas</span></h2>
+    <div class="g3" id="free-grid" style="margin-top:var(--sp-6)"></div>
+  </section>
+
+  <section class="sec ctr-sm">
+    <div class="glass cta reveal">
+      <h2>¿Necesitas más <span class="grd-c">potencia</span>?</h2>
+      <p>Desbloquea todas las funciones con una licencia Pro. Soporte técnico incluido.</p>
+      <div class="fx-c gap-4 fx-wrap">
+        <a href="tienda.html"    class="btn btn--omega btn--xl">🛒 Ver precios Pro</a>
+        <a href="programas.html" class="btn btn--out-c btn--xl">💻 Ver todos los programas</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <span class="footer__brand-logo">JL<span class="omega">Ω</span>NIX</span>
+        <p>Software profesional para ingeniería, cálculo y gestión.</p>
+        <div class="footer__social">
+          <a href="https://wa.me/59174012527" class="footer__social-link" target="_blank">💬</a>
+          <a href="https://tiktok.com/@jlonix1" class="footer__social-link" target="_blank">🎵</a>
+          <a href="mailto:yujracolquejoseleandro2@gmail.com" class="footer__social-link">📧</a>
+        </div>
+      </div>
+      <div class="footer__col"><h4>Productos</h4><ul>
+        <li><a href="programas.html">Programas</a></li>
+        <li><a href="tienda.html">Tienda</a></li>
+        <li><a href="gratuitos.html">Gratuitos</a></li>
+        <li><a href="catalogos.html">Catálogos</a></li>
+      </ul></div>
+      <div class="footer__col"><h4>Empresa</h4><ul>
+        <li><a href="nosotros.html">Nosotros</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li><a href="carrito.html">Mi Carrito</a></li>
+      </ul></div>
+      <div class="footer__col"><h4>Legal</h4><ul>
+        <li><a href="privacidad.html">Privacidad</a></li>
+        <li><a href="terminos.html">Términos</a></li>
+        <li><a href="licencias.html">Licencias</a></li>
+      </ul></div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 JL<span style="color:var(--omega)">Ω</span>NIX. Todos los derechos reservados.</span>
+      <div class="footer__legal">
+        <a href="privacidad.html">Privacidad</a><a href="terminos.html">Términos</a>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<div id="detailModal" class="modal-detail">
+  <div class="modal-detail__content">
+    <div class="modal-detail__header">
+      <h3><span id="modal-icon">🎁</span> <span id="modal-title">Detalles del programa</span></h3>
+      <button class="modal-detail__close" onclick="closeDetailModal()">✕</button>
+    </div>
+    <div class="modal-detail__body">
+      <div class="modal-detail__media" id="modal-media"></div>
+      <div class="modal-detail__price" id="modal-price"></div>
+      <div class="modal-detail__features" id="modal-features"></div>
+      <div id="modal-reqs-section" style="display:none;margin-top:1rem">
+        <h4 style="color:#00e5c0;font-size:.82rem;margin-bottom:.5rem">💻 Requisitos del sistema</h4>
+        <div class="modal-detail__reqs" id="modal-reqs"></div>
+      </div>
+      <div class="modal-detail__footer">
+        <button class="btn--out-teal" onclick="closeDetailModal()">✕ Cerrar</button>
+      </div>
+      <div style="text-align:center;margin-top:.8rem;font-size:.7rem">
+        <div id="modal-version" style="color:#aaa"></div>
+        <div id="modal-creator" style="color:#00e5c0;margin-top:3px"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../assets/js/core/EventBus.js"></script>
+
+<script src="../assets/js/modules/Cart.js"></script>
+<script src="../assets/js/core/Canvas.js"></script>
+<script src="../assets/js/core/App.js"></script>
+<script src="../assets/js/modules/UI.js"></script>
+<script>
+'use strict';
+
+window.toggleMenu = function() {
+  document.querySelector('.navbar__menu')?.classList.toggle('open');
+  document.querySelector('.navbar__burger')?.classList.toggle('open');
+};
+
+function esc(str) {
+  if (!str) return '';
+  return String(str).replace(/[&<>"']/g, m =>
+    ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])
+  );
+}
+
+/* ══ MODAL ══ */
+function openDetailModal(program) {
+  const modal         = document.getElementById('detailModal');
+  const modalIcon     = document.getElementById('modal-icon');
+  const modalTitle    = document.getElementById('modal-title');
+  const modalMedia    = document.getElementById('modal-media');
+  const modalPrice    = document.getElementById('modal-price');
+  const modalFeatures = document.getElementById('modal-features');
+  const modalVersion  = document.getElementById('modal-version');
+  const modalCreator  = document.getElementById('modal-creator');
+  const modalReqsSec  = document.getElementById('modal-reqs-section');
+  const modalReqs     = document.getElementById('modal-reqs');
+
+  modalIcon.textContent  = program.ico || '🎁';
+  modalTitle.textContent = program.nombre;
+
+  if (program.imagen) {
+    modalMedia.innerHTML = `<img src="${program.imagen}" alt="${esc(program.nombre)}"
+      onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<div style=\\'height:100%;display:flex;align-items:center;justify-content:center;font-size:4rem;\\'>${program.ico}</div>')" />`;
+  } else {
+    modalMedia.innerHTML = `<div style="height:100%;display:flex;align-items:center;justify-content:center;font-size:4rem">${program.ico}</div>`;
+  }
+
+  modalPrice.innerHTML = `<span style="color:#00e5c0">GRATUITO</span> <small style="color:#aaa">· Sin costo</small>`;
+
+  const features = program.features || [];
+  modalFeatures.innerHTML = features.length
+    ? `<h4>✅ Características del programa</h4><ul>${features.map(f=>`<li>${esc(f)}</li>`).join('')}</ul>`
+    : `<p style="color:#aaa;text-align:center;padding:.5rem">Sin características adicionales.</p>`;
+
+  const req = program.requirements || {};
+  if (req.os || req.ram || req.storage) {
+    modalReqsSec.style.display = '';
+    modalReqs.innerHTML = [
+      req.os      ? `<div class="modal-req-item"><strong>Sistema</strong>${esc(req.os)}</div>` : '',
+      req.ram     ? `<div class="modal-req-item"><strong>RAM</strong>${esc(req.ram)}</div>` : '',
+      req.storage ? `<div class="modal-req-item"><strong>Almacenamiento</strong>${esc(req.storage)}</div>` : ''
+    ].filter(Boolean).join('');
+  } else {
+    modalReqsSec.style.display = 'none';
+  }
+
+  modalVersion.textContent = `Versión: ${program.version || '1.0'}`;
+  modalCreator.textContent  = '👨‍💻 Creado por: José Leandro Yujra Colque (JLΩNIX)';
+
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDetailModal() {
+  document.getElementById('detailModal').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDetailModal(); });
+
+/* ══ PANEL RESUMEN ══ */
+function renderFreePanel(programs) {
+  const panel = document.getElementById('free-panel');
+  if (!panel) return;
+  const totalDownloads = programs.reduce((s, p) => s + (p.downloads || 0), 0);
+  panel.innerHTML = `
+    <div class="free-panel__stat">
+      <span class="stat-num">${programs.length}</span>
+      <span class="stat-label">🎁 Herramientas gratuitas</span>
+    </div>
+    <div class="free-panel__stat">
+      <span class="stat-num">${totalDownloads.toLocaleString('es-BO')}</span>
+      <span class="stat-label">⬇ Total de descargas</span>
+    </div>
+    <div class="free-panel__stat">
+      <span class="stat-num">$0</span>
+      <span class="stat-label">💰 Costo total</span>
+    </div>`;
+}
+
+/* ══ RENDER TARJETA — con botón Descargar y Detalles ══ */
+function renderFreeCard(p, idx) {
+  const delays = ['', ' d1', ' d2'];
+  const delay  = delays[idx % 3];
+
+
+
+  const imgSrc = p.poster || p.imagen;
+  const mediaHtml = imgSrc
+      ? `<img src="${imgSrc}" alt="${esc(p.nombre)}" loading="lazy"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+        <div class="free-card__media-fallback" style="display:none">${p.ico}</div>`
+      : `<div class="free-card__media-fallback">${p.ico}</div>`;
+
+
+
+  const featuresHtml = (p.features || []).slice(0, 4)
+    .map(f => `<span>✅ ${esc(f)}</span>`).join('');
+
+  const req     = p.requirements || {};
+  const metaHtml = [
+    req.os      ? `<span>💻 ${esc(req.os)}</span>` : '',
+    req.ram     ? `<span>🧠 ${esc(req.ram)}</span>` : '',
+    req.storage ? `<span>💾 ${esc(req.storage)}</span>` : '',
+    p.downloads ? `<span>⬇ ${Number(p.downloads).toLocaleString('es-BO')} descargas</span>` : ''
+  ].filter(Boolean).join('');
+
+  const pJson = JSON.stringify(p).replace(/'/g, "\\'").replace(/"/g, '&quot;');
+
+  const card = document.createElement('div');
+  card.className    = `glass free-card reveal${delay}`;
+  card.dataset.cat  = p.categoria;
+  card.dataset.tipo = 'gratis';
+  card.innerHTML = `
+    <div class="free-card__media" style="background:${p.icoColor || 'rgba(0,229,192,.06)'}">
+      ${mediaHtml}
+      <span class="free-badge-abs">GRATIS</span>
+    </div>
+    <div class="free-card__body">
+      <div class="free-card__header">
+        <div class="free-card__ico-wrap"
+             style="background:${esc(p.icoColor||'rgba(0,212,255,.08)')};
+                    border-color:${esc(p.icoBorder||'rgba(0,212,255,.18)')}">
+          ${p.ico}
+        </div>
+        <div class="free-card__info">
+          <h3>${esc(p.nombre)}</h3>
+          <span class="free-card__chip">${esc(p.plataforma || p.categoria)}</span>
+        </div>
+      </div>
+      <p class="free-card__desc">${esc(p.desc)}</p>
+      ${featuresHtml ? `<div class="free-card__features">${featuresHtml}</div>` : ''}
+      ${metaHtml     ? `<div class="free-card__meta">${metaHtml}</div>` : ''}
+      <div class="free-card__footer">
+        <span class="free-card__version">${esc(p.version)}</span>
+        <div class="free-card__actions" style="display:flex; gap:8px;">
+          <a href="${p.urlDescarga}" class="btn--cyan" download>⬇ Descargar</a>
+          <button class="btn--details" onclick="openDetailModal(JSON.parse(this.dataset.p))"
+            data-p="${pJson}">🔍 Detalles</button>
+        </div>
+      </div>
+    </div>`;
+  return card;
+}
+
+/* ══ INICIALIZAR ══ */
+document.addEventListener('DOMContentLoaded', () => {
+  const grid = document.getElementById('free-grid');
+  if (!grid) return;
+
+  if (typeof JLONIX === 'undefined' || !JLONIX.items) {
+    console.error('❌ JLONIX no está definido. Revisa data-programas.js');
+    grid.innerHTML = '<p style="text-align:center;color:#ff6b6b;padding:2rem">❌ Error: no se pudo cargar la base de datos.</p>';
+    return;
+  }
+
+  const freePrograms = JLONIX.items.filter(item => item.type === 'free');
+  console.log(`🎁 Programas gratuitos encontrados: ${freePrograms.length}`);
+
+  if (!freePrograms.length) {
+    grid.innerHTML = '<p style="text-align:center;color:#ffaa00;padding:2rem">⚠️ No hay programas gratuitos disponibles.</p>';
+    return;
+  }
+
+  renderFreePanel(freePrograms);
+  grid.innerHTML = '';
+  freePrograms.forEach((p, i) => grid.appendChild(renderFreeCard(p, i)));
+
+  if (JLONIX.updateCartCounter) JLONIX.updateCartCounter();
+});
+</script>
+</body>
+</html>

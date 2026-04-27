@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="JLΩNIX — Finalizar compra de software"/>
+  <meta name="theme-color" content="#ffd700"/>
+  <link rel="manifest" href="../manifest.json"/>
+  <title>JLΩNIX | Checkout</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+  <!-- ── Sistema CSS del sitio (mismas rutas que carrito.html) ── -->
+  <link rel="stylesheet" href="../assets/css/tokens/colors.css"/>
+  <link rel="stylesheet" href="../assets/css/tokens/spacing.css"/>
+  <link rel="stylesheet" href="../assets/css/tokens/typography.css"/>
+  <link rel="stylesheet" href="../assets/css/tokens/effects.css"/>
+  <link rel="stylesheet" href="../assets/css/base/reset.css"/>
+  <link rel="stylesheet" href="../assets/css/base/animations.css"/>
+  <link rel="stylesheet" href="../assets/css/layout/grid.css"/>
+  <link rel="stylesheet" href="../assets/css/layout/navbar.css"/>
+  <link rel="stylesheet" href="../assets/css/layout/footer.css"/>
+  <link rel="stylesheet" href="../assets/css/components/buttons.css"/>
+  <link rel="stylesheet" href="../assets/css/components/cards.css"/>
+  <link rel="stylesheet" href="../assets/css/components/badges.css"/>
+  <link rel="stylesheet" href="../assets/css/components/forms.css"/>
+  <link rel="stylesheet" href="../assets/css/components/toast.css"/>
+  <link rel="stylesheet" href="../assets/css/components/loader.css"/>
+  <link rel="stylesheet" href="../assets/css/pages/store.css"/>
+  <link rel="stylesheet" href="../assets/css/pages/checkout.css"/>
+  <link rel="stylesheet" href="../assets/css/utils/helpers.css"/>
+  <link rel="stylesheet" href="../assets/css/utils/responsive.css"/>
+
+  <style>
+    /* ══════════════════════════════════════════
+       TOKENS (idénticos a carrito.html)
+    ══════════════════════════════════════════ */
+    :root {
+      --gold: #ffd700;
+      --gold-dim: rgba(255,215,0,.15);
+      --gold-line: rgba(255,215,0,.2);
+      --teal: #00e5c0;
+      --teal-dim: rgba(0,229,192,.12);
+      --surface: rgba(12,12,20,.85);
+      --surface-2: rgba(20,20,32,.7);
+      --border: rgba(255,255,255,.07);
+      --border-gold: rgba(255,215,0,.22);
+      --fg: #f0f0f0;
+      --fg-muted: rgba(255,255,255,.45);
+      --font-head: 'Syne', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+      --radius-card: 20px;
+      --radius-pill: 100px;
+      --shadow-gold: 0 0 40px rgba(255,215,0,.08);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      font-family: var(--font-body);
+      background: #080810;
+      color: var(--fg);
+      min-height: 100vh;
+    }
+
+    /* Fondo con malla de puntos sutil (igual que carrito.html) */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        radial-gradient(circle at 20% 10%, rgba(255,215,0,.04) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(0,229,192,.03) 0%, transparent 50%),
+        radial-gradient(rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size: auto, auto, 32px 32px;
+      pointer-events: none; z-index: 0;
+    }
+
+    /* ══════════════════════════════════════════
+       HERO HEADER (idéntico a carrito.html)
+    ══════════════════════════════════════════ */
+    .co-hero {
+      padding: 60px var(--sp-6,24px) 32px;
+      text-align: center;
+      position: relative;
+    }
+    .co-hero__eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font-head);
+      font-size: .7rem; font-weight: 700; letter-spacing: .15em;
+      text-transform: uppercase; color: var(--gold);
+      background: var(--gold-dim); border: 1px solid var(--gold-line);
+      border-radius: var(--radius-pill); padding: 6px 16px;
+      margin-bottom: 20px;
+      animation: fadeDown .5s ease both;
+    }
+    .co-hero__title {
+      font-family: var(--font-head);
+      font-size: clamp(2rem, 4.5vw, 3rem);
+      font-weight: 800; line-height: 1.05;
+      color: #fff; margin-bottom: 12px;
+      animation: fadeUp .55s .1s ease both;
+    }
+    .co-hero__title span {
+      background: linear-gradient(135deg, var(--gold), #ffaa00);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .co-hero__sub {
+      font-size: .92rem; color: var(--fg-muted); letter-spacing: .01em;
+      animation: fadeUp .55s .18s ease both;
+    }
+    .co-hero::after {
+      content: '';
+      display: block; width: 60px; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 24px auto 0;
+    }
+
+    @keyframes fadeUp   { from { opacity:0; transform:translateY(14px) } to { opacity:1; transform:none } }
+    @keyframes fadeDown { from { opacity:0; transform:translateY(-10px)} to { opacity:1; transform:none } }
+    @keyframes fadeIn   { from { opacity:0 }                             to { opacity:1 } }
+    @keyframes slideIn  { from { opacity:0; transform:translateX(-12px)} to { opacity:1; transform:none } }
+    @keyframes popIn    { from { opacity:0; transform:scale(.94) }       to { opacity:1; transform:scale(1) } }
+    @keyframes shine    { to   { left: 140%; } }
+    @keyframes pulse {
+      0%,100% { box-shadow: 0 0 0 0 rgba(255,215,0,.1); }
+      50%      { box-shadow: 0 0 0 16px rgba(255,215,0,.0); }
+    }
+
+    /* ══════════════════════════════════════════
+       LAYOUT PRINCIPAL
+    ══════════════════════════════════════════ */
+    .co-layout {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 28px;
+      align-items: start;
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+    @media (max-width: 900px) {
+      .co-layout { grid-template-columns: 1fr; }
+      .co-sidebar { order: -1; }
+    }
+
+    /* ══════════════════════════════════════════
+       PANEL PRINCIPAL (izquierda)
+       mismo estilo que cart-panel en carrito.html
+    ══════════════════════════════════════════ */
+    .co-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      backdrop-filter: blur(20px);
+      animation: popIn .45s .2s ease both;
+      margin-bottom: 20px;
+    }
+    .co-panel__header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 28px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(255,215,0,.04);
+    }
+    .co-panel__title {
+      font-family: var(--font-head);
+      font-size: .82rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--gold);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .co-panel__body { padding: 24px 28px; }
+
+    /* ══════════════════════════════════════════
+       STEPPER (PASOS)
+    ══════════════════════════════════════════ */
+    .cstep {
+      display: flex; align-items: center; gap: 0;
+      margin-bottom: 28px; flex-wrap: nowrap;
+    }
+    .cstep__item {
+      display: flex; align-items: center; gap: 8px;
+      font-family: var(--font-head);
+      font-size: .75rem; font-weight: 700;
+      color: var(--fg-muted); letter-spacing: .05em;
+      text-transform: uppercase;
+      transition: color .25s;
+    }
+    .cstep__badge {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--surface-2); border: 1px solid var(--border);
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: .8rem; font-weight: 800;
+      transition: all .25s; flex-shrink: 0;
+    }
+    .cstep--active .cstep__badge { background: var(--gold); color: #000; border-color: var(--gold); box-shadow: 0 0 16px rgba(255,215,0,.3); }
+    .cstep--active { color: var(--gold); }
+    .cstep--done .cstep__badge { background: var(--teal); color: #000; border-color: var(--teal); }
+    .cstep--done { color: var(--teal); }
+    .cstep__line {
+      flex: 1; height: 2px; min-width: 24px;
+      background: var(--border); transition: background .3s;
+    }
+    .cstep__line--done { background: var(--teal); }
+
+    /* ══════════════════════════════════════════
+       PANELES DE PASOS
+    ══════════════════════════════════════════ */
+    .step-panel { display: none; }
+    .step-panel--active { display: block; animation: fadeIn .3s ease both; }
+
+    /* Título de sección */
+    .section-title {
+      font-family: var(--font-head);
+      font-size: 1rem; font-weight: 700; color: #fff;
+      margin-bottom: 20px; display: flex; align-items: center; gap: 8px;
+    }
+    .section-title::after {
+      content: ''; flex: 1; height: 1px;
+      background: linear-gradient(90deg, var(--border-gold), transparent);
+    }
+
+    /* ══════════════════════════════════════════
+       FORM FIELDS
+    ══════════════════════════════════════════ */
+    .form-group { margin-bottom: 18px; }
+    .form-label {
+      display: block;
+      font-size: .72rem; font-weight: 700; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--fg-muted);
+      margin-bottom: 6px;
+    }
+    .form-label span { color: var(--gold); }
+    .fi {
+      width: 100%;
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--border);
+      border-radius: 12px; padding: 11px 14px;
+      color: var(--fg); font-family: var(--font-body); font-size: .88rem;
+      outline: none; transition: border-color .2s, background .2s;
+      appearance: none;
+    }
+    .fi:focus { border-color: var(--gold); background: rgba(255,215,0,.04); }
+    .fi::placeholder { color: var(--fg-muted); }
+    .fi.invalid { border-color: #ef4444; background: rgba(239,68,68,.04); }
+    .fi-select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23ffd700' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 14px center;
+      padding-right: 36px; cursor: pointer;
+    }
+    .fi-select option { background: #0f0f1a; color: var(--fg); }
+    .fi-textarea { resize: vertical; min-height: 80px; }
+    .err-msg { color: #ef4444; font-size: .68rem; margin-top: 4px; min-height: 14px; }
+
+    /* Fila de 2 columnas */
+    .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 560px) { .form-row-2 { grid-template-columns: 1fr; } }
+
+    /* ══════════════════════════════════════════
+       RELOJ EN TIEMPO REAL
+    ══════════════════════════════════════════ */
+    .register-clock {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--gold-dim); border: 1px solid var(--gold-line);
+      border-radius: 10px; padding: 8px 14px;
+      font-size: .74rem; color: var(--gold);
+      font-family: var(--font-head); letter-spacing: .03em;
+      margin-bottom: 20px; font-variant-numeric: tabular-nums;
+    }
+
+    /* ══════════════════════════════════════════
+       MÉTODOS DE PAGO
+    ══════════════════════════════════════════ */
+    .pay-methods { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+    .pay-opt {
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: 16px; padding: 16px 12px;
+      cursor: pointer; transition: all .22s; text-align: center;
+    }
+    .pay-opt__ico  { font-size: 1.8rem; line-height: 1; }
+    .pay-opt__name {
+      font-family: var(--font-head); font-size: .72rem; font-weight: 700;
+      letter-spacing: .06em; text-transform: uppercase; color: var(--fg-muted);
+    }
+    .pay-opt__sub  { font-size: .65rem; color: var(--fg-muted); line-height: 1.4; }
+    .pay-opt:hover { border-color: var(--border-gold); }
+    .pay-opt.active {
+      background: var(--gold-dim); border-color: var(--gold);
+      box-shadow: 0 0 20px rgba(255,215,0,.12);
+    }
+    .pay-opt.active .pay-opt__name { color: var(--gold); }
+    @media (max-width: 420px) { .pay-methods { grid-template-columns: 1fr 1fr; } }
+
+    /* Panel de detalle del método */
+    .pay-detail {
+      display: none;
+      background: rgba(0,0,0,.25);
+      border: 1px solid var(--border);
+      border-radius: 16px; padding: 20px;
+      margin-bottom: 16px; animation: fadeIn .25s ease;
+    }
+    .pay-detail.active { display: block; }
+
+    /* QR Image box */
+    .qr-box {
+      display: flex; gap: 16px; align-items: flex-start; flex-wrap: wrap;
+    }
+    .qr-image-wrap {
+      width: 250px; height: 250px; flex-shrink: 0;
+      background: #fff; border-radius: 12px; padding: 6px;
+      display: flex; align-items: center; justify-content: center;
+      border: 2px solid var(--gold-line);
+    }
+    .qr-image-wrap img { width: 100%; height: 100%; object-fit: contain; }
+    .qr-placeholder {
+      width: 118px; height: 118px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .65rem; color: #aaa; text-align: center;
+      background: #f5f5f5; border-radius: 6px; padding: 8px;
+    }
+    .qr-info { flex: 1; min-width: 180px; }
+    .qr-info p { font-size: .82rem; color: var(--fg-muted); line-height: 1.6; margin-bottom: 8px; }
+    .qr-number {
+      font-family: var(--font-head); font-size: 1.3rem; font-weight: 800;
+      color: var(--gold); letter-spacing: .06em;
+    }
+    .qr-amount-label {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin-top: 6px; font-size: .7rem; color: var(--teal);
+      background: var(--teal-dim); border: 1px solid rgba(0,229,192,.2);
+      border-radius: 8px; padding: 4px 10px; font-weight: 600;
+    }
+
+    /* Datos bancarios */
+    .bank-data { font-size: .82rem; line-height: 1.8; }
+    .bank-data strong { color: var(--gold); }
+    .bank-chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--gold-dim); border: 1px solid var(--gold-line);
+      border-radius: 8px; padding: 4px 12px; font-size: .75rem;
+      color: var(--gold); font-family: var(--font-head); font-weight: 700;
+      letter-spacing: .04em; margin: 4px 4px 4px 0; cursor: pointer;
+      transition: background .18s;
+    }
+    .bank-chip:hover { background: rgba(255,215,0,.25); }
+
+    /* ══════════════════════════════════════════
+       ZONA DE CARGA DE COMPROBANTE
+    ══════════════════════════════════════════ */
+    .upload-area {
+      border: 1.5px dashed rgba(255,215,0,.4);
+      border-radius: 14px; padding: 20px;
+      text-align: center; cursor: pointer;
+      transition: all .2s; position: relative;
+    }
+    .upload-area:hover, .upload-area.dragover {
+      background: rgba(255,215,0,.06); border-color: var(--gold);
+    }
+    .upload-area__ico { font-size: 1.6rem; margin-bottom: 6px; }
+    .upload-area__text { font-size: .78rem; color: var(--fg-muted); line-height: 1.5; }
+    .upload-area__hint { font-size: .65rem; color: rgba(255,255,255,.25); margin-top: 4px; }
+    .upload-preview {
+      display: none; align-items: center; gap: 10px;
+      background: var(--teal-dim); border: 1px solid rgba(0,229,192,.2);
+      border-radius: 10px; padding: 10px 14px;
+      font-size: .78rem; color: var(--teal); margin-top: 8px;
+    }
+    .upload-preview.show { display: flex; }
+    .upload-preview__name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .upload-remove-btn {
+      background: none; border: none; color: #ef4444; cursor: pointer;
+      font-size: .8rem; padding: 2px 6px; border-radius: 6px; transition: background .15s;
+    }
+    .upload-remove-btn:hover { background: rgba(239,68,68,.15); }
+
+    /* ══════════════════════════════════════════
+       BOTONES DE NAVEGACIÓN
+    ══════════════════════════════════════════ */
+    .btn-nav-wrap { display: flex; gap: 12px; margin-top: 28px; }
+    .btn-primary {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      background: linear-gradient(135deg, #ffd700, #ffaa00);
+      color: #000; font-family: var(--font-head);
+      font-size: .88rem; font-weight: 800; letter-spacing: .04em;
+      padding: 14px 28px; border-radius: var(--radius-pill);
+      border: none; cursor: pointer;
+      transition: all .22s; flex: 1;
+      box-shadow: 0 4px 20px rgba(255,215,0,.25);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(255,215,0,.4); }
+    .btn-primary:active { transform: translateY(0); }
+    .btn-secondary-nav {
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      background: transparent; border: 1px solid var(--border);
+      color: var(--fg-muted); font-family: var(--font-body);
+      font-size: .82rem; font-weight: 500;
+      padding: 14px 20px; border-radius: var(--radius-pill);
+      cursor: pointer; transition: all .18s;
+    }
+    .btn-secondary-nav:hover { border-color: rgba(255,255,255,.2); color: #fff; background: rgba(255,255,255,.04); }
+
+    /* ══════════════════════════════════════════
+       PASO 3 — CONFIRMACIÓN
+    ══════════════════════════════════════════ */
+    .confirm-panel {
+      text-align: center;
+      padding: 20px 0 8px;
+    }
+    .confirm-orb {
+      width: 90px; height: 90px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,229,192,.15), rgba(0,229,192,.03));
+      border: 1px solid rgba(0,229,192,.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.4rem;
+      margin: 0 auto 20px;
+      animation: pulse 3s ease-in-out infinite;
+    }
+    .confirm-panel h2 {
+      font-family: var(--font-head);
+      font-size: 1.6rem; font-weight: 800; color: #fff;
+      margin-bottom: 10px;
+    }
+    .confirm-panel p { font-size: .88rem; color: var(--fg-muted); margin-bottom: 8px; }
+    .confirm-id {
+      display: inline-block;
+      font-family: var(--font-head); font-size: 1rem; font-weight: 800;
+      color: var(--gold); background: var(--gold-dim);
+      border: 1px solid var(--gold-line); border-radius: 10px;
+      padding: 6px 16px; margin: 8px 0 16px;
+      letter-spacing: .06em;
+    }
+    .confirm-details {
+      background: rgba(255,255,255,.03); border: 1px solid var(--border);
+      border-radius: 14px; padding: 14px 18px; text-align: left;
+      margin: 16px 0;
+    }
+    .confirm-details__row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 7px 0; border-bottom: 1px solid var(--border);
+      font-size: .82rem;
+    }
+    .confirm-details__row:last-child { border-bottom: none; }
+    .confirm-details__row span:first-child { color: var(--fg-muted); }
+    .confirm-details__row span:last-child  { color: var(--fg); font-weight: 600; font-family: var(--font-head); }
+    .btn-whatsapp {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      background: #25d366; color: #fff;
+      font-family: var(--font-head); font-size: .88rem; font-weight: 800;
+      padding: 14px 28px; border-radius: var(--radius-pill);
+      border: none; cursor: pointer; text-decoration: none;
+      transition: all .22s; width: 100%; margin: 8px 0;
+      box-shadow: 0 4px 20px rgba(37,211,102,.25);
+    }
+    .btn-whatsapp:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(37,211,102,.4); }
+    .btn-back-home {
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      background: transparent; border: 1px solid var(--border);
+      color: var(--fg-muted); font-size: .8rem;
+      padding: 10px 20px; border-radius: var(--radius-pill);
+      cursor: pointer; text-decoration: none; transition: all .18s; width: 100%;
+    }
+    .btn-back-home:hover { border-color: rgba(255,255,255,.2); color: #fff; }
+
+    /* ══════════════════════════════════════════
+       SIDEBAR DERECHA (igual que carrito.html)
+    ══════════════════════════════════════════ */
+    .co-sidebar {
+      position: sticky; top: 88px;
+      display: flex; flex-direction: column; gap: 16px;
+      animation: popIn .45s .35s ease both;
+    }
+
+    .summary-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      backdrop-filter: blur(20px);
+    }
+    .summary-card__head {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(255,215,0,.04);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .summary-card__head h3 {
+      font-family: var(--font-head);
+      font-size: .78rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--gold);
+    }
+    .summary-card__body { padding: 16px 20px; }
+
+    .summary-products-list {
+      max-height: 220px; overflow-y: auto;
+      margin-bottom: 14px; padding-right: 4px;
+    }
+    .summary-products-list::-webkit-scrollbar { width: 3px; }
+    .summary-products-list::-webkit-scrollbar-track { background: transparent; }
+    .summary-products-list::-webkit-scrollbar-thumb { background: var(--gold-line); border-radius: 4px; }
+
+    .summary-product-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 0; border-bottom: 1px solid var(--border); gap: 10px;
+    }
+    .summary-product-item:last-child { border-bottom: none; }
+    .summary-product-name {
+      display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0;
+    }
+    .summary-product-name .sp-ico {
+      width: 30px; height: 30px;
+      background: var(--gold-dim); border: 1px solid var(--border-gold);
+      border-radius: 8px; display: flex; align-items: center;
+      justify-content: center; font-size: .9rem; flex-shrink: 0;
+    }
+    .summary-product-name .sp-text {
+      font-size: .78rem; font-weight: 500; color: var(--fg);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .summary-product-qty {
+      font-size: .65rem; color: var(--fg-muted);
+      background: rgba(255,255,255,.06); border-radius: 4px; padding: 1px 5px; flex-shrink: 0;
+    }
+    .summary-product-price {
+      font-family: var(--font-head);
+      font-size: .82rem; font-weight: 700; color: var(--gold); flex-shrink: 0;
+    }
+
+    .summary-divider { height: 1px; background: var(--border); margin: 10px 0; }
+    .summary-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 5px 0; font-size: .84rem;
+    }
+    .summary-row span:first-child { color: var(--fg-muted); }
+    .summary-row span:last-child  { color: var(--fg); font-weight: 600; }
+    .summary-row--discount span   { color: var(--teal) !important; }
+    .summary-row--total {
+      padding: 12px 0 4px;
+      border-top: 1px solid var(--border-gold); margin-top: 4px;
+    }
+    .summary-row--total span:first-child {
+      font-family: var(--font-head);
+      font-size: .88rem; font-weight: 700; color: #fff !important;
+      letter-spacing: .05em; text-transform: uppercase;
+    }
+    .summary-row--total span:last-child {
+      font-family: var(--font-head);
+      font-size: 1.3rem; font-weight: 800; color: var(--gold) !important;
+    }
+
+    /* Garantías sidebar */
+    .guarantees-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-card); padding: 16px 20px;
+      backdrop-filter: blur(20px);
+    }
+    .guarantees-title {
+      font-family: var(--font-head); font-size: .72rem; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase; color: var(--fg-muted);
+      margin-bottom: 12px;
+    }
+    .guarantee-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 7px 0; border-bottom: 1px solid var(--border);
+      font-size: .76rem; color: var(--fg-muted);
+    }
+    .guarantee-item:last-child { border-bottom: none; }
+    .guarantee-item .gi-ico {
+      width: 26px; height: 26px; flex-shrink: 0;
+      background: var(--gold-dim); border-radius: 7px;
+      display: flex; align-items: center; justify-content: center; font-size: .8rem;
+    }
+
+    /* Sidebar vacío */
+    .sidebar-empty {
+      text-align: center; padding: 32px 20px;
+      font-size: .82rem; color: var(--fg-muted);
+    }
+    .sidebar-empty a { color: var(--teal); }
+
+    /* ══════════════════════════════════════════
+       LOADING OVERLAY (requerido por checkout.js)
+    ══════════════════════════════════════════ */
+    #loading-overlay {
+      position: fixed; inset: 0; z-index: 9999;
+      background: rgba(8,8,16,.92); backdrop-filter: blur(12px);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 20px; visibility: hidden; opacity: 0;
+      transition: visibility .3s, opacity .3s;
+    }
+    #loading-overlay.show { visibility: visible; opacity: 1; }
+    .loading-spinner {
+      width: 50px; height: 50px;
+      border: 3px solid rgba(255,215,0,.15);
+      border-top-color: var(--gold);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    #loading-msg {
+      font-family: var(--font-head); font-size: .88rem; font-weight: 700;
+      color: var(--gold); letter-spacing: .08em; text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ LOADER ══ -->
+<div id="page-loader">
+  <span class="ldr-omega">Ω</span>
+  <div class="ldr-bar"><div class="ldr-bar__fill"></div></div>
+  <span class="ldr-txt">JLΩNIX · Preparando checkout…</span>
+</div>
+
+<!-- ══ LOADING OVERLAY (para checkout.js) ══ -->
+<div id="loading-overlay">
+  <div class="loading-spinner"></div>
+  <span id="loading-msg">Enviando pedido...</span>
+</div>
+
+<canvas id="canvas-bg"></canvas>
+<div id="tc"></div>
+
+<div class="layer">
+
+  <!-- ══ NAVBAR ══ 7401--> 
+  <nav class="navbar">
+    <a href="../index.html" class="navbar__brand">
+      <span class="navbar__logo">JL<span class="navbar__logo-omega">Ω</span>NIX</span>
+    </a>
+    <ul class="navbar__menu">
+      <li class="navbar__item"><a href="../index.html"  class="navbar__link"><span class="ni">🏠</span>Inicio</a></li>
+      <li class="navbar__item"><a href="programas.html" class="navbar__link"><span class="ni">💻</span>Programas</a></li>
+      <li class="navbar__item"><a href="catalogos.html" class="navbar__link"><span class="ni">📂</span>Catálogos</a></li>
+      <li class="navbar__item"><a href="tienda.html"    class="navbar__link"><span class="ni">🛒</span>Tienda</a></li>
+      <li class="navbar__item"><a href="gratuitos.html" class="navbar__link"><span class="ni">🎁</span>Gratuitos</a></li>
+      <li class="navbar__item"><a href="nosotros.html"  class="navbar__link"><span class="ni">⬡</span>Nosotros</a></li>
+    </ul>
+    <div class="navbar__right">
+      <a href="carrito.html" class="navbar__cart" aria-label="Carrito">
+        🧺<span class="navbar__cart-count" id="cart-counter">0</span>
+      </a>
+      <button class="navbar__burger" onclick="toggleMenu()" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ══ HERO ══ -->
+  <div class="co-hero">
+    <div class="co-hero__eyebrow">🔐 Pago seguro</div>
+    <h1 class="co-hero__title">Completa tu <span>compra</span></h1>
+    <p class="co-hero__sub">Ingresa tus datos, elige método de pago y adjunta tu comprobante.</p>
+  </div>
+
+  <!-- ══ LAYOUT PRINCIPAL ══ -->
+  <div class="co-layout">
+
+    <!-- ──── COLUMNA IZQUIERDA: FORMULARIO ──── -->
+    <div>
+
+      <!-- Panel principal del formulario -->
+      <div class="co-panel">
+        <div class="co-panel__header">
+          <div class="co-panel__title">📋 Datos del pedido</div>
+        </div>
+        <div class="co-panel__body">
+
+          <!-- STEPPER -->
+          <div class="cstep">
+            <div class="cstep__item cstep--active" id="step1-ind">
+              <span class="cstep__badge">1</span>
+              <span>Datos</span>
+            </div>
+            <div class="cstep__line" id="line1"></div>
+            <div class="cstep__item" id="step2-ind">
+              <span class="cstep__badge">2</span>
+              <span>Pago</span>
+            </div>
+            <div class="cstep__line" id="line2"></div>
+            <div class="cstep__item" id="step3-ind">
+              <span class="cstep__badge">3</span>
+              <span>Confirmar</span>
+            </div>
+          </div>
+
+          <!-- ════════════════════════════════
+               PASO 1: DATOS PERSONALES
+          ════════════════════════════════ -->
+          <div id="step1" class="step-panel step-panel--active">
+
+            <!-- Reloj en tiempo real -->
+            <div class="register-clock" id="fecha-registro">📅 Cargando…</div>
+
+            <div class="section-title">👤 Información personal</div>
+
+            <div class="form-group">
+              <label class="form-label">Nombre completo <span>*</span></label>
+              <input type="text" id="nombre" class="fi" placeholder="Ej: José Leandro Yujra Colque" autocomplete="name"/>
+              <div class="err-msg" id="error-nombre"></div>
+            </div>
+
+            <div class="form-row-2">
+              <div class="form-group">
+                <label class="form-label">Correo electrónico <span>*</span></label>
+                <input type="email" id="correo" class="fi" placeholder="usuario@ejemplo.com" autocomplete="email"/>
+                <div class="err-msg" id="error-correo"></div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Teléfono / WhatsApp <span>*</span></label>
+                <input type="tel" id="telefono" class="fi" placeholder="+591 74012527" autocomplete="tel"/>
+                <div class="err-msg" id="error-telefono"></div>
+              </div>
+            </div>
+
+            <div class="form-row-2">
+              <div class="form-group">
+                <label class="form-label">País <span>*</span></label>
+                <select id="pais" class="fi fi-select">
+                  <option value="BO">🇧🇴 Bolivia</option>
+                  <option value="PE">🇵🇪 Perú</option>
+                  <option value="CO">🇨🇴 Colombia</option>
+                  <option value="AR">🇦🇷 Argentina</option>
+                  <option value="MX">🇲🇽 México</option>
+                  <option value="CL">🇨🇱 Chile</option>
+                  <option value="EC">🇪🇨 Ecuador</option>
+                  <option value="OT">🌍 Otro</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Ciudad</label>
+                <input type="text" id="ciudad" class="fi" placeholder="La Paz, Santa Cruz…"/>
+              </div>
+            </div>
+
+            <div class="section-title" style="margin-top:4px">💻 Datos del equipo</div>
+
+            <div class="form-group">
+              <label class="form-label">ID de dispositivo <span>*</span></label>
+              <input type="text" id="id_dispositivo" class="fi" placeholder="Ej: WD-WX91A21H1234 (requerido para activar licencia)"/>
+              <div class="err-msg" id="error-id_dispositivo"></div>
+            </div>
+
+            <div class="form-row-2">
+              <div class="form-group">
+                <label class="form-label">Sistema operativo</label>
+                <select id="sistema_operativo" class="fi fi-select">
+                  <option value="Windows 11">Windows 11</option>
+                  <option value="Windows 10">Windows 10</option>
+                  <option value="Windows 7/8">Windows 7/8</option>
+                  <option value="macOS">macOS</option>
+                  <option value="Linux">Linux</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Empresa (opcional)</label>
+                <input type="text" id="empresa" class="fi" placeholder="Nombre de tu empresa"/>
+              </div>
+            </div>
+
+            <div class="btn-nav-wrap">
+              <button id="btn-continuar" class="btn-primary">Continuar →</button>
+            </div>
+          </div><!-- /step1 -->
+
+          <!-- ════════════════════════════════
+               PASO 2: MÉTODO DE PAGO
+          ════════════════════════════════ -->
+          <div id="step2" class="step-panel">
+
+            <div class="section-title">💳 Método de pago</div>
+
+            <!-- Selector de método -->
+            <div class="pay-methods">
+              <div class="pay-opt active" data-method="qr">
+                <div class="pay-opt__ico">📱</div>
+                <div class="pay-opt__name">QR </div>
+                <div class="pay-opt__sub">Escanea y paga al instante</div>
+              </div>
+              <div class="pay-opt" data-method="banco">
+                <div class="pay-opt__ico">🏦</div>
+                <div class="pay-opt__name">Transferencia</div>
+                <div class="pay-opt__sub">Banco Unión / otros</div>
+              </div>
+            </div>
+
+            <!-- Detalle QR -->
+            <div id="qr-detail" class="pay-detail active">
+              <div class="qr-box">
+                <div class="qr-image-wrap">
+                  <!-- Reemplaza el src con tu imagen de QR real -->
+                  <img src="../assets/img/qr-jlonix.png" alt="QR BANCO ECONOMICO" style="max-width:100%; border-radius:10px;"/>
+                  <!-- <img src="../assets/img/qr-tigo.png" alt="QR Tigo Money"/> -->
+                </div>
+                <div class="qr-info">
+                  <p>Escanea el código QR o deposita directamente al QR:</p>
+                  <div class="qr-number">74012527</div>
+                  <div style="font-size:.72rem;color:var(--fg-muted);margin-top:4px">Titular: José Leandro Yujra Colque</div>
+                  <div class="qr-amount-label">💰 Total: <strong id="monto-qr">Bs 0.00</strong></div>
+                </div>
+              </div>
+              <div class="form-group" style="margin-top:16px">
+                <label class="form-label">N° de transacción <span>*</span></label>
+                <input type="text" id="ref_transaccion" class="fi" placeholder="Código de transacción"/>
+                <div class="err-msg" id="error-ref_transaccion"></div>
+              </div>
+            </div>
+
+            <!-- Detalle Banco -->
+            <div id="banco-detail" class="pay-detail">
+              <div class="bank-data">
+                <p>Realiza una transferencia a:</p>
+                <p>🏦 <strong>Banco ## S.A.</strong></p>
+                <p>📋 Cuenta: <span class="bank-chip" onclick="copyText('2021270327','Número de cuenta copiado')">📋 2021270327</span></p>
+                <p>👤 Titular: <strong>José Leandro Yujra Colque</strong></p>
+                <p>🪪 CI: <strong>9974424 LP</strong></p>
+                <div class="qr-amount-label" style="margin-top:6px">💰 Total a depositar: <strong id="monto-banco">Bs 0.00</strong></div>
+              </div>
+              <div class="form-group" style="margin-top:14px">
+                <label class="form-label">N° de transacción <span>*</span></label>
+                <input type="text" id="ref_transaccion_banco" class="fi" placeholder="Número de la transferencia bancaria"/>
+                <div class="err-msg" id="error-ref_banco"></div>
+              </div>
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label class="form-label">Banco de origen</label>
+                  <input type="text" id="banco_origen" class="fi" placeholder="Ej: BCP, Mercantil…"/>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Titular de la cuenta origen</label>
+                  <input type="text" id="titular_origen" class="fi" placeholder="Nombre del titular"/>
+                </div>
+              </div>
+            </div>
+
+            <!-- Datos del depósito (comunes a ambos métodos) -->
+            <div class="section-title">🧾 Datos del depósito</div>
+
+            <div class="form-row-2">
+              <div class="form-group">
+                <label class="form-label">Monto depositado (Bs) <span>*</span></label>
+                <input type="number" id="monto_depositado" step="0.01" min="0" class="fi" placeholder="0.00"/>
+                <div class="err-msg" id="error-monto"></div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Fecha del depósito <span>*</span></label>
+                <input type="date" id="fecha_deposito" class="fi"/>
+                <div class="err-msg" id="error-fecha"></div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Hora del depósito (opcional)</label>
+              <input type="time" id="hora_deposito" class="fi"/>
+            </div>
+
+            <!-- Zona de carga de comprobante -->
+            <div class="section-title">📎 Comprobante de pago</div>
+            <div class="form-group">
+              <div id="upload-area" class="upload-area">
+                <div class="upload-area__ico">📎</div>
+                <div class="upload-area__text">Haz clic o arrastra tu comprobante aquí</div>
+                <div class="upload-area__hint">Imagen o PDF — máx. 10 MB</div>
+                <input type="file" id="comprobante" accept="image/*,application/pdf" style="display:none"/>
+              </div>
+              <div id="upload-preview" class="upload-preview">
+                <span>✅</span>
+                <span class="upload-preview__name" id="upload-filename">archivo.jpg</span>
+                <!-- ✅ Corregido: eliminado onclick="removeFile()" para evitar doble ejecución -->
+                <button class="upload-remove-btn" id="upload-remove">✖</button>
+              </div>
+              <small style="color:var(--fg-muted);font-size:.68rem;display:block;margin-top:6px">
+                Si no adjuntas ahora, envíalo por WhatsApp después de confirmar el pedido.
+              </small>
+            </div>
+
+            <!-- Notas adicionales -->
+            <div class="form-group">
+              <label class="form-label">Notas adicionales</label>
+              <textarea id="notas" class="fi fi-textarea" rows="2" placeholder="Ej: necesito factura, consulta sobre instalación, versión específica…"></textarea>
+            </div>
+
+            <div class="btn-nav-wrap">
+              <button id="btn-volver" class="btn-secondary-nav">← Volver</button>
+              <button id="btn-enviar" class="btn-primary">✅ Confirmar pedido</button>
+            </div>
+          </div><!-- /step2 -->
+
+          <!-- ════════════════════════════════
+               PASO 3: CONFIRMACIÓN
+          ════════════════════════════════ -->
+          <div id="step3" class="step-panel">
+            <div class="confirm-panel">
+              <div class="confirm-orb">🎉</div>
+              <h2>¡Pedido registrado!</h2>
+              <p>Tu número de pedido es:</p>
+              <div class="confirm-id" id="s-pedido-id">JLX-———</div>
+              <div class="confirm-details">
+                <div class="confirm-details__row">
+                  <span>Cliente</span>
+                  <span id="s-nombre">—</span>
+                </div>
+                <div class="confirm-details__row">
+                  <span>Total pagado</span>
+                  <span id="s-total" style="color:var(--gold)">Bs 0.00</span>
+                </div>
+                <div class="confirm-details__row">
+                  <span>Método de pago</span>
+                  <span id="s-metodo">—</span>
+                </div>
+                <div class="confirm-details__row">
+                  <span>N° Referencia</span>
+                  <span id="s-ref">—</span>
+                </div>
+              </div>
+              <p style="font-size:.8rem;margin-bottom:12px">
+                Hemos enviado los detalles por WhatsApp. Adjunta tu comprobante si no lo hiciste.
+              </p>
+              <button id="btn-wapp-final" class="btn-whatsapp">📲 Enviar comprobante por WhatsApp</button>
+              <a href="../index.html" class="btn-back-home">← Volver al inicio</a>
+            </div>
+          </div><!-- /step3 -->
+
+        </div><!-- /co-panel__body -->
+      </div><!-- /co-panel -->
+
+    </div><!-- /columna izquierda -->
+
+    <!-- ──── COLUMNA DERECHA: SIDEBAR ──── -->
+    <aside class="co-sidebar">
+
+      <!-- Resumen del pedido -->
+      <div class="summary-card" id="sidebar-card">
+        <div class="summary-card__head">
+          <h3>🛒 Tu pedido</h3>
+        </div>
+        <div class="summary-card__body">
+          <div id="sidebar-items" class="summary-products-list"></div>
+          <div class="summary-divider"></div>
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span id="sb-subtotal">Bs 0.00</span>
+          </div>
+          <div class="summary-row summary-row--discount" id="sb-discount-row" style="display:none">
+            <span>Descuento <small id="sb-coupon-label" style="color:var(--gold);margin-left:4px"></small></span>
+            <span id="sb-discount">-Bs 0.00</span>
+          </div>
+          <div class="summary-row summary-row--total">
+            <span>Total</span>
+            <span id="sb-total">Bs 0.00</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carrito vacío (oculto por defecto)  Tigo Money -->
+      <div class="summary-card sidebar-empty" id="sidebar-empty" style="display:none">
+        🛒 Carrito vacío.<br/>
+        <a href="tienda.html">Ir a la tienda →</a>
+      </div>
+
+      <!-- Garantías -->
+      <div class="guarantees-card">
+        <div class="guarantees-title">Por qué elegirnos</div>
+        <div class="guarantee-item"><div class="gi-ico">🔒</div> Pago sin intermediarios</div>
+        <div class="guarantee-item"><div class="gi-ico">⚡</div> Activación en máx. 24 horas</div>
+        <div class="guarantee-item"><div class="gi-ico">♾️</div> Licencia permanente</div>
+        <div class="guarantee-item"><div class="gi-ico">🛠️</div> Soporte técnico incluido</div>
+        <div class="guarantee-item"><div class="gi-ico">💬</div> Atención personal WhatsApp</div>
+      </div>
+
+    </aside>
+
+  </div><!-- /co-layout -->
+
+  <!-- ══ FOOTER ══ -->
+  <footer class="footer">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <span class="footer__brand-logo">JL<span class="omega">Ω</span>NIX</span>
+        <p>Software profesional para ingeniería, cálculo y gestión.</p>
+        <div class="footer__social">
+          <a href="https://wa.me/59174012527" class="footer__social-link" target="_blank">💬</a>
+          <a href="https://tiktok.com/@jlonix1" class="footer__social-link" target="_blank">🎵</a>
+          <a href="mailto:yujracolquejoseleandro2@gmail.com" class="footer__social-link">📧</a>
+        </div>
+      </div>
+      <div class="footer__col"><h4>Productos</h4><ul>
+        <li><a href="programas.html">Programas</a></li>
+        <li><a href="tienda.html">Tienda</a></li>
+        <li><a href="gratuitos.html">Gratuitos</a></li>
+        <li><a href="catalogos.html">Catálogos</a></li>
+      </ul></div>
+      <div class="footer__col"><h4>Empresa</h4><ul>
+        <li><a href="nosotros.html">Nosotros</a></li>
+        <li><a href="contactos.html">Contacto</a></li>
+        <li><a href="carrito.html">Mi Carrito</a></li>
+      </ul></div>
+      <div class="footer__col"><h4>Legal</h4><ul>
+        <li><a href="pribacidad.html">Privacidad</a></li>
+        <li><a href="terminos.html">Términos</a></li>
+        <li><a href="licensias.html">Licencias</a></li>
+      </ul></div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 JL<span style="color:var(--omega)">Ω</span>NIX. Todos los derechos reservados.</span>
+      <div class="footer__legal">
+        <a href="pribacidad.html">Privacidad</a><a href="terminos.html">Términos</a>
+      </div>
+    </div>
+  </footer>
+
+</div><!-- /layer -->
+
+<!-- ══ SCRIPTS DEL SISTEMA ══ -->
+<script src="../assets/js/core/EventBus.js"></script>
+<script src="../assets/js/modules/UI.js"></script>
+<script src="../assets/js/modules/Cart.js"></script>
+<script src="../assets/js/core/Canvas.js"></script>
+<script src="../assets/js/core/App.js"></script>
+<script src="../assets/js/modules/UI.js"></script>
+<!-- ══ CHECKOUT JS (lógica + envío a Google Sheets) ══ -->
+<script src="../assets/js/pages/checkout.js"></script>
+
+<!-- ══ FUNCIONES GLOBALES (toggleMenu, copyText) ══ -->
+<script>
+'use strict';
+
+window.toggleMenu = function () {
+  document.querySelector('.navbar__menu')?.classList.toggle('open');
+  document.querySelector('.navbar__burger')?.classList.toggle('open');
+};
+
+window.copyText = function (text, msg) {
+  navigator.clipboard.writeText(text).then(function () {
+    if (window.showToast) window.showToast('📋 ' + msg);
+  }).catch(function () {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    if (window.showToast) window.showToast('📋 ' + msg);
+  });
+};
+</script>
+
+</body>
+</html>

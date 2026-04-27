@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="JLΩNIX — Contacta al autor José Leandro Yujra Colque"/>
+  <meta name="theme-color" content="#ffd700"/>
+  <link rel="manifest" href="../manifest.json"/>
+  <title>JLΩNIX | Contacto</title>
+
+  <link rel="stylesheet" href="../assets/css/tokens/colors.css"/>
+  <link rel="stylesheet" href="../assets/css/tokens/spacing.css"/>
+  <link rel="stylesheet" href="../assets/css/tokens/typography.css"/>
+  <link rel="stylesheet" href="../assets/css/tokens/effects.css"/>
+  <link rel="stylesheet" href="../assets/css/base/reset.css"/>
+  <link rel="stylesheet" href="../assets/css/base/animations.css"/>
+  <link rel="stylesheet" href="../assets/css/layout/grid.css"/>
+  <link rel="stylesheet" href="../assets/css/layout/navbar.css"/>
+  <link rel="stylesheet" href="../assets/css/layout/footer.css"/>
+  <link rel="stylesheet" href="../assets/css/components/buttons.css"/>
+  <link rel="stylesheet" href="../assets/css/components/cards.css"/>
+  <link rel="stylesheet" href="../assets/css/components/badges.css"/>
+  <link rel="stylesheet" href="../assets/css/components/forms.css"/>
+  <link rel="stylesheet" href="../assets/css/components/toast.css"/>
+  <link rel="stylesheet" href="../assets/css/components/loader.css"/>
+  <link rel="stylesheet" href="../assets/css/utils/helpers.css"/>
+  <link rel="stylesheet" href="../assets/css/utils/responsive.css"/>
+
+  <style>
+    /* ── Mejoras de estilo: Contacto ── */
+    .author-card {
+      display: flex;
+      gap: var(--sp-8);
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .author-avatar {
+      width: 130px; height: 130px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(0,212,255,0.1));
+      border: 2px solid rgba(255,215,0,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 4rem; flex-shrink: 0;
+      box-shadow: 0 0 0 8px rgba(255,215,0,0.06), 0 0 50px rgba(255,215,0,0.2);
+      position: relative;
+    }
+    .author-avatar::after {
+      content: '✓';
+      position: absolute; bottom: 4px; right: 4px;
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--teal); color: #000;
+      font-size: 0.8rem; font-weight: 900;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .author-info h2 { margin-bottom: var(--sp-2); letter-spacing: -0.02em; }
+    .author-info p { color: var(--fg-muted); line-height: 1.7; }
+
+    /* Canales de contacto */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: var(--sp-4);
+      margin-top: var(--sp-8);
+    }
+    .contact-channel {
+      display: flex; align-items: center; gap: var(--sp-4);
+      padding: var(--sp-5) var(--sp-5);
+      border-radius: var(--radius-lg);
+      transition: transform 0.25s, box-shadow 0.25s;
+      text-decoration: none; color: inherit;
+      position: relative; overflow: hidden;
+    }
+    .contact-channel::before {
+      content: '';
+      position: absolute; inset: 0;
+      opacity: 0; transition: opacity 0.25s;
+      pointer-events: none;
+    }
+    .contact-channel--wa::before  { background: radial-gradient(circle at 20% 50%, rgba(37,211,102,0.07), transparent 60%); }
+    .contact-channel--mail::before{ background: radial-gradient(circle at 20% 50%, rgba(0,212,255,0.07), transparent 60%); }
+    .contact-channel--tt::before  { background: radial-gradient(circle at 20% 50%, rgba(255,0,80,0.07), transparent 60%); }
+    .contact-channel:hover::before { opacity: 1; }
+    .contact-channel:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.25); }
+    .contact-channel__ico {
+      font-size: 2rem; width: 60px; height: 60px; border-radius: 16px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      transition: transform 0.25s;
+    }
+    .contact-channel:hover .contact-channel__ico { transform: scale(1.08); }
+    .contact-channel__ico--wa   { background: rgba(37,211,102,0.12); border: 1px solid rgba(37,211,102,0.2); }
+    .contact-channel__ico--mail { background: rgba(0,212,255,0.12);   border: 1px solid rgba(0,212,255,0.2); }
+    .contact-channel__ico--tt   { background: rgba(255,0,80,0.12);    border: 1px solid rgba(255,0,80,0.2); }
+    .contact-channel__label { font-size: .78rem; color: var(--fg-muted); margin-bottom: 3px; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
+    .contact-channel__val   { font-weight: 700; color: var(--fg); font-size: 0.95rem; }
+    .contact-channel__meta  { font-size: .78rem; color: var(--fg-muted); margin-top: 2px; }
+    .contact-channel--wa   { border: 1px solid rgba(37,211,102,0.2); }
+    .contact-channel--mail { border: 1px solid rgba(0,212,255,0.2); }
+    .contact-channel--tt   { border: 1px solid rgba(255,0,80,0.2); }
+
+    /* Formulario */
+    .msg-form { display: flex; flex-direction: column; gap: var(--sp-4); margin-top: var(--sp-6); }
+    .msg-form .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .msg-form .form-label { font-size: .8rem; font-weight: 700; color: var(--fg-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+    .msg-form .form-input {
+      background: rgba(255,255,255,.04); border: 1.5px solid rgba(255,255,255,.08);
+      border-radius: var(--radius-md); padding: 11px var(--sp-4);
+      color: var(--fg); font-size: .95rem; outline: none; width: 100%;
+      transition: border-color .25s, box-shadow .25s;
+    }
+    .msg-form .form-input::placeholder { color: rgba(255,255,255,.2); }
+    .msg-form .form-input:focus {
+      border-color: rgba(255,215,0,.45);
+      box-shadow: 0 0 0 3px rgba(255,215,0,.08);
+    }
+
+    /* Section title */
+    .sec-title { font-size: clamp(1.6rem,4vw,2.2rem); font-weight: 800; letter-spacing: -0.02em; }
+
+    /* CTA box */
+    .cta {
+      padding: var(--sp-10) var(--sp-8);
+      border-radius: var(--radius-xl);
+      position: relative; overflow: hidden;
+    }
+    .cta::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(255,215,0,0.06), transparent 65%);
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+<div id="page-loader">
+  <span class="ldr-omega">Ω</span>
+  <div class="ldr-bar"><div class="ldr-bar__fill"></div></div>
+  <span class="ldr-txt">JLΩNIX · Cargando…</span>
+</div>
+
+<canvas id="canvas-bg"></canvas>
+<div id="tc"></div>
+
+<div class="layer">
+
+  <!-- ══ NAVBAR ══ -->
+  <nav class="navbar">
+    <a href="../index.html" class="navbar__brand">
+      <span class="navbar__logo">JL<span class="navbar__logo-omega">Ω</span>NIX</span>
+    </a>
+    <ul class="navbar__menu">
+      <li class="navbar__item"><a href="../index.html"  class="navbar__link"><span class="ni">🏠</span>Inicio</a></li>
+      <li class="navbar__item"><a href="programas.html" class="navbar__link"><span class="ni">💻</span>Programas</a></li>
+      <li class="navbar__item"><a href="catalogos.html" class="navbar__link"><span class="ni">📂</span>Catálogos</a></li>
+      <li class="navbar__item"><a href="tienda.html"    class="navbar__link"><span class="ni">🛒</span>Tienda</a></li>
+      <li class="navbar__item"><a href="gratuitos.html" class="navbar__link"><span class="ni">🎁</span>Gratuitos</a></li>
+      <li class="navbar__item"><a href="nosotros.html"  class="navbar__link"><span class="ni">⬡</span>Nosotros</a></li>
+    </ul>
+    <div class="navbar__right">
+      <a href="carrito.html" class="navbar__cart" aria-label="Carrito">
+        🧺<span class="navbar__cart-count">0</span>
+      </a>
+      <button class="navbar__burger" onclick="toggleMenu()" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ══ HERO ══ -->
+  <section class="page-hero sec ctr">
+    <div class="page-hero__badge a-fade"><span class="bdg bdg--g">📬 CONTACTO DIRECTO</span></div>
+    <h1 class="page-hero__title a-up d2">Habla con el <span class="grd-c">Autor</span></h1>
+    <p class="page-hero__sub a-up d3">¿Tienes dudas, sugerencias o necesitas soporte? Escríbeme directamente — respondo personalmente.</p>
+  </section>
+
+  <!-- ══ TARJETA DEL AUTOR ══ -->
+  <section class="sec ctr-sm">
+    <div class="glass fcard reveal" style="padding: var(--sp-8)">
+      <div class="author-card">
+        <div class="author-avatar">👨‍💼</div>
+        <div class="author-info">
+          <span class="bdg bdg--top" style="margin-bottom:var(--sp-3);display:inline-flex">⬡ AUTOR & DESARROLLADOR</span>
+          <h2>José Leandro <span class="grd-c">Yujra Colque</span></h2>
+          <p style="color:var(--fg-muted);margin-top:var(--sp-2)">Ingeniero Civil · Desarrollador de Software · La Paz, Bolivia</p>
+          <p style="margin-top:var(--sp-4);line-height:1.7">
+            Soy el creador de <strong style="color:var(--omega)">JLΩNIX</strong> — una plataforma de software nacida de la necesidad real del día a día en la ingeniería civil. Cada programa fue diseñado pensando en los ingenieros, topógrafos y estudiantes latinoamericanos que merecen herramientas profesionales accesibles.
+          </p>
+          <div style="display:flex;gap:var(--sp-3);margin-top:var(--sp-4);flex-wrap:wrap">
+            <a href="https://wa.me/59174012527" target="_blank" class="btn btn--omega btn--sm">💬 WhatsApp directo</a>
+            <a href="mailto:yujracolquejoseleandro2@gmail.com" class="btn btn--out-c btn--sm">📧 Correo</a>
+            <a href="https://tiktok.com/@jlonix1" target="_blank" class="btn btn--out-c btn--sm">🎵 TikTok</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CANALES DE CONTACTO ══ -->
+  <section class="sec ctr-sm">
+    <h2 class="sec-title reveal">Mis canales <span class="grd-c">de contacto</span></h2>
+    <div class="contact-grid reveal d1">
+
+      <a href="https://wa.me/59174012527" target="_blank" class="glass contact-channel contact-channel--wa">
+        <div class="contact-channel__ico contact-channel__ico--wa">💬</div>
+        <div>
+          <p class="contact-channel__label">WhatsApp</p>
+          <p class="contact-channel__val">+591 74012527</p>
+          <p class="contact-channel__meta">Respuesta rápida · Lun–Vie 8am–8pm</p>
+        </div>
+      </a>
+
+      <a href="mailto:yujracolquejoseleandro2@gmail.com" class="glass contact-channel contact-channel--mail">
+        <div class="contact-channel__ico contact-channel__ico--mail">📧</div>
+        <div>
+          <p class="contact-channel__label">Correo electrónico</p>
+          <p class="contact-channel__val" style="font-size:.85rem">yujracolquejoseleandro2@gmail.com</p>
+          <p style="font-size:.8rem;color:var(--fg-muted);margin-top:2px">Respuesta en 24–48 horas</p>
+        </div>
+      </a>
+
+      <a href="https://tiktok.com/@jlonix1" target="_blank" class="glass contact-channel contact-channel--tt">
+        <div class="contact-channel__ico contact-channel__ico--tt">🎵</div>
+        <div>
+          <p class="contact-channel__label">TikTok</p>
+          <p class="contact-channel__val">@jlonix1</p>
+          <p style="font-size:.8rem;color:var(--fg-muted);margin-top:2px">Tutoriales y demostraciones</p>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ══ FORMULARIO RÁPIDO ══ -->
+  <section class="sec ctr-sm">
+    <div class="glass fcard reveal" style="text-align:left">
+      <h3>✉️ Envíame un mensaje</h3>
+      <p style="color:var(--fg-muted);margin-top:var(--sp-2)">Para consultas de soporte técnico, ventas o sugerencias de nuevas funciones.</p>
+      <div class="msg-form">
+        <div class="form-group">
+          <label class="form-label">Tu nombre</label>
+          <input id="c-nombre" type="text" class="form-input" placeholder="Nombre completo"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Tu correo</label>
+          <input id="c-email" type="email" class="form-input" placeholder="tu@correo.com"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Asunto</label>
+          <select id="c-asunto" class="form-input">
+            <option>Soporte técnico</option>
+            <option>Consulta de compra / licencia</option>
+            <option>Sugerencia de mejora</option>
+            <option>Reporte de error</option>
+            <option>Otro</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Mensaje</label>
+          <textarea id="c-msg" class="form-input" rows="4" placeholder="Describe tu consulta con el mayor detalle posible…" style="resize:vertical"></textarea>
+        </div>
+        <button class="btn btn--omega btn--lg" onclick="enviarMensaje(this)">
+          📤 Enviar mensaje
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ PARA ADQUIRIR LICENCIAS ══ -->
+  <section class="sec ctr-sm">
+    <div class="glass glass--g cta reveal" style="text-align:center">
+      <h2>¿Quieres adquirir una <span class="grd-c">licencia</span>?</h2>
+      <p style="margin-top:var(--sp-3)">Visita la tienda, agrega al carrito y completa el pago de forma segura. También puedes escribirme por WhatsApp para coordinar directamente.</p>
+      <div class="fx-c gap-4 mt-6 fx-wrap">
+        <a href="tienda.html"   class="btn btn--omega btn--xl">🛒 Ir a la Tienda</a>
+        <a href="https://wa.me/59174012527" target="_blank" class="btn btn--out-c btn--xl">💬 Coordinar por WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ══ -->
+  <footer class="footer">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <span class="footer__brand-logo">JL<span class="omega">Ω</span>NIX</span>
+        <p>Software profesional para ingeniería, cálculo y gestión. Precisión y potencia en cada licencia.</p>
+        <div class="footer__social">
+          <a href="https://wa.me/59174012527" class="footer__social-link" aria-label="WhatsApp" target="_blank">💬</a>
+          <a href="https://tiktok.com/@jlonix1" class="footer__social-link" aria-label="TikTok" target="_blank">🎵</a>
+          <a href="mailto:yujracolquejoseleandro2@gmail.com" class="footer__social-link" aria-label="Email">📧</a>
+        </div>
+      </div>
+      <div class="footer__col"><h4>Productos</h4><ul>
+        <li><a href="programas.html">Programas</a></li>
+        <li><a href="tienda.html">Tienda</a></li>
+        <li><a href="gratuitos.html">Gratuitos</a></li>
+        <li><a href="catalogos.html">Catálogos</a></li>
+      </ul></div>
+      <div class="footer__col"><h4>Empresa</h4><ul>
+        <li><a href="nosotros.html">Nosotros</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li><a href="carrito.html">Mi Carrito</a></li>
+      </ul></div>
+      <div class="footer__col"><h4>Legal</h4><ul>
+        <li><a href="privacidad.html">Privacidad</a></li>
+        <li><a href="terminos.html">Términos</a></li>
+        <li><a href="licencias.html">Licencias</a></li>
+      </ul></div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 JL<span style="color:var(--omega)">Ω</span>NIX · José Leandro Yujra Colque. Todos los derechos reservados.</span>
+      <div class="footer__legal">
+        <a href="privacidad.html">Privacidad</a><a href="terminos.html">Términos</a>
+      </div>
+    </div>
+  </footer>
+
+</div><!-- /layer -->
+
+<script src="../assets/js/core/EventBus.js"></script>
+<script src="../assets/js/modules/UI.js"></script>
+<script src="../assets/js/modules/Cart.js"></script>
+<script src="../assets/js/core/Canvas.js"></script>
+<script src="../assets/js/core/App.js"></script>
+<script src="../assets/js/modules/UI.js"></script>
+<script>
+  function enviarMensaje(btn) {
+    // Obtener valores
+    const nombre = document.getElementById('c-nombre').value.trim();
+    const email = document.getElementById('c-email').value.trim();
+    const msg = document.getElementById('c-msg').value.trim();
+    
+    // ============================================================
+    // VALIDACIÓN CON VALIDATOR.JS (si está disponible)
+    // ============================================================
+    if (typeof Validator !== 'undefined') {
+      // Validar cada campo usando Validator
+      const nombreError = Validator.check('nombre', nombre);
+      const emailError = Validator.check('correo', email);
+      const msgError = msg.length === 0 ? 'El mensaje no puede estar vacío.' : '';
+      
+      // Mostrar errores en pantalla
+      Validator.setErr('c-nombre', nombreError);
+      Validator.setErr('c-email', emailError);
+      
+      // Mostrar error del mensaje (no tiene campo específico en Validator)
+      const msgField = document.getElementById('c-msg');
+      const msgErrDiv = document.getElementById('ferr-c-msg') || (() => {
+        const div = document.createElement('div');
+        div.id = 'ferr-c-msg';
+        div.className = 'f-err';
+        div.style.fontSize = '.73rem';
+        div.style.color = '#ef4444';
+        div.style.marginTop = '4px';
+        msgField.parentNode.appendChild(div);
+        return div;
+      })();
+      
+      if (msgError) {
+        msgErrDiv.textContent = msgError;
+        msgField.classList.add('err');
+      } else {
+        msgErrDiv.textContent = '';
+        msgField.classList.remove('err');
+      }
+      
+      // Si hay errores, detener
+      if (nombreError || emailError || msgError) {
+        // Mostrar notificación visual
+        if (window.UI && typeof UI.showToast === 'function') {
+          UI.showToast('❌ Corrige los errores antes de enviar', 'error');
+        } else {
+          alert('❌ Corrige los errores antes de enviar');
+        }
+        return;
+      }
+      
+    } else {
+      // ============================================================
+      // FALLBACK: Validación manual si Validator no está disponible
+      // ============================================================
+      if (!nombre || !email || !msg) {
+        alert('Por favor completa todos los campos obligatorios.');
+        return;
+      }
+      
+      // Validar formato de email manualmente
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+      if (!emailRegex.test(email)) {
+        alert('Por favor ingresa un correo electrónico válido.');
+        return;
+      }
+    }
+    
+    // ============================================================
+    // ENVIAR A WHATSAPP
+    // ============================================================
+    const asunto = document.getElementById('c-asunto').value;
+    const texto = 
+`━━━━━━━━━━━━━━━━━━━━━━━━
+📋 CONSULTA — JLΩNIX
+━━━━━━━━━━━━━━━━━━━━━━━━
+
+Buenos días/tardes, José Leandro.
+Me comunico desde el sitio web oficial de JLΩNIX.
+
+👤 *Nombre:* ${nombre}
+📧 *Correo:* ${email}
+📌 *Asunto:* ${asunto}
+
+💬 *Mensaje:*
+${msg}
+
+━━━━━━━━━━━━━━━━━━━━━━━━
+Quedo atento a su respuesta.
+Gracias.`;
+    window.open('https://wa.me/59174012527?text=' + encodeURIComponent(texto), '_blank');
+    
+    btn.textContent = '✅ ¡Redirigiendo a WhatsApp!';
+    btn.disabled = true;
+    setTimeout(() => { 
+      btn.textContent = '📤 Enviar mensaje'; 
+      btn.disabled = false; 
+    }, 4000);
+  }
+</script>
+</body>
+</html>
