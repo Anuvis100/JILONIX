@@ -25,7 +25,7 @@ const JLONIX_ITEMS = [
 
       // 🔥 CAMBIO AQUÍ
 
-      video: 'https://drive.google.com/file/d/1x4BtldVvPC8cNs0SQFFfQoP4uGU9v0Gc/preview',
+      //video: 'https://drive.google.com/file/d/1x4BtldVvPC8cNs0SQFFfQoP4uGU9v0Gc/preview',
 
       poster: "../assets/img/GEO_01/GEO_01_1.png", 
 
