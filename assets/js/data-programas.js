@@ -113,42 +113,62 @@ const JLONIX_ITEMS = [
     
     {
       type: "free",
-      id: "HIDROCAL",
+      id: "TOPOGRAPHIX_01",
       ico: "📐",
-      nombre: "HidroCal",
-      version: "v2.1.0 Free",
-      categoria: "hidrologia",
-      desc: "Herramienta gratuita para cálculos hidrológicos y diseño de sistemas de drenaje.",
-      plataforma: "Windows 10/11 (64 bits)",
-      urlDescarga: "assets/downloads/hidrocal-v2.1.0-free.exe",
-      //video: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-      imagen: "assets/img/HIDROCAL/hidrocal-main.png",
-      poster: "assets/img/HIDROCAL/hidrocal-poster.png",
+      nombre: "TOPOGRAPHIX",
+      version: "v2.0",
+      categoria: "topografia",
+
+      desc: "Módulo de cálculo topográfico para TI-Nspire CX. Permite diseñar curvas circulares con espiral de transición (Módulo 1) y calcular coordenadas por poligonal abierta de forma iterativa (Módulo 2). Incluye validación de datos, historial de 10 tramos y desarrollo paso a paso.",
+
+      plataforma: "TI-Nspire CX / CX CAS (Lua API level 2.7)",
+
+      urlDescarga: "https://drive.google.com/uc?export=download&id=13ehv-caTXSSVejTBZOv4A7PCguOXTx4B",
+
+      imagen: "assets/img/TOPOGRAPHIX/Con_1.png",
+      poster: "../assets/img/TOPOGRAPHIX/Con_2.png",
+
       icoColor: "rgba(0,212,255,0.1)",
+
       features: [
-        "Cálculo de vigas hasta 5 tramos",
-        "Diagramas de cortante y momento",
-        "Exportación de resultados a CSV",
-        "Interfaz ligera y rápida"
+        "Módulo 1: Diseño de radio de curvatura para curva circular simple con espiral de transición",
+        "Cálculo automático de: Lc, R, G, C, T, E, M, La",
+        "Validación de entrada: 0 < Δ < 360, Le > 0, Le > Ls, Ls ≥ 0",
+        "Módulo 2: Cálculo iterativo de coordenadas por poligonal abierta",
+        "Cálculo por tramo: ΔN, ΔE, coordenadas nuevas, cuadrante del azimut (NE/SE/SW/NW)",
+        "Conversión automática de azimut (grados → radianes)",
+        "Historial de últimos 10 tramos",
+        "Botones: CALCULAR, VER PROCEDIMIENTO, LIMPIAR",
+        "Pantalla de procedimiento paso a paso con desarrollo matemático",
+        "Mensajes de error claros ante datos inválidos",
+        "Interfaz oscura con barra superior dorada y panel de resultados verde",
+        "Navegación completa con teclas ENTER, ESC, DEL, DOC, CLEAR"
       ],
+
       requirements: {
-        os: "Windows 10/11",
-        ram: "2 GB",
-        storage: "120 MB",
-        processor: "Intel Core 2 Duo o equivalente"
+        os: "TI-Nspire CX / CX CAS",
+        ram: "N/A",
+        storage: "N/A",
+        processor: "N/A"
       },
-      downloads: 5420,
-      rating: 4.5,
-      reviews: 128,
+
+      downloads: 0,
+      rating: 0,
+      reviews: 0,
+
       hasManual: true,
-      catalogTitle: "Manual HidroCal - Cálculos Hidrológicos",
-      catalogDesc: "80 páginas: introducción a la ingeniería hidrológica y diseño de drenaje con ejemplos prácticos.",
-      catalogImage: "assets/img/HIDROCAL/hidrocal-manual.png",
-      //catalogUrl: "https://drive.google.com/file/d/1ecyTFgOET7mM7OpmrfbfeG1bKEtARdke/preview",
-      catalogSize: "8 MB",
-      catalogPages: 80,
-      catalogDate: "Enero 2026"
+
+      catalogTitle: "Manual TOPOGRAPHIX - Topografía e Ingeniería de Vías",
+      catalogDesc: "Guía completa del programa con descripción de módulos, controles de teclado, procedimientos de uso, ejemplos resueltos (curva circular y poligonal) y diagrama de navegación. 15 páginas.",
+      catalogImage: "../assets/img/TOPOGRAPHIX/Con_3.png",
+      catalogUrl: "https://drive.google.com/file/d/1SjLpgWmKcMHIRWq2fwdTGpG4Rq3PG9qA/preview",
+      catalogSize: "2 MB",
+      catalogPages: 15,
+      catalogDate: "Abril 2026"
     }
+
+
+
   ];
 
 // ================================== FUNCIONES DE RENDERIZADO ==================================
