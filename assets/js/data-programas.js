@@ -25,7 +25,7 @@ const JLONIX_ITEMS = [
 
       // 🔥 CAMBIO AQUÍ
 
-      video: 'https://drive.google.com/file/d/1x4BtldVvPC8cNs0SQFFfQoP4uGU9v0Gc/preview',
+      //video: 'https://drive.google.com/file/d/1x4BtldVvPC8cNs0SQFFfQoP4uGU9v0Gc/preview',
 
       poster: "../assets/img/GEO_01/GEO_01_1.png", 
 
@@ -79,7 +79,7 @@ const JLONIX_ITEMS = [
 
       // 🔥 VIDEO CORREGIDO (modo embed)
 
-      video: "https://drive.google.com/file/d/1YuT2k6UzOMF5ZV9xmgytQMkpc1itTLa2/preview",
+      //video: "https://drive.google.com/file/d/1YuT2k6UzOMF5ZV9xmgytQMkpc1itTLa2/preview",
       poster: "../assets/img/GEO_02/GEO_02_1.png",
       badge: "📐 INGENIERÍA VIAL",
       badgeType: "blue",
